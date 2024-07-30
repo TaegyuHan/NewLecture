@@ -4,8 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.Hyeonjin.web.annotations.Precision;
-import com.Hyeonjin.web.annotations.Transient;
+import com.Hyeonjin.annotations.Precision;
+import com.Hyeonjin.annotations.Transient;
 
 public class CSVParser {
 

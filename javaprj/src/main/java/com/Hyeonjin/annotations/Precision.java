@@ -1,4 +1,4 @@
-package com.Hyeonjin.web.annotations;
+package com.Hyeonjin.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

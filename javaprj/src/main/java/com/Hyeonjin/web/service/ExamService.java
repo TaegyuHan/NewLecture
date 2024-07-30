@@ -8,9 +8,17 @@ import com.Hyeonjin.web.repository.Repository;
 
 public class ExamService {
 
-	private final Repository<Exam> examRepository;
+	private Repository<Exam> examRepository;
 
 	// 생성자 의존성 주입
+
+	public void setRepository(Repository<Exam> repository) throws IOException {
+		this.examRepository = repository;
+	}
+
+	public ExamService() {
+	}
+
 	public ExamService(Repository<Exam> repository) throws IOException {
 		this.examRepository = repository;
 	}

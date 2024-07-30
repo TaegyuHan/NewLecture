@@ -1,6 +1,6 @@
 package com.Hyeonjin.web.entity;
 
-import com.Hyeonjin.web.annotations.Transient;
+import com.Hyeonjin.annotations.Transient;
 
 public class Exam {
 
