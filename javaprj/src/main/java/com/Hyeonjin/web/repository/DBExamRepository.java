@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.Hyeonjin.web.entity.Exam;
 
-@Component
 public class DBExamRepository implements Repository<Exam> {
 
     private final String PATH = "C:/res/data.csv";

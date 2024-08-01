@@ -26,7 +26,7 @@ import jakarta.servlet.http.Part;
 public class ExamController extends HttpServlet {
 
 	private final ExamService service;
-	
+
 	public ExamController() throws IOException {
 		this.service = new ExamService(new JDBCExamRepository());
 	}
