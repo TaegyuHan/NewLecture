@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/exam/detail")
+@WebServlet(value = "/exam/detail", loadOnStartup = 1)
 @MultipartConfig(maxFileSize = 100 * 1024 * 1024, // MB
 		maxRequestSize = 200 * 1024 * 1024 // MB
 )

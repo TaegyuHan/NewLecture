@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.springframework.stereotype.Component;
-
 import com.Hyeonjin.web.entity.Exam;
 
 public class DBExamRepository implements Repository<Exam> {

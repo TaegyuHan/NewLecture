@@ -1,4 +1,4 @@
-package com.Hyeonjin.web.controller;
+package com.Hyeonjin.web.controller.exam;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,8 +7,9 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.Hyeonjin.web.entity.Exam;
-import com.Hyeonjin.web.repository.jdbc.JDBCExamRepository;
 import com.Hyeonjin.web.service.ExamService;
 
 import jakarta.servlet.ServletException;
@@ -19,16 +20,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
-@WebServlet("/exam/list")
-@MultipartConfig(maxFileSize = 100 * 1024 * 1024, // MB
+// @WebServlet("/exam/list")
+@MultipartConfig(fileSizeThreshold = 12222, maxFileSize = 100 * 1024 * 1024, // MB
 		maxRequestSize = 200 * 1024 * 1024 // MB
 )
-public class ExamController extends HttpServlet {
+public class ListController extends HttpServlet {
 
-	private final ExamService service;
+	@Autowired
+	private ExamService service;
 
-	public ExamController() throws IOException {
-		this.service = new ExamService(new JDBCExamRepository());
+	public void ExamController(ExamService service) throws IOException {
+		this.service = service;
 	}
 
 	@Override

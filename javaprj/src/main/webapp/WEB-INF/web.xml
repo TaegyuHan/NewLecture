@@ -4,14 +4,36 @@ xmlns="https://jakarta.ee/xml/ns/jakartaee"
 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" 
 id="WebApp_ID" version="6.0" metadata-complete="false">
 
-   <context-param>
+   <!-- <context-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>/WEB-INF/spring-settings2.xml</param-value>
    </context-param>
    
    <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-   </listener>
+   </listener> -->
+
+
+<!-- 이거는 참고용 사용 X -->
+<!-- <servlet>
+	 <servlet-name>a</servlet-name>
+	 <servlet-class></servlet-class>
+	 <load-on-startup></load-on-startup>
+	 <init-param>
+	 <param-name>path</param-name>
+	 	<param-value>/WEB-INF/aa.properties</param-value>
+	 </init-param>
+</servlet> -->
+
+<!-- 이거는 참고용 사용 X -->
+<!-- <servlet-mapping>
+   <servlet-name>a</servlet-name>
+   <servlet-url>/</servlet-url>
+   
+   <servlet-name>a</servlet-name>
+   <servlet-class>클래스</servlet-class>
+   
+</servlet-mapping> -->
 
   <display-name>WebApp</display-name>
   <welcome-file-list>
