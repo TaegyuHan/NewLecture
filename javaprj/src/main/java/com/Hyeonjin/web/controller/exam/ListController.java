@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import com.Hyeonjin.web.entity.Exam;
 import com.Hyeonjin.web.service.ExamService;
@@ -19,11 +21,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
-// @WebServlet("/exam/list")
 @MultipartConfig(fileSizeThreshold = 12222, maxFileSize = 100 * 1024 * 1024, // MB
 		maxRequestSize = 200 * 1024 * 1024 // MB
 )
-public class ListController extends HttpServlet {
+public class ListController extends HttpServlet implements Controller {
 
 	@Autowired
 	private ExamService service;
@@ -80,5 +81,11 @@ public class ListController extends HttpServlet {
 
 		fous.close();
 		System.out.println(imgName);
+	}
+
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
