@@ -17,8 +17,8 @@ public class Notice {
         return content;
     }
 
-    public Notice() {
-        this(1, "title", "content");
+    public Notice(int id) {
+        this(id, "title", "content");
     }
 
     public Notice(Integer id, String title, String content) {

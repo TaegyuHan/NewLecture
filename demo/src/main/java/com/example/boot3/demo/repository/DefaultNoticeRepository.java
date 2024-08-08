@@ -13,8 +13,8 @@ public class DefaultNoticeRepository implements NoticeRepository {
     @Override
     public List<Notice> findAll() {
         List<Notice> list = new ArrayList<>(3);
-        for (int i = 0; i < 3; ++i) {
-            list.add(new Notice());
+        for (int i = 1; i <= 3; ++i) {
+            list.add(new Notice(i));
         }
         return list;
     }

@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="/inc/layout"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-  </head>
-  <body>
-    <main>
-      <div th:each="item: ${list}">
-        <div th:text="${item.id}"></div>
-        <div th:text="${item.title}"></div>
-        <div th:text="${item.content}"></div>
-      </div>
-    </main>
-  </body>
+</head>
+<body>
+<main layout:fragment="main">
+    <section>
+        <h1>공지사항</h1>
+        <section th:each="n : ${notices}">
+            <div th:text="${n.id}">아이디</div>
+            <div th:text="${n.title}">주제</div>
+            <div th:text="${n.content}">내용</div>
+        </section>
+    </section>
+</main>
+</body>
 </html>

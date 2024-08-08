@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html
-  lang="en"
-  xmlns="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
-  </head>
-  <body>
-    <!-- header 영역 -->
-    <div th:insert="~{inc/header}"></div>
+</head>
+<body>
+<div th:insert="~{inc/header}"></div>
 
-    <div layout:fragment="main"></div>
+<div layout:fragment="main"></div>
 
-    <!-- footer 영역 -->
-    <div th:insert="~{inc/footer}"></div>
-  </body>
+<div th:insert="~{inc/footer}"></div>
+</body>
 </html>
