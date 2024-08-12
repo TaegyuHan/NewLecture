@@ -2,6 +2,7 @@ package com.example.boot3.demo.controller.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -28,7 +29,7 @@ public class NoticeController {
     public String list(
             @RequestParam(name = "p", defaultValue = "0") Integer page,
             Model model
-    ) {
+    ) throws SQLException, ClassNotFoundException {
         System.out.println(page + 1);
         List<Notice> notices = service.getList();
         model.addAttribute("notices", notices);

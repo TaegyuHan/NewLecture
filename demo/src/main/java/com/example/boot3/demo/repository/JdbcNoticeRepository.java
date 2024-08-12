@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.List;
 
-@Repository
+//@Repository
 public class JdbcNoticeRepository implements NoticeRepository {
 
     @Override
@@ -18,7 +18,7 @@ public class JdbcNoticeRepository implements NoticeRepository {
         Connection conn = DriverManager.getConnection(url, "rland", "20231111");
         Statement stmt = null;
         ResultSet rs = null;
-        
+
         conn.close();
         return List.of();
     }

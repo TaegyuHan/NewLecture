@@ -7,13 +7,18 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+
     <title>Document</title>
 </head>
 <body>
-<div th:insert="~{inc/header}"></div>
+<div th:insert="~{inc/header :: header}"></div>
 
 <div layout:fragment="main"></div>
 
-<div th:insert="~{inc/footer}"></div>
+<div th:insert="~{inc/footer :: footer}"></div>
 </body>
 </html>

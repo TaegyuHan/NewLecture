@@ -7,5 +7,5 @@ import com.example.boot3.demo.entity.Notice;
 
 public interface NoticeService {
 
-    List<Notice> getList() throws SQLException;
+    List<Notice> getList() throws SQLException, ClassNotFoundException;
 }

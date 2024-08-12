@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.boot3.demo.entity.Notice;
 
-//@Repository
+@Repository
 public class DefaultNoticeRepository implements NoticeRepository {
 
     @Override

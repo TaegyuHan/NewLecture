@@ -16,7 +16,7 @@ public class DefaultNoticeService implements NoticeService {
     private NoticeRepository repository;
 
     @Override
-    public List<Notice> getList() throws SQLException {
+    public List<Notice> getList() throws SQLException, ClassNotFoundException {
         return repository.findAll();
     }
 
