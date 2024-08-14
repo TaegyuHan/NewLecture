@@ -14,7 +14,7 @@ public class DefaultNoticeRepository implements NoticeRepository {
     public List<Notice> findAll() {
         List<Notice> list = new ArrayList<>(3);
         for (int i = 1; i <= 3; ++i) {
-            list.add(new Notice(i));
+            list.add(new Notice());
         }
         return list;
     }
