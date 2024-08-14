@@ -1,4 +1,4 @@
-package com.example.boot3.demo.service;
+package com.example.boot3.demo.service.notice;
 
 import java.sql.SQLException;
 import java.util.List;

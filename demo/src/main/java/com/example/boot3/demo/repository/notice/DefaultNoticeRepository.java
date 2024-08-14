@@ -1,9 +1,7 @@
-package com.example.boot3.demo.repository;
+package com.example.boot3.demo.repository.notice;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
 
 import com.example.boot3.demo.entity.Notice;
 

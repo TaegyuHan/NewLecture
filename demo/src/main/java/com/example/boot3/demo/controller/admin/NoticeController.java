@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.boot3.demo.entity.Notice;
-import com.example.boot3.demo.service.NoticeService;
+import com.example.boot3.demo.service.notice.NoticeService;
 
 import jakarta.servlet.http.HttpServletResponse;
 

@@ -1,4 +1,4 @@
-package com.example.boot3.demo.repository;
+package com.example.boot3.demo.repository.notice;
 
 import com.example.boot3.demo.entity.Notice;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public class JdbcNoticeRepository implements NoticeRepository {
-    
+
     @Override
     public List<Notice> findAll() throws SQLException, ClassNotFoundException {
         Class.forName("oracle.jdbc.driver.OracleDriver");

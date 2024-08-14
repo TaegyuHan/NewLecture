@@ -1,4 +1,4 @@
-package com.example.boot3.demo.repository;
+package com.example.boot3.demo.repository.notice;
 
 import java.sql.SQLException;
 import java.util.List;
