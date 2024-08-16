@@ -8,6 +8,7 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 public class Menu {
     private Long id;

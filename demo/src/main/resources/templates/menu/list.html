@@ -53,7 +53,7 @@
             <section class="menu" th:each="menu : ${list}">
                 <div>
                     <a href="detail.html">
-                        <img th:src="@{'/image/' + ${menu.img}}" alt="에스프레소">
+                        <img th:src="@{'/image/' + ${menu.img}}" th:alt="${menu.korName}">
                     </a>
                 </div>
                 <h1 th:text="${menu.korName}">커피 메뉴 한글</h1>

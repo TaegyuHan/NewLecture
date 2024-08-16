@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 public class Notice {
     private Integer id;
