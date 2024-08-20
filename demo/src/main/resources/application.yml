@@ -1,6 +1,18 @@
 spring:
   application:
     name: demo
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//hi.newlecture.com:1521/XEPDB1
+    username: rland
+    password: 1128
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:/mappers/**/*Mapper.xml
+  type-aliases-package: com.example.boot3.demo.entity # Entity 클래스가 있는 패키지
+
 
 server:
   port: 80

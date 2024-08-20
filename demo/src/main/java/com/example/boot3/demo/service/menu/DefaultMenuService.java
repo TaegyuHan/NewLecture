@@ -15,7 +15,7 @@ public class DefaultMenuService implements MenuService {
     private MenuRepository menuRepository;
 
     @Override
-    public List<Menu> getList() throws SQLException, ClassNotFoundException {
+    public List<Menu> getList() {
         return menuRepository.findAll();
     }
 }

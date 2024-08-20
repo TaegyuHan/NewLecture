@@ -19,7 +19,7 @@ public class MenuController {
     @GetMapping("/list")
     public String list(
             Model model
-    ) throws SQLException, ClassNotFoundException {
+    ) {
         model.addAttribute("list", menuService.getList());
         return "menu/list";
     }

@@ -1,14 +1,13 @@
 package com.example.boot3.demo.repository.menu;
 
 import com.example.boot3.demo.entity.Menu;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+//@Repository
 public class JDBCMenuRepository implements MenuRepository {
 
     @Override
