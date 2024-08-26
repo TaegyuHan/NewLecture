@@ -4,7 +4,14 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.boot3.demo.repository.menu.MenuRepository">
-    <select id="findAll" resultType="Menu">
+
+    <select id="findAll" resultType="MENU">
         SELECT * FROM MENU
+        <where>
+        <if test="categoryId != null">
+            CATEGORY_ID = #{categoryId}
+        </if>
+        </where>
     </select>
+
 </mapper>

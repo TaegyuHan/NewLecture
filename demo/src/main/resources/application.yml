@@ -13,6 +13,10 @@ mybatis:
   mapper-locations: classpath:/mappers/**/*Mapper.xml
   type-aliases-package: com.example.boot3.demo.entity # Entity 클래스가 있는 패키지
 
+logging:
+  level:
+    com.example.boot3.demo.repository: trace
+
 
 server:
   port: 80

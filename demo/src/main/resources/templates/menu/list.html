@@ -22,17 +22,11 @@
                 <h1>탭 목록</h1>
                 <ul>
                     <li class="selected"><a href="list">전체메뉴</a></li>
-                    <li>
-                        <a href="">커피</a>
-                    </li>
-                    <li>
-                        <a href="">수제청</a>
-                    </li>
-                    <li>
-                        <a href="">샌드위치</a>
-                    </li>
-                    <li>
-                        <a href="">쿠키</a>
+                    <li th:each="c : ${categoryList}">
+                        <a
+                                href="list?c=1"
+                                th:href="${'list?c=' + c.id}"
+                                th:text="${c.name}">커피</a>
                     </li>
                 </ul>
             </section>
@@ -50,10 +44,10 @@
     <section class="menu-list-section">
         <h1 class="d-none">메뉴 목록</h1>
         <div class="menu-list" >
-            <section class="menu" th:each="menu : ${list}">
+            <section class="menu" th:each="menu : ${menuList}">
                 <div>
                     <a href="detail.html">
-                        <img th:src="@{'/image/' + ${menu.img}}" th:alt="${menu.korName}">
+                        <img th:src="@{'/image/americano.svg'}" th:alt="${menu.korName}">
                     </a>
                 </div>
                 <h1 th:text="${menu.korName}">커피 메뉴 한글</h1>
