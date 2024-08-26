@@ -5,11 +5,10 @@ import com.example.boot3.demo.repository.menu.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
-public class DefaultMenuService implements MenuService {
+public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MenuRepository menuRepository;
