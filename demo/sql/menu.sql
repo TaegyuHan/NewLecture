@@ -1,4 +1,4 @@
-create table MENU
+CREATE TABLE MENU
 (
     ID            NUMBER,
     KOR_NAME      NVARCHAR2(500),
@@ -9,3 +9,34 @@ create table MENU
     CATEGORY_ID   NUMBER,
     REG_MEMBER_ID NUMBER
 );
+
+-- INNER JOIN 예시
+SELECT
+    M.*,
+    C.NAME AS CATEGORY_NAME,
+    MI.SRC AS IMG
+FROM MENU M
+INNER JOIN MENU_IMAGE MI
+    ON M.ID = MI.MENU_ID
+INNER JOIN CATEGORY C
+    ON M.CATEGORY_ID = C.ID
+WHERE MI.DEFAULT_IMG = 1;
+
+-- INNER JOIN 예시
+SELECT *
+FROM MENU
+INNER JOIN (
+    SELECT *
+    FROM MENU_IMAGE
+    WHERE DEFAULT_IMG = 1
+) MI
+ON MENU.ID = MI.MENU_ID;
+
+-- VIEW 실행
+SELECT * FROM MENU_VIEW;
+
+-- 1. 형태소 분석
+-- 2. 구문 분석
+-- 3. 실행계획
+-- 4. 번역 (컴파일) < 뷰는 여기부터 실행
+-- 5. 실행
