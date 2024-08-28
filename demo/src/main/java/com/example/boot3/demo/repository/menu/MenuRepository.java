@@ -8,7 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface MenuRepository {
-
-    List<Menu> findAll(Integer categoryId);
-
+    List<Menu> findAll(Integer categoryId, String query);
 }

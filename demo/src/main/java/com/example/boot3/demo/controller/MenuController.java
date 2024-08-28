@@ -22,10 +22,12 @@ public class MenuController {
     @GetMapping("/list")
     public String list(
             @RequestParam(value = "c", required = false) Integer categoryId,
+            @RequestParam(value = "q", required = false) String query,
             Model model
     ) {
+        System.out.println(query);
         model.addAttribute("categoryList", categoryService.getList());
-        model.addAttribute("menuList", menuService.getList(categoryId));
+        model.addAttribute("menuList", menuService.getList(categoryId, query));
         return "menu/list";
     }
 }

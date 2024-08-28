@@ -11,6 +11,10 @@
         <if test="categoryId != null">
             CATEGORY_ID = #{categoryId}
         </if>
+        <if test="query != null">
+            AND KOR_NAME LIKE '%' || #{query} || '%'
+                OR ENG_NAME LIKE '%' || #{query} || '%'
+        </if>
         </where>
     </select>
 

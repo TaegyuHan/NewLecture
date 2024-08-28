@@ -14,12 +14,17 @@ public class MenuServiceImpl implements MenuService {
     private MenuRepository menuRepository;
 
     @Override
-    public List<Menu> getList() {
-        return getList(null);
+    public List<Menu> getList(Integer categoryId, String query) {
+        return menuRepository.findAll(categoryId, query);
     }
 
     @Override
     public List<Menu> getList(Integer categoryId) {
-        return menuRepository.findAll(categoryId);
+        return getList(categoryId, null);
+    }
+
+    @Override
+    public List<Menu> getList() {
+        return getList(null);
     }
 }
