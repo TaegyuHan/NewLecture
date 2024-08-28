@@ -5,8 +5,8 @@
 
 <mapper namespace="com.example.boot3.demo.repository.menu.MenuRepository">
 
-    <select id="findAll" resultType="MENU">
-        SELECT * FROM MENU
+    <select id="findAll" resultType="MenuView">
+        SELECT * FROM MENU_VIEW
         <where>
         <if test="categoryId != null">
             CATEGORY_ID = #{categoryId}
