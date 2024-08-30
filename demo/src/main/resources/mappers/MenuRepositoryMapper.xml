@@ -6,7 +6,15 @@
 <mapper namespace="com.example.boot3.demo.repository.menu.MenuRepository">
 
     <select id="findAll" resultType="MenuView">
-        SELECT * FROM MENU_VIEW
+        SELECT
+            M.*,
+            MI.SRC IMG,
+            NVL(ML.LIKE_COUNT, 0) AS LIKE_COUNT
+        FROM MENU M
+            LEFT JOIN (SELECT * FROM MENU_IMAGE WHERE DEFAULT_IMG = 1) MI
+                ON M.ID = MI.MENU_ID
+            LEFT JOIN (SELECT MENU_ID, COUNT(MENU_ID) LIKE_COUNT FROM MENU_LIKE GROUP BY MENU_ID) ML
+                ON M.ID = ML.MENU_ID
         <where>
         <if test="categoryId != null">
             CATEGORY_ID = #{categoryId}
@@ -16,6 +24,7 @@
                 OR ENG_NAME LIKE '%' || #{query} || '%'
         </if>
         </where>
+        ORDER BY REG_DATE DESC
     </select>
 
 </mapper>

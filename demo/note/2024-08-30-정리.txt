@@ -1,0 +1,27 @@
+자바 (코딩->값,연산자,제어구조,배열,함수,구조체) + 객체지향(캡슐화,상속,다형성)
++ 자바 API(FILE, CONSOLE, NETWORK) : 버퍼, 비동기, ..
++ NETWORK (물리계층, 링크계층, 전달계층)
++콜렉션, 제네릭, 예외처리, + 스트림S (jdk8-->jdk17)
+
+객체지향 다형성 : 결합력
+DI -> * SPRING DI/IOC
+
+자바 플랫폼 API -> IO - web IO
+웹 서버 -> WAS -> TOMCAT
+SERVLET API
+STATIC / DYNAMIC -> HTML / JSP
+JSP -> 스파게티 -> MVC
+CONTROLLER, MODEL, VIEW
+
+FRONT CONTROLLER -> * SPRING WEB
+
+SPRING INPUT/OUTPUT
+OUTPUT TEMPLATE : JSP -> Thymeleaf
+Spring DI + Web + Thymeleaf =>Boot(Auto Config + LIb)
+
+Oracle -> SQL (CRUD) -> JDBC API
+Mybatis -> Dynamic Query -> SQL (Join ,Unionn, 정렬, 집계)
+
+CSS
+
+SQL- > DBA, PL-SQL, 튜닝, + 노하우
