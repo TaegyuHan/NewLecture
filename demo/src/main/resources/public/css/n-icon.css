@@ -3,4 +3,9 @@
     --icon: url("/static/svg/icon/settings_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg");
 }
 
+.n-icon\:dashboard::before{
+    --webkit-mask-image:url("/image/icon/dashboard.svg");
+    mask-image:url("/image/icon/dashboard.svg");
+}
+
 /*새로운 아이콘 수정*/
