@@ -1,0 +1,6 @@
+/*기존 아이콘 수정*/
+.n-icon\:squares_four::before{
+    --icon: url("/static/svg/icon/settings_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg");
+}
+
+/*새로운 아이콘 수정*/

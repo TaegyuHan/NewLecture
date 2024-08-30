@@ -70,3 +70,79 @@ FROM MENU
 ORDER BY REG_DATE DESC;
 
 -- 함수가 존재 한다.
+-- 서브 쿼리 버전
+SELECT
+    M.ID,
+    M.KOR_NAME,
+    M.PRICE,
+    NVL(MI.IMG_COUNT, 0) AS IMG_COUNT,
+    NVL(ML.LIKE_COUNT, 0) AS LIKE_COUNT
+FROM MENU M
+LEFT JOIN ( -- 이미지 수 카운트
+    SELECT
+        S_MI.MENU_ID AS S_MI_ID,
+        COUNT(S_MI.ID) AS IMG_COUNT
+    FROM MENU_IMAGE S_MI
+    GROUP BY MENU_ID
+) MI
+ON M.ID = MI.S_MI_ID
+LEFT JOIN ( -- 좋아요 수 카운트
+    SELECT
+        S_ML.MENU_ID AS S_MI_ID,
+        COUNT(S_ML.MENU_ID) AS LIKE_COUNT
+    FROM MENU_LIKE S_ML
+    GROUP BY MENU_ID
+) ML
+ON M.ID = ML.S_MI_ID;
+
+-- 서브 퀀리 X 버전
+SELECT
+    M.ID,
+    M.KOR_NAME,
+    M.PRICE,
+    M.REG_DATE,
+    M.REG_MEMBER_ID,
+    M.CATEGORY_ID,
+    COUNT(MI.ID) AS IMG_COUNT
+FROM MENU M
+LEFT JOIN MENU_IMAGE MI
+ON M.ID = MI.MENU_ID
+GROUP BY
+    M.ID,
+    M.KOR_NAME,
+    M.PRICE,
+    M.REG_DATE,
+    M.REG_MEMBER_ID,
+    M.CATEGORY_ID;
+
+-- 컬럼 버전
+-- 특정 상황에서만 좋다. > 개수가 적은 것을 기준으로 탐색할 떄
+SELECT
+    MENU.*,
+    -- 해쉬드 머쥐가 일어난다.
+    (SELECT COUNT(ID) FROM MENU_IMAGE WHERE MENU_ID = MENU.ID) AS IMG_COUNT
+FROM MENU; -- 6조 픽
+
+-- 코드 가독성의 난이도가 낮은가?
+-- 실행 성능이 어떤게 좋은가?
+
+-- 인덱스가 있느냐?
+-- 레코드가 어디가 많은가?
+
+-- 몇개의 갯수를 찾고 탐색하는 것과
+-- 모든 개수를 탐색하는 것의 차이
+
+-- 나중에 튜닝을 위한 공부를 하는게 좋다.
+
+SELECT
+    M.ID,
+    M.KOR_NAME,
+    M.PRICE,
+    M.REG_DATE,
+    M.REG_MEMBER_ID,
+    M.CATEGORY_ID,
+    COUNT(ML.MENU_ID) AS LIKE_COUNT
+FROM MENU M
+LEFT JOIN MENU_LIKE ML
+    ON M.ID = ML.MENU_ID
+GROUP BY M.ID, M.KOR_NAME, M.PRICE, M.REG_DATE, M.REG_MEMBER_ID, M.CATEGORY_ID;
