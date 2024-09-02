@@ -1,0 +1,90 @@
+:where(
+    .n-icon\:home,
+    .n-icon\:dashboard,
+    .n-icon\:sign,
+    .n-icon\:sign-out
+)::before {
+    /*css 설정도 패텬을 만드는 것이 중요하다.*/
+    /*inline은 크기를 갖지 않는다.*/
+    --icon-size: 24px;
+    --icon-color: #000000;
+
+    content: ''; /* before를 사용하기 위함 */
+
+    display: inline-flex;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    overflow: hidden;
+    text-indent: -999px; /* HACK: 사용하여 텍스트를 숨김 */
+    background-color: var(--icon-color);
+    background-repeat: no-repeat;
+    mask-size: var(--icon-size);
+}
+
+.n-icon\:home {
+    /*background-image: url(/image/icon/home.svg);*/
+    /*엣지, 크롬, 사파리, 오페라 --webkit으로 작명*/
+    /*--webkit-mask-image: url(/image/icon/home.svg);*/
+    mask-image: url(/image/icon/home.svg);
+}
+
+.n-icon\:dashboard {
+    /*background-image: url(/image/icon/dashboard.svg);*/
+    mask-image: url(/image/icon/dashboard.svg);
+}
+
+.n-icon\:sign {
+    /*background-image: url(/image/icon/person.svg);*/
+    mask-image: url(/image/icon/person.svg);
+}
+
+.n-icon\:sign-out {
+    /*background-image: url(/image/icon/logout.svg);*/
+    mask-image: url(/image/icon/logout.svg);
+}
+
+/*================== SIZE ==================*/
+.n-icon-size\:1,
+.n-icon-size\:smal {
+    --icon-size: 15px;
+    /*width: var(--icon-size);*/
+    /*height: var(--icon-size);*/
+    /*background-size: var(--icon-size);*/
+}
+
+.n-icon-size,
+.n-icon-size\:2,
+.n-icon-size\:medium {
+    --icon-size: 24px;
+    /*width: var(--icon-size);*/
+    /*height: var(--icon-size);*/
+    /*background-size: var(--icon-size);*/
+}
+
+/*================== COLOR ==================*/
+/*
+main 1/2/3
+sub 1/2/3
+accent 1/2/3
+base 1/2/3/4/5/6/7/8/9/10*
+*/
+
+.n-icon-color\:main-1 {
+    --icon-color: var(--color-main-1, #D86259);
+}
+
+.n-icon-color\:main-2 {
+    --icon-color: var(--color-main-2, #905634);
+}
+
+.n-icon-color\:main-3 {
+    --icon-color: var(--color-main-3, #5E2808);
+}
+
+.n-icon-color\:sub-1 {
+    --icon-color: var(--color-main-4, #F3E184);
+}
+
+.n-icon-color\:accent-1 {
+    --icon-color: var(--color-main-5, #334DCF);
+}
