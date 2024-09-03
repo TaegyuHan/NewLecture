@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS :not Example</title>
+    <style>
+        /* .highlight 클래스를 제외한 모든 단락(p) 요소에 회색 글자색 적용 */
+        p:not(.highlight) {
+            color: gray;
+        }
+
+        /* .no-style 클래스를 제외한 모든 리스트 항목(li)에 파란색 글자색 적용 */
+        li:not(.no-style) {
+            color: blue;
+        }
+
+        /* target="_blank" 속성이 없는 모든 링크(a)에 빨간색 글자색 적용 */
+        a:not([target="_blank"]) {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>CSS :not Pseudo-class Example</h1>
+
+<!-- 단락 예시 -->
+<p>이 단락은 스타일이 회색입니다.</p>
+<p class="highlight">이 단락은 스타일이 적용되지 않았습니다.</p>
+<p>이 단락도 스타일이 회색입니다.</p>
+
+<!-- 리스트 예시 -->
+<ul>
+    <li>이 항목은 파란색입니다.</li>
+    <li class="no-style">이 항목은 스타일이 적용되지 않았습니다.</li>
+    <li>이 항목도 파란색입니다.</li>
+</ul>
+
+<!-- 링크 예시 -->
+<p>
+    <a href="https://www.example.com">이 링크는 빨간색입니다.</a><br>
+    <a href="https://www.example.com" target="_blank">이 링크는 스타일이 적용되지 않았습니다.</a><br>
+    <a href="https://www.example.com">이 링크도 빨간색입니다.</a>
+</p>
+
+</body>
+</html>

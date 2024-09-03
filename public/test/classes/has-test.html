@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS :has Example with Descendants</title>
+    <style>
+        /* 직접 자식이든 자손이든 특정 클래스를 가진 요소가 포함된 section에 스타일 적용 */
+        section:has(.highlight) {
+            background-color: #e0f7fa;
+            border: 2px solid #00796b;
+            padding: 20px;
+        }
+
+        /* 자손 중에서 input[type="text"]를 포함한 form 요소에 스타일 적용 */
+        form:has(input[type="text"]) {
+            border: 2px solid blue;
+            padding: 15px;
+            background-color: #f0f0f0;
+        }
+
+        /* 자식 요소 중에서 비디오를 포함한 article에 스타일 적용 */
+        article:has(> video) {
+            border: 2px solid orange;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>CSS :has Pseudo-class Example with Descendants</h1>
+
+<!-- 자손 중 .highlight 클래스를 가진 요소가 있는 섹션 -->
+<section>
+    <h2>Section 1</h2>
+    <p>이 섹션에는 강조된 요소가 있습니다.</p>
+    <div>
+        <p class="highlight">이 요소는 강조된 요소입니다.</p>
+    </div>
+</section>
+
+<!-- 자손 중 .highlight 클래스를 가진 요소가 없는 섹션 -->
+<section>
+    <h2>Section 2</h2>
+    <p>이 섹션에는 강조된 요소가 없습니다.</p>
+</section>
+
+<!-- 텍스트 입력 필드를 포함한 폼 -->
+<form>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <input type="submit" value="Submit">
+</form>
+
+<!-- 텍스트 입력 필드가 없는 폼 -->
+<form>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age">
+    <input type="submit" value="Submit">
+</form>
+
+<!-- 자식으로 비디오가 포함된 기사 -->
+<article>
+    <h2>Article with Video</h2>
+    <video controls>
+        <source src="movie.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</article>
+
+<!-- 비디오가 포함되지 않은 기사 -->
+<article>
+    <h2>Article without Video</h2>
+    <p>This article does not contain a video.</p>
+</article>
+
+</body>
+</html>

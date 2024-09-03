@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS :is Example</title>
+    <style>
+        /* h1, h2, h3 요소에 동일한 스타일 적용 */
+        :is(h1, h2, h3) {
+            color: navy;
+            margin-bottom: 20px;
+        }
+
+        /* 선택자 그룹 중 하나라도 일치하면 스타일 적용 */
+        .container :is(p, li, span) {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* 특정 클래스가 있는 요소들에 스타일 적용 */
+        :is(.btn-primary, .btn-secondary, .btn-tertiary) {
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: blue;
+        }
+
+        .btn-secondary {
+            background-color: gray;
+        }
+
+        .btn-tertiary {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4 (No style applied)</h4>
+
+<div class="container">
+    <p>This is a paragraph inside a container.</p>
+    <ul>
+        <li>List item 1</li>
+        <li>List item 2</li>
+    </ul>
+    <span>This is a span inside a container.</span>
+</div>
+
+<div class="buttons">
+    <button class="btn-primary">Primary Button</button>
+    <button class="btn-secondary">Secondary Button</button>
+    <button class="btn-tertiary">Tertiary Button</button>
+</div>
+
+</body>
+</html>
