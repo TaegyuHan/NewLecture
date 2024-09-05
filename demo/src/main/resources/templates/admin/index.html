@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{inc/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+
+    <link rel="stylesheet" th:href="@{/css/admin/index.css}">
+
+</head>
+
+<body>
+
+<main layout:fragment="main">
+    <section>
+        <h1 class="p-3">관리자 대시보드</h1>
+        <div>
+            <a href="menu/list.html" class="btn btn-default btn-w-padding">메뉴관리</a>
+            <a href="" class="btn btn-default btn-w-padding">카테고리관리</a>
+            <a href="" class="btn btn-default btn-w-padding">회원관리</a>
+        </div>
+    </section>
+</main>
+
+</body>
+
+</html>

@@ -11,13 +11,13 @@
       <!--  section/ container 등 이름 크게 정하기.  -->
       <section class="menu-reg-section">
         <h1>메뉴 등록 페이지</h1>
-        <form class="menu-reg-form">
+        <form method="post" class="menu-reg-form" enctype="multipart/form-data">
           <section class="menu-reg-img">
             <h1>메뉴 사진 추가</h1>
             <label for="menu-reg-img-input" class="icon icon-plus"
               >메뉴 사진 추가</label
             >
-            <input type="file" alt="사진 추가" id="menu-reg-img-input" />
+            <input type="file" name="img" style="display: inline-block" alt="사진 추가" id="menu-reg-img-input" />
           </section>
           <!-- --------------------------------------------------------------------입력폼 -->
           <section class="menu-reg-input-list">
@@ -29,9 +29,9 @@
               <option value="샌드위치">샌드위치</option>
               <option value="쿠키">쿠키</option>
             </select>
-            <input type="text" placeholder="메뉴 이름을 입력하세요." />
-            <input type="text" placeholder="메뉴 영문이름을 입력하세요." />
-            <input type="number" placeholder="메뉴 가격을 입력하세요." />
+            <input type="text" name="kor-name" placeholder="메뉴 이름을 입력하세요." />
+            <input type="text" name="eng-name" placeholder="메뉴 영문이름을 입력하세요." />
+            <input type="number" name="price" placeholder="메뉴 가격을 입력하세요." />
             <textarea
               name=""
               id=""
