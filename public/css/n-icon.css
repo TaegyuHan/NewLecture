@@ -147,6 +147,7 @@ base 1/2/3/4/5/6/7/8/9/10*
 
 /*================== ==================*/
 .n-deco {
+    text-indent: initial;
     width: auto;
 }
 
@@ -175,6 +176,40 @@ base 1/2/3/4/5/6/7/8/9/10*
     order: unset; /* 초기값 */
     /*물려 받는게 있으면 그것을 값으로 설정하고 없으면 초기값으로 설정한다.*/
 }
+
+@media (768 <= width) {
+    .md\.n-deco {
+        text-indent: initial;
+        width: auto;
+    }
+
+    .md\.n-deco-gap\:1 {
+        --deco-gap: 5px;
+    }
+
+    .md\.n-deco-gap\:2 {
+        --deco-gap: 10px;
+    }
+
+    .md\.n-deco-pos\:top,
+    .md\.n-deco-pos\:bottom {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .md\.n-deco-pos\:right::before,
+    .md\.n-deco-pos\:bottom::before {
+        order: 1;
+    }
+
+    .md\.n-deco-pos\:left::before,
+    .md\.n-deco-pos\:top::before {
+        /*order: initial; !* 초기값 *!*/
+        order: unset; /* 초기값 */
+        /*물려 받는게 있으면 그것을 값으로 설정하고 없으면 초기값으로 설정한다.*/
+    }
+}
+
 
 /*================== btn ==================*/
 .n-btn {
