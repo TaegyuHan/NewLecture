@@ -253,15 +253,14 @@
                         <option value="1">커피</option>
                         <option value="2">수제청</option>
                         <option value="3">샌드위치</option>
-                        <option value="8">쿠키</option>
+                        <option value="4">쿠키</option>
                     </select>
                     <input type="text" name="kor-name" placeholder="메뉴 이름을 입력하세요."/>
                     <input type="text" name="eng-name" placeholder="메뉴 영문이름을 입력하세요."/>
                     <input type="number" name="price" placeholder="메뉴 가격을 입력하세요."/>
-                    <input type="hidden" name="reg-member-id" th:value="${#authentication.principal.id}"/>
+                    <input type="hidden" name="reg-member-id"/>
                     <textarea
                             name="description"
-                            id=""
                             placeholder="메뉴 설명을 입력하세요."
                     ></textarea>
                 </section>

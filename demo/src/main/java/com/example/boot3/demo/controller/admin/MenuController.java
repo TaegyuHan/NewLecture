@@ -1,14 +1,20 @@
 package com.example.boot3.demo.controller.admin;
 
+import com.example.boot3.demo.entity.Menu;
+import com.example.boot3.demo.service.menu.MenuService;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 @Controller("adminMenuController")
 @RequestMapping("admin/menu")
@@ -17,6 +23,9 @@ import java.io.IOException;
         maxRequestSize = 1024 * 1024 * 10 * 2 // 20MB
 )
 public class MenuController {
+
+    @Autowired
+    private MenuService service;
 
     @GetMapping("list")
     public String list() {
@@ -30,21 +39,47 @@ public class MenuController {
 
     @PostMapping("reg")
     public String reg(
-            MultipartFile img
-//            Menu menu
-    ) throws IOException {
+            MultipartFile img,
+            HttpServletRequest request,
+            Menu menu,
+            @RequestParam("category-id") Long categoryId,
+            @RequestParam("kor-name") String korName,
+            @RequestParam("eng-name") String engName
+    ) {
+        menu.setCategoryId(categoryId);
+        menu.setKorName(korName);
+        menu.setEngName(engName);
+        menu.setRegMemberId(1L);
 
-        if (img.isEmpty()) {
+        service.reg(menu);
+
+        System.out.println(menu);
+
+        if (img.isEmpty()) { // form 인코딩 방식을 잘 확인해야 한다.
+            // 설정이 필요하다.
             return "redirect:reg";
         }
 
-        img.transferTo(new File("C:/upload/" + img.getOriginalFilename()));
-        // 파일 저장 방법 2가지
-        // 사용자 이미지는 컨택스트를 이용해서 저장하는 것이 좋다.
-        // 사용자 리소스를 따로 관리하는 방법이 필요하다.
-        // 리소스를 1개로 지정해서 많은 서버가 동시에 사용하는 방법으로 가야한다.
+        String path = request.getServletContext().getRealPath("/image/product");
+        System.out.println(path);
 
-        System.out.println(img.getOriginalFilename());
+        File pathFile = new File(path);
+        if (!pathFile.exists()) {
+            pathFile.mkdirs();
+        }
+
+        String fileName = img.getOriginalFilename();
+
+        // 폴더 유효성 검사
+
+        String fullPath = Paths.get(path, fileName).toString();
+
+        try {
+            img.transferTo(new File(fullPath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         return "redirect:list";
     }
 }

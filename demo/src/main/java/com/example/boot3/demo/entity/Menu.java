@@ -15,7 +15,7 @@ public class Menu {
     private String korName;
     private String engName;
     private Integer price;
-    private String img;
+    private String description;
     private Date regDate;
     private Long categoryId;
     private Long regMemberId;

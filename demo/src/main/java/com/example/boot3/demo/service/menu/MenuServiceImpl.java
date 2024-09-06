@@ -1,5 +1,6 @@
 package com.example.boot3.demo.service.menu;
 
+import com.example.boot3.demo.entity.Menu;
 import com.example.boot3.demo.entity.MenuView;
 import com.example.boot3.demo.repository.menu.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,11 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuView> getList(Integer categoryId, String query) {
         return menuRepository.findAll(categoryId, query);
+    }
+
+    @Override
+    public void reg(Menu menu) {
+        menuRepository.save(menu);
     }
 
     @Override
