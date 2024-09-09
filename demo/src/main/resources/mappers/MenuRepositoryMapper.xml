@@ -28,8 +28,22 @@
     </select>
 
     <insert id="save" parameterType="Menu">
-        INSERT INTO MENU (KOR_NAME, ENG_NAME, PRICE, REG_DATE, REG_MEMBER_ID, CATEGORY_ID, DESCRIPTION)
-        VALUES (#{korName}, #{engName}, #{price}, SYSDATE, #{regMemberId}, #{categoryId}, #{description})
+        INSERT INTO MENU (
+            KOR_NAME,
+            ENG_NAME,
+            PRICE,
+            REG_MEMBER_ID,
+            CATEGORY_ID,
+            DESCRIPTION
+        )
+        VALUES (
+            #{korName},
+            #{engName},
+            #{price},
+            #{regMemberId},
+            #{categoryId},
+            #{description}
+        )
     </insert>
 
 </mapper>

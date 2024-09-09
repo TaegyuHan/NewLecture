@@ -31,6 +31,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuView> getList() {
-        return getList(null);
+        return getList(null, null);
     }
 }

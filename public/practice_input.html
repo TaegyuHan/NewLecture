@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <section>
+        <h1>입력박스</h1>
+        <form action="">
+            <div>
+                <label>
+                    <span>아이디</span>
+                    <!--html에는 상태값이 있다.-->
+                    <input type="text" name="uid" required
+                           maxlength="8"
+                           placeholder="아이디를 입력하세요 (단. 8자 이내)">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>가격</span>
+                    <input type="number" name="price" required
+                           min="1000" max="10000"
+                           placeholder="가격을 입력하세요(1,000원 ~ 10,000원)">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>전화번호</span>
+                    <input type="tel" name="tel" required
+                           pattern="^010-[0-9]{4}-[0-9]{4}$"
+                           placeholder="전화번호를 입력하세요(000-0000-0000)">
+                    <!--정규표현식
+                        URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
+                    -->
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>개인정보 동의</span>
+                    <input type="checkbox">
+                </label>
+            </div>
+            <div>
+                <button>전송</button>
+            </div>
+        </form>
+    </section>
+
+</body>
+</html>
