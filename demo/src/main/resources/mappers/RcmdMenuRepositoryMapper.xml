@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.boot3.demo.repository.menu.RcmdMenuRepository">
+    <select id="findByMenuId" parameterType="Long" resultType="RcmdMenuView">
+        SELECT
+            RM.ID AS ID,
+            RM.MENU_ID AS MENU_ID,
+            RM.R_MENU_ID AS R_MENU_ID,
+            RM.MEMBER_ID AS MEMBER_ID,
+            MI2.SRC AS IMG,
+            M.KOR_NAME AS KOR_NAME,
+            M.ENG_NAME AS ENG_NAME,
+            M.PRICE AS ENG_NAME
+        FROM (
+            SELECT * FROM RCMD_MENU WHERE MENU_ID = #{menuId}
+        ) RM
+        LEFT JOIN (
+            SELECT
+            MI.MENU_ID,
+            MI.SRC
+            FROM MENU_IMAGE MI
+            WHERE IS_DEFAULT = 1
+        ) MI2
+            ON MI2.MENU_ID = RM.MENU_ID
+        LEFT JOIN MENU M
+            ON M.ID = RM.MENU_ID
+    </select>
+</mapper>

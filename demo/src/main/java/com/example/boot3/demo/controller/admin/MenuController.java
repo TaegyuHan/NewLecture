@@ -1,6 +1,7 @@
 package com.example.boot3.demo.controller.admin;
 
 import com.example.boot3.demo.entity.Menu;
+import com.example.boot3.demo.model.MenuDetailModel;
 import com.example.boot3.demo.service.menu.MenuService;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServletRequest;
@@ -85,5 +86,17 @@ public class MenuController {
         }
 
         return "redirect:list";
+    }
+
+    @GetMapping("detail")
+    public String detail(
+            @RequestParam("id") Long id,
+            Model model
+    ) {
+        MenuDetailModel menuDetailModel = service.findDetailById(id);
+        model.addAttribute("menu", menuDetailModel.getMenu());
+        model.addAttribute("images", menuDetailModel.getImages());
+        model.addAttribute("rcmdMenus", menuDetailModel.getRcmdMenuViews());
+        return "admin/menu/detail";
     }
 }

@@ -12,4 +12,6 @@ public interface MenuRepository {
     List<MenuView> findAll(Integer categoryId, String query);
 
     void save(Menu menu);
+
+    Menu findById(Long id);
 }

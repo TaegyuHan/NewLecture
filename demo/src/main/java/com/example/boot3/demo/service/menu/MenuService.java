@@ -2,6 +2,7 @@ package com.example.boot3.demo.service.menu;
 
 import com.example.boot3.demo.entity.Menu;
 import com.example.boot3.demo.entity.MenuView;
+import com.example.boot3.demo.model.MenuDetailModel;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface MenuService {
     List<MenuView> getList(Integer categoryId, String query);
 
     void reg(Menu menu);
+
+    MenuDetailModel findDetailById(Long id);
 }

@@ -27,6 +27,11 @@
         ORDER BY REG_DATE DESC
     </select>
 
+    <select id="findById" parameterType="Long" resultType="Menu">
+        SELECT * FROM MENU
+        WHERE ID = #{id}
+    </select>
+
     <insert id="save" parameterType="Menu">
         INSERT INTO MENU (
             KOR_NAME,
