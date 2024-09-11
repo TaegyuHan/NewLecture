@@ -1,0 +1,364 @@
+/* 변수는 부모에다가 할당하는것이 좋다. 슈도 엘리먼트에 적용하는 것이 아니라. */
+
+/*1번*/
+/*.n-icon{*/
+/*    --icon-size: 24px;*/
+/*    --icon-color: #000000;*/
+/*    --deco-gap: 0;*/
+
+/*    display: inline-flex;*/
+/*    width: var(--icon-size);*/
+/*    height: var(--icon-size);*/
+/*    overflow: hidden;*/
+/*    !*text-indent: -999px;*!*/
+/*    align-items: center; !* 세로 중앙 정렬 *!*/
+/*    gap: var(--deco-gap); !* 아이콘과 텍스트 사이의 간격 *!*/
+/*}*/
+
+/*.n-icon::before{*/
+/*    !*css 설정도 패텬을 만드는 것이 중요하다.*!*/
+/*    !*inline은 크기를 갖지 않는다.*!*/
+/*    flex-shrink: 0; !* 줄어들지 않게 크기를 갖게 한다. *!*/
+/*    content: ''; !* before를 사용하기 위함 *!*/
+/*    width: var(--icon-size);*/
+/*    !*height: inherit; !* 부모의 높이를 상속받는다. *!*!*/
+/*    height: var(--icon-size);*/
+/*    overflow: hidden;*/
+/*    background-color: var(--icon-color);*/
+/*    mask-size: var(--icon-size);*/
+/*}*/
+
+/*2번*/
+
+/*where은 잘 사용하지 않는다.*/
+/*:where( !* 장점 한번에 ::before를 적용할 수 있다. *!*/
+    .n-icon\:home,
+    .n-icon\:dashboard,
+    .n-icon\:sign,
+    .n-icon\:sign-out
+/*) */
+{
+    --icon-size: 24px;
+    --icon-color: #000000;
+    --deco-gap: 0;
+
+    display: inline-flex;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    overflow: hidden;
+    /*text-indent: -999px;*/
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: var(--deco-gap); /* 아이콘과 텍스트 사이의 간격 */
+}
+
+:is( /* 장점 한번에 ::before를 적용할 수 있다. */
+    .n-icon\:home,
+    .n-icon\:dashboard,
+    .n-icon\:sign,
+    .n-icon\:sign-out
+)::before {
+    /*css 설정도 패텬을 만드는 것이 중요하다.*/
+    /*inline은 크기를 갖지 않는다.*/
+    flex-shrink: 0; /* 줄어들지 않게 크기를 갖게 한다. */
+    content: ''; /* before를 사용하기 위함 */
+    width: var(--icon-size);
+    /*height: inherit; !* 부모의 높이를 상속받는다. *!*/
+    height: var(--icon-size);
+    overflow: hidden;
+    background-color: var(--icon-color);
+    mask-size: var(--icon-size);
+}
+
+.n-icon\:home::before {
+    /*background-image: url(/image/icon/home.svg);*/
+    /*엣지, 크롬, 사파리, 오페라 --webkit으로 작명*/
+    /*--webkit-mask-image: url(/image/icon/home.svg);*/
+    mask-image: url(/image/icon/home.svg);
+}
+
+.n-icon\:dashboard::before {
+    /*background-image: url(/image/icon/dashboard.svg);*/
+    mask-image: url(/image/icon/dashboard.svg);
+}
+
+.n-icon\:sign::before {
+    /*background-image: url(/image/icon/person.svg);*/
+    mask-image: url(/image/icon/person.svg);
+}
+
+.n-icon\:sign-out::before {
+    /*background-image: url(/image/icon/logout.svg);*/
+    mask-image: url(/image/icon/logout.svg);
+}
+
+/*================== SIZE ==================*/
+.n-icon-size\:1,
+.n-icon-size\:smal {
+    --icon-size: 15px;
+    /*width: var(--icon-size);*/
+    /*height: var(--icon-size);*/
+    /*background-size: var(--icon-size);*/
+}
+
+.n-icon-size,
+.n-icon-size\:2,
+.n-icon-size\:medium {
+    --icon-size: 24px;
+    /*width: var(--icon-size);*/
+    /*height: var(--icon-size);*/
+    /*background-size: var(--icon-size);*/
+}
+
+.n-icon-size\:3,
+.n-icon-size\:large {
+    --icon-size: 32px;
+    /*width: var(--icon-size);*/
+    /*height: var(--icon-size);*/
+    /*background-size: var(--icon-size);*/
+}
+
+/*================== COLOR ==================*/
+/*
+main 1/2/3
+sub 1/2/3
+accent 1/2/3
+base 1/2/3/4/5/6/7/8/9/10*
+*/
+
+.n-icon-color\:main-1 {
+    --icon-color: var(--color-main-1, #D86259);
+}
+
+.n-icon-color\:main-2 {
+    --icon-color: var(--color-main-2, #905634);
+}
+
+.n-icon-color\:main-3 {
+    --icon-color: var(--color-main-3, #5E2808);
+}
+
+.n-icon-color\:sub-1 {
+    --icon-color: var(--color-main-4, #F3E184);
+}
+
+.n-icon-color\:accent-1 {
+    --icon-color: var(--color-main-5, #334DCF);
+}
+
+/*================== ==================*/
+.n-deco {
+    text-indent: initial;
+    width: auto;
+}
+
+.n-deco-gap\:1 {
+    --deco-gap: 5px;
+}
+
+.n-deco-gap\:2 {
+    --deco-gap: 10px;
+}
+
+.n-deco-pos\:top,
+.n-deco-pos\:bottom {
+    flex-direction: column;
+    height: auto;
+}
+
+.n-deco-pos\:right::before,
+.n-deco-pos\:bottom::before {
+    order: 1;
+}
+
+.n-deco-pos\:left::before,
+.n-deco-pos\:top::before {
+    /*order: initial; !* 초기값 *!*/
+    order: unset; /* 초기값 */
+    /*물려 받는게 있으면 그것을 값으로 설정하고 없으면 초기값으로 설정한다.*/
+}
+
+@media (768 <= width) {
+    .md\.n-deco {
+        text-indent: initial;
+        width: auto;
+    }
+
+    .md\.n-deco-gap\:1 {
+        --deco-gap: 5px;
+    }
+
+    .md\.n-deco-gap\:2 {
+        --deco-gap: 10px;
+    }
+
+    .md\.n-deco-pos\:top,
+    .md\.n-deco-pos\:bottom {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .md\.n-deco-pos\:right::before,
+    .md\.n-deco-pos\:bottom::before {
+        order: 1;
+    }
+
+    .md\.n-deco-pos\:left::before,
+    .md\.n-deco-pos\:top::before {
+        /*order: initial; !* 초기값 *!*/
+        order: unset; /* 초기값 */
+        /*물려 받는게 있으면 그것을 값으로 설정하고 없으면 초기값으로 설정한다.*/
+    }
+}
+
+
+/*================== btn ==================*/
+.n-btn {
+    border: 1px solid var(--color-base-3);
+    border-radius: 10px;
+    padding: 5px 10px;
+    display: inline-flex;
+    /* inline 은 줄선다는 의미이다. */
+}
+
+.n-btn:hover {
+    background-color: #000000;
+    color: #e0f7fa;
+    --icon-color: #e0f7fa;
+}
+
+.n-btn:is(
+    .n-icon\:home,
+    .n-icon\:dashboard,
+    .n-icon\:sign
+):not(.n-deco)
+{
+    text-indent: -999px;
+}
+
+/*
+!*이것이 가능하다.!*
+.n-btn:not(.n-deco):has(.n-icon) {
+    background-color: rebeccapurple;
+}
+
+!* and !*
+.n-btn.n-deco {
+    background-color: rebeccapurple;
+}
+*/
+
+/*
+1. <a class="n-btn n-deco">
+       <span class="n-deco">c</span>
+   </a>
+2. <a class="n-btn">
+       <span class="n-deco">c</span>
+   </a>
+
+.n-btn:not(.n-deco){ color:blue; }
+.n-btn.n-deco{ color:red; }
+
+기본 자손 선택
+.n-btn:has(.n-deco){ color: orange; }
+
+자식 선택
+.n-btn:has(>.n-deco){ color: orange; }
+*/
+
+/*================== where ==================*/
+/*.n-btn.n-icon\:home,*/
+/*.n-btn.n-icon\:dashboard,*/
+/*.n-btn.n-icon\:sign,*/
+/*.n-btn.n-icon\:sign-out*/
+
+:where(
+   .btn,
+   .n-deco
+):where(
+    n-icon\:home,
+    n-icon\:dashboard,
+    n-icon\:sign,
+    n-icon\:sign-out
+) {
+
+}
+
+:is(
+   .btn,
+   .n-deco
+):is(
+    n-icon\:home,
+    n-icon\:dashboard,
+    n-icon\:sign,
+    n-icon\:sign-out
+) {
+}
+
+
+/*================== 우선순위 확인하기 ==================*/
+
+/*where 변경 용도로 사용 가능*/
+/*#a {background-color: rosybrown;} !*0*!*/
+/*:is(#a) {background-color: blueviolet;} !*0*!*/
+
+/*.a {background-color: orangered;} !*1*!*/
+/*:is(.a) {background-color: darkblue;} !*1*!*/
+
+/*a {background-color: royalblue;} !*2*!*/
+/*:is(a) {background-color: saddlebrown;} !*2*!*/
+
+/*:where(#a) {background-color: aquamarine;} !*3*!*/
+/*:where(a) {background-color: salmon;} !*3*!*/
+/*:where(.a) {background-color: darkgoldenrod;} !*3*!*/
+
+/*================== where 이해하기 ==================*/
+div > h1,
+div > h2,
+div > h3,
+div > h4,
+div > h5,
+div > h6 {
+    color: red;
+}
+
+div > :where(h1, h2, h3, h4, h5, h6) {
+    color: blue;
+}
+
+div > h1,
+div > h2,
+div > h3,
+div > h4,
+div > h5,
+div > h6,
+section > h1,
+section > h2,
+section > h3,
+section > h4,
+section > h5,
+section > h6
+{
+    color: red;
+}
+
+:where(div, section) > :where(h1, h2, h3, h4, h5, h6) {
+    color: blue;
+}
+
+/*!*================== 복합 연산자의 순위가 높을 수 있다. ==================*!*/
+/*.nav>ul>li>a {*/
+/*    color: red;*/
+/*}*/
+
+.n-btn-color\:main {
+    /*position > transform 이 나왔다.*/
+    /*transition 이동하는 움직임을 보일 수 있다.*/
+    transition: transform 1s, background-color 1s;
+    color: #efff;
+    background-color: var(--color-main-2);
+}
+
+.n-btn-color\:main:hover {
+    transform: translateX(10px) translateY(10px);
+    background-color: var(--color-main-1);
+}

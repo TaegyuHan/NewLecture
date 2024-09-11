@@ -1,35 +1,3 @@
 .n-from {
 
-    /*태그 들여쓰기 기능이 들어왔다.*/
-    input[type="text"] {
-
-    }
-
-    /*고급 레벨의 CSS이다.*/
-    /* 유효성 검사 실패 */
-    label:has( /* 자식으로 값을 갖고 있어야 한다. */
-        /* has가 진짜 중요하다 자주 사용하고 매우 유용하게 쓴다. */
-        > input[type="text"]:invalid:not(:placeholder-shown)
-    )::after {
-        content: "오마이갓!!!";
-        background-color: red;
-        mask-image: url("/image/icon/invalid.svg");
-    }
-
-    /*input[type="text"]:invalid:not(:placeholder-shown) {*/
-    /*    background-color: red;*/
-    /*}*/
-
-    /* 유효성 검사 성공 */
-    input[type="text"]:valid:not(:placeholder-shown) {
-        background-color: green;
-    }
-
-    /* 포커스 했을 때 */
-    input[type="text"]:focus-within {
-        border-bottom: 2px solid blue;
-    }
-
-    .n-radio {
-    }
 }

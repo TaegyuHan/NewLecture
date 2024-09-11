@@ -1,0 +1,45 @@
+.n-form {
+
+    label {
+        display: inline-flex;
+        align-items: center;
+        width: 400px;
+    }
+
+    label > span {
+        display: inline-block;
+        width: 100px;
+    }
+
+    /*성공*/
+    label:has(
+        > input[type="text"]:valid:not(:placeholder-shown)
+    )::after {
+        content: "";
+        display: inline-flex;
+        width: 24px;
+        height: 24px;
+        mask: url("/image/icon/valid.svg") no-repeat center;
+        background-color: green;
+    }
+
+    /*실패*/
+    label:has(
+        > input[type="text"]:invalid:not(:placeholder-shown)
+    )::after {
+        content: "";
+        display: inline-flex;
+        width: 24px;
+        height: 24px;
+        mask: url("/image/icon/invalid.svg") no-repeat center;
+        background-color: red;
+    }
+
+    input[type="text"]:invalid:not(:placeholder-shown) {
+        background-color: red;
+    }
+
+    input[type="text"]:valid:not(:placeholder-shown) {
+        background-color: darkolivegreen;
+    }
+}

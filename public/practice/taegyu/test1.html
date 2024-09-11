@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/practice/taegyu/reset.cssset.css">
+    <link rel="stylesheet" type="text/css" href="/practice/taegyu/style.cssyle.css">
+    <link rel="stylesheet" type="text/css" href="/practice/taegyu/test.cssest.css">
+    <link rel="stylesheet" type="text/css" href="/practice/taegyu/n-icon.csscon.css">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+    <form class="n-form">
+        <div>
+            <label>
+                <span>로그인</span>
+                <input type="text" name="id" required
+                       maxlength="8"
+                       placeholder="아이디를 입력해주세요">
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>비밀번호</span>
+                <input type="password" name="pw" required
+                       placeholder="비밀번호를 입력해주세요">
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>전화번호</span>
+                <input type="text" name="phone" required
+                       pattern="^010-\d{3,4}-\d{4}$"
+                       placeholder="전화번호를 입력해주세요">
+            </label>
+        </div>
+    </form>
+</main>
+
+</body>
+</html>
