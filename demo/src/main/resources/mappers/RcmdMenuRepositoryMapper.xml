@@ -13,7 +13,7 @@
             MI2.SRC AS IMG,
             M.KOR_NAME AS KOR_NAME,
             M.ENG_NAME AS ENG_NAME,
-            M.PRICE AS ENG_NAME
+            M.PRICE AS PRICE
         FROM (
             SELECT * FROM RCMD_MENU WHERE MENU_ID = #{menuId}
         ) RM
@@ -24,8 +24,8 @@
             FROM MENU_IMAGE MI
             WHERE IS_DEFAULT = 1
         ) MI2
-            ON MI2.MENU_ID = RM.MENU_ID
+            ON RM.R_MENU_ID = MI2.MENU_ID
         LEFT JOIN MENU M
-            ON M.ID = RM.MENU_ID
+            ON RM.R_MENU_ID = M.ID
     </select>
 </mapper>

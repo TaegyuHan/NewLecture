@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/back/n-form2.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/n-icon.css" />
+    <title>Document</title>
+</head>
+<body>
+
+<main>
+    <h1>입력박스</h1>
+    <form action="">
+        <div>
+            <label>
+                <span>아이디</span>
+                <input type="text" name="uid" required
+                       maxlength="8"
+                       autocomplete="off"
+                       placeholder="아이디를 입력하세요 (단. 8자 이내)"/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>애완동물</span>
+                <input type="text" name="pet"
+                       list="pet" autofocus
+                       placeholder="아이디를 입력하세요 (단. 8자 이내)"/>
+            </label>
+            <datalist id="pet">
+                <option value="강아지">
+                <option value="고양이">
+                <option value="도마뱀">
+                <option value="햄스터">
+            </datalist>
+        </div>
+        <div>
+            <label>
+                <span>가격</span>
+                <input type="number" name="price" required
+                       min="1000" max="10000"
+                       placeholder="가격을 입력하세요(1,000원 ~ 10,000원)"/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>전화번호</span>
+                <input type="text" name="tel" required
+                       pattern="^010-\d{3,4}-\d{4}$"
+                       placeholder="전화번호를 입력하세요(000-0000-0000)"/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>비밀번호</span>
+                <input type="password" name="pwd" required
+                       minlength="8" maxlength="16"
+                       placeholder="비밀번호를 입력하세요 (8자 이상 16자 이내)"/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>개인정보 동의</span>
+                <input type="checkbox" name="agree" required id="agree" />
+            </label>
+        </div>
+        <div>
+            <button>전송</button>
+        </div>
+    </form>
+</main>
+
+</body>
+</html>

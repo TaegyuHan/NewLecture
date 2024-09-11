@@ -5,11 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <link href="/css/reset.css" rel="stylesheet"/>
-    <link href="/css/style.css" rel="stylesheet"/>
-    <link href="/css/n-form.css" rel="stylesheet"/>
-
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/back/n-form2.css" />
+    <link rel="stylesheet" type="text/css" href="css/n-icon.css" />
     <title>Document</title>
 </head>
 <body>
@@ -24,11 +23,8 @@
                     <input type="text" name="uid" required
                            maxlength="8"
                            autocomplete="off"
-                           placeholder="아이디를 입력하세요 (단. 8자 이내)">
-
+                           placeholder="아이디를 입력하세요 (단. 8자 이내)"/>
                     <!--autocomplete: 자동 완성 기능-->
-
-
                 </label>
             </div>
             <div>
@@ -36,23 +32,23 @@
                     <span>애완동물</span>
                     <input type="text" name="pet"
                            list="pet" autofocus
-                           placeholder="아이디를 입력하세요 (단. 8자 이내)">
+                           placeholder="아이디를 입력하세요 (단. 8자 이내)"/>
                 </label>
-                <!--텍스트 데이터 예시로 제안하기-->
-                <!-- autofocus 자동 커서 이동하기 -->
                 <datalist id="pet">
                     <option value="강아지">
                     <option value="고양이">
                     <option value="도마뱀">
                     <option value="햄스터">
                 </datalist>
+                <!--텍스트 데이터 예시로 제안하기-->
+                <!-- autofocus 자동 커서 이동하기 -->
             </div>
             <div>
                 <label>
                     <span>가격</span>
                     <input type="number" name="price" required
                            min="1000" max="10000"
-                           placeholder="가격을 입력하세요(1,000원 ~ 10,000원)">
+                           placeholder="가격을 입력하세요(1,000원 ~ 10,000원)"/>
                 </label>
             </div>
             <div>
@@ -60,7 +56,7 @@
                     <span>전화번호</span>
                     <input type="text" name="tel" required
                            pattern="^010-\d{3,4}-\d{4}$"
-                           placeholder="전화번호를 입력하세요(000-0000-0000)">
+                           placeholder="전화번호를 입력하세요(000-0000-0000)"/>
                     <!--정규표현식
                         URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
                     -->
@@ -71,7 +67,7 @@
                     <span>비밀번호</span>
                     <input type="password" name="pwd" required
                            pattern="^[a-zA-Z0-9]{4,8}$"
-                           placeholder="비밀번호를 입력하세요(4~8자리)">
+                           placeholder="비밀번호를 입력하세요(4~8자리)" />
                 </label>
             </div>
             <div>

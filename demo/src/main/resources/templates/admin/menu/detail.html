@@ -14,7 +14,11 @@
     <div class="menu-detail">
         <section class="menu-detail-header">
             <h1 class="d-none">메뉴 사진</h1>
-            <img src="/image/latte2.svg" alt="커피라떼" >
+            <img th:each="image : ${images}"
+                 th:if="${image.isDefault}"
+                 th:src="@{/image/product/{img}(img=${image.src})}"
+                 src="/image/product"
+                 alt="커피라떼" >
             <a href="list.html" class="icon icon-arrow-left-line">뒤로가기</a>
         </section>
         <!-- --------------------------------------------------------------------메뉴설명 -->
@@ -70,42 +74,24 @@
                 </section>
             </form>
         </section>
-        <!-- --------------------------------------------------------------------추천메뉴 -->
+        <!----------------------------------- 추천메뉴 ------------------------------------->
         <section class="recommend-menu-section">
             <h1>함께 추천드리는 메뉴</h1>
             <div>
                 <section class="menu-section">
                     <h1 class="d-none">메뉴 목록</h1>
                     <div>
-                        <section class="menu">
+                        <section class="menu" th:each="rcmdMenu : ${rcmdMenus}">
                             <div>
                                 <a href="../admin/menu/recommend-list.html">
-                                    <img src="/image/product/espresso.svg" alt="에스프레소" >
+                                    <img
+                                            th:src="@{/image/product/{img}(img=${rcmdMenu.img})}"
+                                            src="/image/product/espresso.svg" alt="에스프레소" >
                                 </a>
                             </div>
-                            <h1>에스프레소</h1>
-                            <h2>Espresso</h2>
-                            <div>2,500원</div>
-                        </section>
-                        <section class="menu">
-                            <div>
-                                <a href="../admin/menu/recommend-list.html">
-                                    <img src="/image/product/espresso.svg" alt="에스프레소" >
-                                </a>
-                            </div>
-                            <h1>에스프레소</h1>
-                            <h2>Espresso</h2>
-                            <div>2,500원</div>
-                        </section>
-                        <section class="menu">
-                            <div>
-                                <a href="../admin/menu/recommend-list.html">
-                                    <img src="/image/product/espresso.svg" alt="에스프레소" >
-                                </a>
-                            </div>
-                            <h1>에스프레소</h1>
-                            <h2>Espresso</h2>
-                            <div>2,500원</div>
+                            <h1 th:text="${rcmdMenu.korName}">에스프레소</h1>
+                            <h2 th:text="${rcmdMenu.engName}">Espresso</h2>
+                            <div th:text="${#numbers.formatInteger(rcmdMenu.price, 3, 'COMMA') + '원'}">2,500원</div>
                         </section>
                         <section>
                             <a href="../menu/reg.html" class="menu-add-box-pc-sm">

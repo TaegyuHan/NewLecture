@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/back/n-orm2.css" type="text/css" />
+    <link rel="stylesheet" href="../../css/n-icon.css" type="text/css" />
+    <title>Document</title>
+</head>
+<body>
+<section>
+    <h1>입력박스</h1>
+    <form class="n-form">
+        <div>
+            <label>
+                <span>아이디</span>
+                <input
+                        type="text"
+                        name="uid"
+                        maxlength="8"
+                        pattern="[1-9]"
+                        placeholder="아이디를 입력하세요 (단, 8자 이내)"
+                        autocomplete="off"
+                />
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>애완동물</span>
+                <input
+                        type="text"
+                        name="pet"
+                        list="pet"
+                        autofocus
+                        placeholder="아이디를 입력하세요 (단, 8자 이내)"
+                        autocomplete="off"
+                />
+            </label>
+            <datalist id="pet">
+                <option value="강아지"></option>
+                <option value="고양이"></option>
+                <option value="도마뱀"></option>
+                <option value="햄스터"></option>
+            </datalist>
+        </div>
+        <div>
+            <label>
+                <span>가격</span>
+                <input
+                        type="number"
+                        name="price"
+                        min="1000"
+                        max="10000"
+                        placeholder="가격을 입력하세요 (1000 ~ 10000)"
+                        autocomplete="off"
+                />
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>전화번호</span>
+                <input
+                        type="tel"
+                        name="phone"
+                        pattern="^010-[0-9]{4}-[0-9]{4}$"
+                        placeholder="전화번호를 입력하세요 ( - 포함)"
+                        autocomplete="off"
+                />
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>비밀번호</span>
+                <input type="text" />
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>아이스</span>
+                <input type="checkbox" />
+            </label>
+        </div>
+        <div>
+            <button>전송</button>
+        </div>
+    </form>
+</section>
+</body>
+</html>

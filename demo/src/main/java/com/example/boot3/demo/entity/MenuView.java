@@ -21,6 +21,6 @@ public class MenuView {
     private String categoryName;
     private String img;
 
-    // TODO: 이미지 처리 해야함 2024-08-28
+    // TODO:
     // private List<MenuImage> imgs;
 }

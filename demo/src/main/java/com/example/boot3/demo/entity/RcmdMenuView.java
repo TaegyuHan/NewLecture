@@ -19,5 +19,5 @@ public class RcmdMenuView {
     // ---------------- 추가 목록 ----------------
     private String korName;
     private String engName;
-    private String price;
+    private Long price;
 }
