@@ -51,4 +51,9 @@
         )
     </insert>
 
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM MENU
+        WHERE ID = #{id}
+    </delete>
+
 </mapper>

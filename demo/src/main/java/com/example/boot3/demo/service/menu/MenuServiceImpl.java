@@ -1,5 +1,6 @@
 package com.example.boot3.demo.service.menu;
 
+import com.example.boot3.demo.dto.MenuRegDto;
 import com.example.boot3.demo.entity.*;
 import com.example.boot3.demo.model.MenuDetailModel;
 import com.example.boot3.demo.repository.menu.MenuImageRepository;
@@ -26,8 +27,12 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void reg(Menu menu) {
+    public void reg(MenuRegDto menuRegDto) {
+        Menu menu = menuRegDto.getMenu();
+        List<MenuImage> images = menuRegDto.getImages();
+        images.getFirst().setIsDefault(true); // 첫번째 이미지를 대표이미지로 설정
         menuRepository.save(menu);
+        menuImageRepository.saveAll(images);
     }
 
     @Override
@@ -41,6 +46,16 @@ public class MenuServiceImpl implements MenuService {
                 .images(images)
                 .rcmdMenuViews(rcmdMenus)
                 .build();
+    }
+
+    @Override
+    public Menu findById(Long id) {
+        return menuRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        menuRepository.deleteById(id);
     }
 
     @Override

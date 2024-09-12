@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{inc/layout}">
+
+<body>
+<main layout:fragment="main" class="menu-reg-background">
+    <!--  section/ container 등 이름 크게 정하기.  -->
+    <section class="menu-reg-section">
+        <h1>메뉴 삭제 페이지</h1>
+        <div>정말 삭제할꺼냐?</div>
+        <form action="del" method="post" class="menu-reg-form">
+            <input type="hidden" name="id" th:value="${menu.id}">
+            <a href="detail">취소</a>
+            <button>삭제</button>
+        </form>
+    </section>
+<main>
+</body>
+
+</html>

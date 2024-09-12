@@ -14,4 +14,6 @@ public interface MenuRepository {
     void save(Menu menu);
 
     Menu findById(Long id);
+
+    void deleteById(Long id);
 }

@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface MenuImageRepository {
     List<MenuImage> findByMenuId(Long menuId);
+    void saveAll(List<MenuImage> images);
 }

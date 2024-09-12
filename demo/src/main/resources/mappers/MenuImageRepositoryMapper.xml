@@ -9,4 +9,20 @@
         FROM MENU_IMAGE
         WHERE MENU_ID = #{menuId}
     </select>
+
+    <insert id="saveAll" parameterType="List">
+        INSERT INTO MENU_IMAGE (
+            MENU_ID,
+            SRC,
+            IS_DEFAULT
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.menuId},
+                #{item.src},
+                #{item.isDefault}
+            )
+        </foreach>
+    </insert>
 </mapper>

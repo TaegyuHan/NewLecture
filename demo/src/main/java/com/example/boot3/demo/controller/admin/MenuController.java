@@ -1,6 +1,8 @@
 package com.example.boot3.demo.controller.admin;
 
+import com.example.boot3.demo.dto.MenuRegDto;
 import com.example.boot3.demo.entity.Menu;
+import com.example.boot3.demo.entity.MenuImage;
 import com.example.boot3.demo.model.MenuDetailModel;
 import com.example.boot3.demo.service.menu.MenuService;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller("adminMenuController")
 @RequestMapping("admin/menu")
@@ -56,10 +59,6 @@ public class MenuController {
         menu.setEngName(engName);
         menu.setRegMemberId(1L);
 
-        service.reg(menu);
-
-        System.out.println(menu);
-
         if (img.isEmpty()) { // form 인코딩 방식을 잘 확인해야 한다.
             // 설정이 필요하다.
             return "redirect:reg";
@@ -85,6 +84,22 @@ public class MenuController {
             throw new RuntimeException(e);
         }
 
+        List<MenuImage> images = List.of(
+                MenuImage.builder()
+                        .menuId(menu.getId())
+                        .src(fileName)
+                        .build()
+        );
+
+        MenuRegDto menuRegDto = MenuRegDto.builder()
+                .menu(menu)
+                .images(images)
+                .build();
+
+        service.reg(menuRegDto);
+
+        System.out.println(menu);
+
         return "redirect:list";
     }
 
@@ -98,5 +113,23 @@ public class MenuController {
         model.addAttribute("images", menuDetailModel.getImages());
         model.addAttribute("rcmdMenus", menuDetailModel.getRcmdMenuViews());
         return "admin/menu/detail";
+    }
+
+    @GetMapping("del")
+    public String del(
+            @RequestParam("id") Long id,
+            Model model
+    ) {
+        Menu menu = service.findById(id);
+        model.addAttribute("menu", menu);
+        return "admin/menu/del";
+    }
+
+    @PostMapping("del")
+    public String del(
+            @RequestParam("id") Long id
+    ) {
+        service.deleteById(id);
+        return "redirect:/admin/menu/list";
     }
 }
