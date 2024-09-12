@@ -1,0 +1,9 @@
+/*<!--n-panel: 제목이 없는 판-->*/
+/*<!--n-box:-->*/
+/*<!--n-container:-->*/
+/*<!--n-frame: 제목이 있는 판-->*/
+
+.n-panel {
+    border: 1px solid var(--color-base-5);
+    padding: var(--gap-4);
+}

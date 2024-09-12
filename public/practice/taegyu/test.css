@@ -1,4 +1,14 @@
 .n-form {
+
+  div {
+    width: 300px;
+  }
+
+  input {
+    border: 1px solid var(--color-base-5);
+    padding: 4px;
+  }
+
   label {
     display: inline-flex;
     align-items: center;
@@ -37,5 +47,18 @@
 
   input[type="text"]:valid:not(:placeholder-shown) {
     background-color: darkolivegreen;
+  }
+}
+
+/* CSS는 기존에 있는 방식에 덮어 쓰는 방식을 사용해야 한다. */
+/* 그것이 기존에 있는 것을 빠르게 확장할 수 있다. */
+.n-form.field-label-positon\:top,
+.n-form.fl-pos\:top {
+  label {
+    flex-wrap: wrap;
+  }
+
+  label > span {
+    width: 100%;
   }
 }
