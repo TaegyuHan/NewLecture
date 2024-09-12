@@ -1,0 +1,32 @@
+/*
+CSS 속성들을 그대로 인라인 스타일처럼 class 속성에 적용
+할 수 있도록 만든 커스터마이징 도구
+*/
+
+.display\:inline{
+    display: inline !important;
+}
+
+.display\:inline-block{
+    display: inline-block !important;
+}
+
+.display\:flex{
+    display: flex !important;
+}
+
+.width\:1{
+    width: var(--width-1) !important;
+}
+
+.width\:2{
+    width: var(--width-2) !important;
+}
+
+.width\:3{
+    width: var(--width-3) !important;
+}
+
+.width\:ex{
+    width: 0 !important;
+}

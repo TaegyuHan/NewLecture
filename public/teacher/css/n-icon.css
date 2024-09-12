@@ -1,0 +1,230 @@
+/* :where( */
+    /* .n-icon\:home,
+    .n-icon\:dashboard,
+    .n-icon\:sign-in,
+    .n-icon\:sign-out */
+/* ) */
+.n-icon
+{
+    --icon-width:24px;
+    --icon-color:var(--color-main-1);
+    --deco-gap:0;
+
+    display: inline-flex;
+    width: var(--icon-width);
+    height: var(--icon-width);
+    overflow: hidden;
+    align-items: center;
+    gap: var(--deco-gap);
+}
+
+.n-icon::before{
+    flex-shrink: 0;
+
+    content: "";
+    display: inline-flex;
+    width: var(--icon-width);
+    height: var(--icon-width);
+    overflow: hidden;
+    
+    background-color: var(--icon-color);
+    background-repeat: no-repeat;
+    mask-size: var(--icon-width);
+}
+
+.n-icon\:home::before{
+    display: inline-flex;
+    border: 1px solid black;
+    /* background-image: url("/image/icon/home.svg"); */    
+    mask-image: url("/image/icon/home.svg");
+}
+
+.n-icon\:dashboard::before{
+    mask-image: url("/image/icon/dashboard_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg");    
+}
+
+.n-icon\:sign-in::before{
+    mask-image: url("/image/icon/person.svg");    
+}
+
+.n-icon\:sign-out::before{
+    mask-image: url("/image/icon/logout.svg");    
+}
+
+/* === size =================================== */
+
+.n-icon-size\:1,
+.n-icon-size\:small{
+    --icon-width:15px;
+}
+.n-icon-size\:2,
+.n-icon-size\:medium,
+.n-icon-size,
+.n-icon-size\:default{
+    --icon-width:24px;
+}
+.n-icon-size\:3{
+    --icon-width:32px;
+}
+
+/* === color ======================================= */
+/* 
+main 1/2/3
+sub 1/2/3
+accent 1/2/3
+base 1/2/3/4/5/6/7/8/9/10*/
+
+.n-icon-color\:main-1{
+    --icon-color: var(--color-main-1, #D86259);
+}
+
+.n-icon-color\:main-2{
+    --icon-color: var(--color-main-2, #905634);
+}
+
+.n-icon-color\:main-3{
+    --icon-color: var(--color-main-3, #5E2808);
+}
+
+.n-icon-color\:sub-1{
+    --icon-color: var(--color-sub-1, #F3E184);
+}
+
+.n-icon-color\:accent-1{
+    --icon-color: var(--color-accent-1,  #334DCF);
+}
+
+
+
+/* ============================ */
+.n-deco{
+    text-indent: initial;
+    width: auto;
+}
+
+.n-deco-gap\:0{
+    --deco-gap:0;
+}
+
+.n-deco-gap\:1{
+    --deco-gap:5px;
+}
+
+.n-deco-gap\:2{
+    --deco-gap:10px;
+}
+
+.n-deco-pos\:top, 
+.n-deco-pos\:bottom{
+    flex-direction: column;
+    height: auto;
+}
+
+.n-deco-pos\:left::before,
+.n-deco-pos\:top::before{
+    /* order: initial; */
+    order: unset;
+}
+
+.n-deco-pos\:right::before,
+.n-deco-pos\:bottom::before{
+    order: 1;
+}
+
+@media (768px <= width){
+    .md\:n-deco{
+        text-indent: initial;
+        width: auto;        
+    }
+    
+    .md\:n-deco-gap\:0{
+        --deco-gap:0;
+    }
+    
+    .md\:n-deco-gap\:1{
+        --deco-gap:5px;
+    }
+    
+    .md\:n-deco-gap\:2{
+        --deco-gap:10px;
+    }
+    
+    .md\:n-deco-pos\:top, 
+    .md\:n-deco-pos\:bottom{
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .md\:n-deco-pos\:left::before,
+    .md\:n-deco-pos\:top::before{
+        /* order: initial; */
+        order: unset;
+    }
+    
+    .md\:n-deco-pos\:right::before,
+    .md\:n-deco-pos\:bottom::before{
+        order: 1;
+    }
+}
+
+
+/* =========================== */
+
+.n-btn{
+    border: 1px solid var(--color-base-3, black);
+    border-radius: 10px;
+    padding: 6px 10px;
+    /* box-sizing: border-box; */
+    background-color: red;
+    
+    display: inline-flex;
+}
+
+.n-btn:hover{
+    background-color: #000;    
+    color:#fff;
+}
+
+
+.n-btn:hover::before{
+    background-color: #fff;
+}
+
+.n-btn:is(
+    .n-icon\:home,
+    .n-icon\:dashboard,
+    .n-icon\:sign-in,
+    .n-icon\:sign-out
+):not(.n-deco)
+{
+    text-indent: -999px;
+}
+
+/* --- btn-color ------------------------------------ */
+
+.n-btn-color\:main{
+    color:#fff;
+    background-color: var(--color-main-2);
+
+    transition: transform .4s,
+                background-color .4s,
+                box-shadow .4s;
+}
+
+.n-btn.n-btn-color\:main::before{
+    background-color: #fff;
+}
+
+.n-btn-color\:main:hover{
+    transform:  translateX(-2px) 
+                translateY(-2px);
+    box-shadow: 2px 2px 3px #999;
+    background-color: var(--color-main-1);
+
+    
+}
+
+.n-btn.n-btn-color\:main:hover::before{
+    background-color: #fff;
+}
+

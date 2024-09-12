@@ -1,0 +1,82 @@
+/* @import url(https://www.newlecture.com/dist/v0.2.2/style.min.css); */
+/* @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"); */
+
+.n-form{
+    div{
+        width: 300px;
+    }
+
+    input{
+        border: 1px solid var(--color-base-3);
+        padding: var(--gap-1);
+        border-radius: var(--radius-1);
+    }
+
+    input[type=text]:invalid{
+        background-color: #ff0000;
+    }
+
+    label{
+        display: inline-flex;        
+        align-items: center;
+        gap:5px;
+        /* width: 400px; */
+        /* flex-wrap: wrap; */
+    }
+
+    label>span{
+        /* width:100%;     */
+        width: 100px;
+        /* flex-basis: 100px; */
+        /* flex-shrink: 0; */
+        /* flex-grow: 1; */
+    }
+
+    label>input{
+        /* flex-grow: 1; */
+    }
+
+    label:has(>input[type=text]:invalid:not(:placeholder-shown))::after{
+        content: "";
+        display: inline-flex;
+        width: 24px;
+        height: 24px;
+        mask: url(/image/icon/radio_button_unchecked.svg) no-repeat center;
+        background-color: red;
+    }
+    /*input[type=text]:invalid:not(:placeholder-shown){*/
+
+    /*}*/
+
+    label:has(>input[type=text]:valid:not(:placeholder-shown))::after{
+        content: "";
+        display: inline-flex;
+        width: 24px;
+        height: 24px;
+        mask: url(/image/icon/task_alt.svg) no-repeat center;
+        background-color: green;
+
+        /* margin-left:auto;
+        margin-right: auto; */
+        
+    }
+
+    input[type=text]:focus-within{
+        border-bottom: 2px solid pink;
+    }
+
+    .n-radio{
+
+    }
+}
+
+.n-form.field-label-postion\:top,
+.n-form.fl-pos\:top{
+    label{
+        flex-wrap: wrap;
+    }
+
+    label>span{
+        width:100%;    
+    }
+}

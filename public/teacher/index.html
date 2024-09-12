@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- <link href="https://www.newlecture.com/dist/v0.2.2/style.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/n-panel.css" rel="stylesheet" type="text/css">
+    <link href="/css/n-form.css" rel="stylesheet" type="text/css">
+    <link href="/css/n-icon.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <section class="n-panel width:1/3">
+        <h1>입력박스</h1>
+        <form class="n-form fl-pos:top">
+            <div>
+                <label>
+                    <span>아이디</span>
+                    <input type="text" name="uid" 
+                        autocomplete="off"
+                        required
+                        maxlength="8"
+                        placeholder="아이디를 입력하세요. (단. 8자 이내)">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>애완동물</span>
+                    <input type="text" name="pet" 
+                        list="pet" autofocus
+                        placeholder="아이디를 입력하세요. (단. 8자 이내)">
+                </label>
+                <datalist id="pet">
+                    <option value="강아지">
+                    <option value="고양이">
+                    <option value="도마뱀">
+                    <option value="햄스터">
+                </datalist>
+            </div>
+            <div>
+                <label>
+                    <span>가격</span>
+                    <input type="number" name="price" 
+                        min="1000"
+                        max="10000"
+                        placeholder="가격을 입력하세요. (1,000~10,000)">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>전화번호</span>
+                    <input type="text" name="phone"                    
+                        required
+                        pattern="^010-\d{4}-\d{4}$"     
+                        placeholder="전화번호를 입력하세요. ( - 포함)">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>비밀번호</span>
+                    <input type="text">
+                </label>
+            </div>
+            <div>
+                <input type="checkbox" id="option1"> <label for="option1">아이스</label>
+            </div>
+            <div>
+                <!-- <input type="submit" value="전송"> -->
+                <button>전송</button>
+            </div>
+        </form>
+    </section>
+    <div style="height: 200px;"></div>
+    <header>
+        <h1 class="r">Rland</h1>
+        <nav>
+            <div class="d">안녕하세요</div>
+            <h1 class="t">메인메뉴</h1>
+            <ul>
+                <li><a href="" id="a" class="a">저장</a></li>
+                <li><a href="" style="--icon-color:blue;" 
+                    class="border-radius:0 color:main-1 bg-color:accent-1 n-icon n-icon:home n-icon-color md:n-btn n-deco n-btn n-deco-pos:right">홈</a></li>
+                <li><a href="" class="n-icon n-btn n-btn-color:main md:n-deco n-icon:dashboard">대시보드</a></li>
+                <li><a href="" class="n-icon n-icon:sign-in n-icon-size">로그인</a></li>
+                <li><a href="" class="n-icon n-icon:sign-out n-icon-color:main-1">로그아웃</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        main
+    </main>
+    <footer>
+        footer
+    </footer>
+</body>
+</html>
