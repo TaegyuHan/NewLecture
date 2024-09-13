@@ -8,6 +8,8 @@ import com.example.boot3.demo.repository.menu.MenuRepository;
 import com.example.boot3.demo.repository.menu.RcmdMenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public void reg(MenuRegDto menuRegDto) {
         Menu menu = menuRegDto.getMenu();
         List<MenuImage> images = menuRegDto.getImages();
@@ -36,6 +39,7 @@ public class MenuServiceImpl implements MenuService {
             image.setMenuId(menu.getId());
             image.setIsDefault(false);
         }
+
         images.getFirst().setIsDefault(true); // 첫번째 이미지를 대표이미지로 설정
         System.out.println("images = " + images);
         menuImageRepository.saveAll(images);

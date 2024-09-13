@@ -11,10 +11,66 @@
 트랜젝션 처리 4가지
 ACID
 Atomicity, Consistency, Isolation, Durability
+1. 원자성: 깨지면 안되는 단위로 묶어서 처리
+2. 일관성: 트랜젝션 처리 후에도 데이터베이스가 일관된 상태로 유지 > 사용자의 버그일 가능성이 있음
+3. 고립성: 데이터 베이스에 동시에 여러 트랜젝션이 처리되더라도 각 트랜젝션은 다른 트랜젝션의 연산에 영향을 받지 않음
+4. 지속성: 트랜젝션 처리 후에는 데이터베이스가 영구적으로 변경된 상태로 유지
+
 1. 원자성
-2. 일관성
 3. 고립성
-4. 지속성
+을 유지하기가 어렵다.
+
+EJB를 사용하고 있으면 뛰쳐나와라!!!!!!!!!
+
+AOP (Aspect Oriented Programming)
+가즈아!!!!!!!!!!!
+
 
 -----------------------------------
 트랜젝선 설명하려다가 끝남.
+
+-----------------------------------
+기업형 어플리케이션
+
+-----------------------------------
+@Transactional
+propagation: 트랜젝션 전파 규칙
+MANDATORY: 트랜젝션이 있으면 참여, 없으면 예외 발생
+NESTED: 트랜젝션이 있으면 중첩 트랜젝션으로 처리, 없으면 새로운 트랜젝션 시작
+NEVER: 트랜젝션이 있으면 예외 발생
+NOT_SUPPORTED: 트랜젝션을 지원하지 않음
+REQUIRED: 트랜젝션이 있으면 참여, 없으면 새로운 트랜젝션 시작
+SUPPORTS: 트랜젝션이 있으면 참여, 없으면 트랜젝션 없이 실행
+
+트랜젝션 고립도 <신경써야 한다.>
+READ_UNCOMMITTED: 커밋되지 않은 데이터 읽기 허용 < 성능 때문에 존재한다.
+READ_COMMITTED: 커밋된 데이터만 읽기 허용
+REPEATABLE_READ: 반복 읽기 허용 < 내가 읽는 순간 다른 사람이 수정 불가
+SERIALIZABLE: 직렬화 < 가장 높은 고립도
+
+PHENOMENON
+
+
+속성
+1. readOnly: 읽기 전용 트랜젝션
+2. timeout: 트랜젝션 제한 시간
+3. rollbackFor: 트랜젝션 롤백 대상 예외
+4. noRollbackFor: 트랜젝션 롤백 대상이 아닌 예외
+6. isolation: 격리 수준
+7. rollbackForClassName: 트랜젝션 롤백 대상 예외 클래스 이름
+8. noRollbackForClassName: 트랜젝션 롤백 대상이 아닌 예외 클래스 이름
+9. value: 트랜젝션 속성
+
+MVCC (Multi Version Concurrency Control)
+뜻: 다중 버전 동시성 제어
+
+AOP (Aspect Oriented Programming)
+- 로그
+- 보안
+- 트랜젝션
+- 예외 처리
+
+FILTER (필터)
+
+
+
