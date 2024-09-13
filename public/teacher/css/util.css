@@ -15,6 +15,10 @@ CSS 속성들을 그대로 인라인 스타일처럼 class 속성에 적용
     display: flex !important;
 }
 
+.width\:ex{
+    width: 0 !important;
+}
+
 .width\:1{
     width: var(--width-1) !important;
 }
@@ -27,6 +31,10 @@ CSS 속성들을 그대로 인라인 스타일처럼 class 속성에 적용
     width: var(--width-3) !important;
 }
 
-.width\:ex{
-    width: 0 !important;
+.width\:4{
+    width: var(--width-4) !important;
+}
+
+.width\:5{
+    width: var(--width-5) !important;
 }
