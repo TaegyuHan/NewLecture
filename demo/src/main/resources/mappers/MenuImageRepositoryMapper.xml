@@ -10,19 +10,12 @@
         WHERE MENU_ID = #{menuId}
     </select>
 
-    <insert id="saveAll" parameterType="List">
-        INSERT INTO MENU_IMAGE (
-            MENU_ID,
-            SRC,
-            IS_DEFAULT
-        )
-        VALUES
-        <foreach collection="list" item="item" separator=",">
-            (
-                #{item.menuId},
-                #{item.src},
-                #{item.isDefault}
-            )
-        </foreach>
+    <insert id="saveAll" parameterType="java.util.List">
+        INSERT ALL
+            <foreach collection="images" item="img">
+                INTO MENU_IMAGE (SRC, MENU_ID, IS_DEFAULT)
+                VALUES (#{img.src}, #{img.menuId}, #{img.isDefault})
+            </foreach>
+        SELECT * FROM DUAL
     </insert>
 </mapper>

@@ -5,6 +5,7 @@ import com.example.boot3.demo.entity.Menu;
 import com.example.boot3.demo.entity.MenuImage;
 import com.example.boot3.demo.model.MenuDetailModel;
 import com.example.boot3.demo.service.menu.MenuService;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller("adminMenuController")
@@ -47,7 +49,7 @@ public class MenuController {
 
     @PostMapping("reg")
     public String reg(
-            MultipartFile img,
+            List<MultipartFile> images,
             HttpServletRequest request,
             Menu menu,
             @RequestParam("category-id") Long categoryId,
@@ -59,7 +61,7 @@ public class MenuController {
         menu.setEngName(engName);
         menu.setRegMemberId(1L);
 
-        if (img.isEmpty()) { // form 인코딩 방식을 잘 확인해야 한다.
+        if (images.isEmpty()) { // form 인코딩 방식을 잘 확인해야 한다.
             // 설정이 필요하다.
             return "redirect:reg";
         }
@@ -72,28 +74,30 @@ public class MenuController {
             pathFile.mkdirs();
         }
 
-        String fileName = img.getOriginalFilename();
+        List<MenuImage> menuImages = new ArrayList<>();
+        for (MultipartFile img : images) {
+            String fileName = img.getOriginalFilename();
+            String fullPath = Paths.get(path, fileName).toString();
 
-        // 폴더 유효성 검사
+            try {
+                img.transferTo(new File(fullPath));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-        String fullPath = Paths.get(path, fileName).toString();
-
-        try {
-            img.transferTo(new File(fullPath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            menuImages.add(
+                    MenuImage.builder()
+                            .menuId(menu.getId())
+                            .src(fileName)
+                            .build()
+            );
         }
 
-        List<MenuImage> images = List.of(
-                MenuImage.builder()
-                        .menuId(menu.getId())
-                        .src(fileName)
-                        .build()
-        );
+        System.out.println(menuImages);
 
         MenuRegDto menuRegDto = MenuRegDto.builder()
                 .menu(menu)
-                .images(images)
+                .images(menuImages)
                 .build();
 
         service.reg(menuRegDto);

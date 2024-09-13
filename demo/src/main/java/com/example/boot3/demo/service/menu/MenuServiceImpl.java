@@ -30,8 +30,14 @@ public class MenuServiceImpl implements MenuService {
     public void reg(MenuRegDto menuRegDto) {
         Menu menu = menuRegDto.getMenu();
         List<MenuImage> images = menuRegDto.getImages();
-        images.getFirst().setIsDefault(true); // 첫번째 이미지를 대표이미지로 설정
+
         menuRepository.save(menu);
+        for (MenuImage image : images) {
+            image.setMenuId(menu.getId());
+            image.setIsDefault(false);
+        }
+        images.getFirst().setIsDefault(true); // 첫번째 이미지를 대표이미지로 설정
+        System.out.println("images = " + images);
         menuImageRepository.saveAll(images);
     }
 

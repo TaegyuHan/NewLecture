@@ -32,7 +32,8 @@
         WHERE ID = #{id}
     </select>
 
-    <insert id="save" parameterType="Menu">
+    <insert id="save" parameterType="Menu"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
         INSERT INTO MENU (
             KOR_NAME,
             ENG_NAME,
