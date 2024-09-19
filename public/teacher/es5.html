@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        // alert('Hello, JavaScript ES5');
+    </script>
+
+    <script>
+        // 배열
+        var nums = new Array();
+        nums[0] = 10;
+        nums[1] = 20;
+        nums[2] = 30;
+
+        console.log(nums[0]);
+        console.log(nums[1]);
+        console.log(nums);
+        console.log(nums.length);
+
+        console.log(typeof nums[0]); // typeof는 기본 자료형을 확인할 때 사용
+
+        var num = new Array(5, 10, 1, 21, 'hello', 'world', new Array(1, 2, 3));
+        console.log(num.indexOf(6)[1]);
+
+        var nums = new Array();
+        nums.push(10);
+        nums.push(20);
+        console.log(nums);
+
+        var n1 = nums.pop();
+        console.log(n1);
+
+        var nums = new Array(1, 2, 3, 4, 5);
+        nums.push(6);
+        console.log(nums);
+        console.log(nums.shift());
+        console.log(nums.shift());
+        console.log(nums.shift());
+        console.log(nums.shift());
+
+        nums.unshift(1); // 데이터 뒤로 추가
+        nums.unshift(2);
+
+        var nums = new Array(1, 2, 3, 4, 5);
+        nums.splice(2, 0, 10, 20, 30); // 2번째 인덱스에 10, 20, 30 추가
+        console.log(nums);
+
+        // 컴파일러가 없는게 문제이다.
+    </script>
+
+    <script>
+        var exam = new Object();
+        exam.name = '홍길동';
+        exam.age = 20;
+        console.log(exam);
+        console.log(exam.name);
+        console.log(exam['name']);
+        console.log(exam.eng);
+
+        console.log(exam);
+        delete exam.name;
+        console.log(exam);
+        // console.log(exam.name);
+        // js를 모르면 함정에 빠진다.. 그래서 js를 잘 알아야 한다.
+
+        var arr = []; // new Array();
+        var obj = {}; // new Object();
+        var str = ''; // new String();
+        var num = 0; // new Number();
+        var bool = true; // new Boolean();
+        var fun = function() {}; // new Function();
+
+    </script>
+
+    <script>
+
+        var notices = [
+            {id: 1, title: "공지사항입니다.", writerId: 1, regDate: '2021-01-01', hit: 0},
+            {id: 2, title: "다음 공지사항입니다.", writerId: 1, regDate: '2021-01-02', hit: 0},
+            {id: 3, title: "그 다음 공지사항입니다.", writerId: 1, regDate: '2021-01-03', hit: 0},
+        ];
+
+        console.log(notices[0].title);
+
+    </script>
+
+    <script>
+        var code = "var x = 30;";
+        eval(code);
+        console.log(x);
+    </script>
+
+</head>
+<body>
+    <h1>JavaScript ES5</h1>
+</body>
+</html>
