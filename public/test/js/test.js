@@ -1,5 +1,11 @@
 // true, false 판별
 
+function aaa() {
+    console.log('hehe');
+}
+
+aaa();
+
 // 1. true
 console.log("true == true", true == true); // true
 console.log("true == 1", true == 1); // true
@@ -181,7 +187,7 @@ function Hoisting() {
 // 클로저
 function closure() {
     let count = 0;
-    return function() {
+    return function tt() {
         return ++count;
     }
 }
@@ -210,3 +216,109 @@ function counter() {
 // 5. 콜백과 비동기 프로그래밍
 // 6. 유연성과 강력함
 
+// 함수 변수에 저장하여 사용
+var fun1 = function() { console.log(1); }
+var fun2 = function() { console.log(2); }
+var fun3 = function() { console.log(3); }
+
+fun1();
+fun2();
+fun3();
+
+
+// 이렇게 사용하면 클로저 함수 문제가 발생한다.
+var farr = [];
+for (i = 0; i < 3; i++) { // for문의 i를 사용하여
+    farr[i] = function() { console.log(i + 1); }
+}
+for (var j = 0; j < 3; j++) {
+    farr[j](); // 4, 4, 4가 출력된다.
+}
+
+// 배열의 정렬은 모두 String 값으로 변환되어 정렬된다.
+var nums = [2, 4, 3, 3, 3, 3, 12, 3, 14, 5, 17, 7, 8 , 28, 111, 1011];
+nums.sort(function (a, b) {
+    return a - b; // 따라서 숫자 정렬은 이렇게 해야 한다.
+});
+// arrow function
+// nums.sort((a, b) => a - b);
+
+console.log(nums); // 원하는 필터링 기능에는 filter를 사용한다.
+nums = nums.filter(function (value, index) { return index > 3; });
+// arrow function : lambda < 람다를 사용하는 것을 습관화 하는게 좋다.
+// nums = nums.filter((value, index) => index > 3);
+//nums = nums.filter(function (item, index, array) { return array.indexOf(item) === index; });
+
+// 원하는 객체 정렬은 이렇게 한다.
+var points = [
+    {kor: 10, eng: 20},
+    {kor: 11, eng: 21},
+    {kor: 12, eng: 22},
+    {kor: 13, eng: 23},
+    {kor: 14, eng: 24},
+    {kor: 16, eng: 26}
+]
+
+// 정렬 기준
+points.sort(function(a, b) {
+    if (a.kor > b.kor) return 1;
+    if (a.kor < b.kor) return -1;
+    if (a.eng > b.eng) return 1;
+    if (a.eng < b.eng) return -1;
+    return 0;
+});
+
+console.log(points);
+
+{
+    // 함수 선언 방법
+    function print() {
+        console.log('print', this);
+    }
+
+    var pr1 = print(); // 함수 호출 방식
+    var pr2 = new print(); // 생성자 방식
+
+    function Exam() {
+        this.kor = 10;
+        this.eng = 20;
+        this.math = 30;
+
+        this.total = function() {
+            return this.kor + this.eng + this.math;
+        }
+    }
+
+    var exam = new Exam();
+    var ftotal = exam.total;
+
+    console.log(
+        exam.total(), // 생성자 함수의 함수를 호출하여 사용하면 this필드를 사용할 수 있다.
+        ftotal()) // 그러나 함수를 변수에 저장하여 사용하면 this필드를 사용할 수 없다.
+    ; // NaN 문제
+
+    // setTimeout을 사용할 떄는 lambda를 사용하는 것이 좋다.
+    // 클로저 문제를 예방할 수 있다.
+    setTimeout(() => {}, 3000); // 3초 후에 실행
+
+    setTimeout(aaa, 3000); // 3초 후에 실행
+    // 함수를 위임 했다.
+
+    // let, const // 는 상수이다.
+
+    // 2진수, 8진수 추가
+    // 변수 추가 let, const 추가
+    let x = 30;
+    console.log(x);
+    console.log(window.x); // undefined
+
+    // Template String // 문자열을 표현하는 방법
+    // ECMAScript 6에서는 Template String을 사용하여 View의 문자열 더하기 문제를 해결한다.
+    let name = 'Hong';
+    let string = `
+        <div>
+            <h1>${name}</h1>
+            <p>내용</p>
+        </div>
+    `;
+}
