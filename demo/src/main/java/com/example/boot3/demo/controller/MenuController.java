@@ -1,16 +1,20 @@
 package com.example.boot3.demo.controller;
 
+import com.example.boot3.demo.entity.MenuView;
 import com.example.boot3.demo.service.menu.CategoryService;
 import com.example.boot3.demo.service.menu.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller(value = "userTreeBookController")
-@RequestMapping("/menu")
+@RequestMapping
 public class MenuController {
 
     @Autowired
@@ -19,7 +23,16 @@ public class MenuController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/list")
+    @GetMapping("menus")
+    public ResponseEntity<List<MenuView>> api(
+            @RequestParam(value = "c", required = false) Integer categoryId,
+            @RequestParam(value = "q", required = false) String query
+    ) {
+        return ResponseEntity.ok()
+                .body(menuService.getList(categoryId, query));
+    }
+
+    @GetMapping("menu/list")
     public String list(
             @RequestParam(value = "c", required = false) Integer categoryId,
             @RequestParam(value = "q", required = false) String query,

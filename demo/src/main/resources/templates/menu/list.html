@@ -14,7 +14,7 @@
         let categoryList = [];
 
         let category = 3; // ???
-        request.open("GET", `/menu/list?c=${category}`, false);
+        request.open("GET", `/menus?c=${category}`, false);
         request.send(null); // 요청을 보냄
         console.log(request.responseText);
     </script>
