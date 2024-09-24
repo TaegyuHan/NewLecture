@@ -8,6 +8,16 @@
     <title>알랜드 리스트 페이지</title>
     <link href="/css/menu.css" rel="stylesheet" type="text/css">
     <link href="/css/menu/list.css" rel="stylesheet" type="text/css">
+    <script>
+
+        let request = new window.XMLHttpRequest();
+        let categoryList = [];
+
+        let category = 3; // ???
+        request.open("GET", `/menu/list?c=${category}`, false);
+        request.send(null); // 요청을 보냄
+        console.log(request.responseText);
+    </script>
 </head>
 <body>
 

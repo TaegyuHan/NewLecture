@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        {
+            // Array Destructuring
+            let nums = [1, 2, 3];
+            let [x, y, z] = nums; // let x = nums[0]; let y = nums[1]; let z = nums[2]; 의 줄임말
+
+            function sum([x, y, , , z=0, ...rest]) {
+                console.log(x, y);
+                console.log(rest); // 나머지
+                return x + y;
+            }
+            let arrayResult = sum([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+            function print(x, y, ...rest) {
+                console.log(x, y);
+                for (let i = 0; i < rest.length; i++) {
+                    console.log(rest[i]);
+                }
+            }
+
+            print(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            let ar = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            print(...ar);
+
+            // Object Destruction
+            // function add(obj) {
+            //     let {x, y} = obj; // let x = obj.x; let y = obj.y; 의 줄임말
+            //     return x + y;
+            // }
+
+            // 뽀게기
+            function add1({x:z, y, a=0}) { // 이 코드에 익숙해 지자
+                let x = 10;
+                return x + y + z + a;
+            }
+
+            // 객체 뽀게기
+            function add2({pos:{x:z, y}, a=0}) { // 이 코드에 익숙해 지자
+                let x = 10;
+                return x + y + z + a;
+            }
+
+            let result = add1({x: 1, y: 2});
+            result = add1({x: 1, y: 2,});
+            console.log(result);
+            result = add1({x: 1, y: 2, a: 3});
+            console.log(result);
+            result = add2({pos:{x: 1, y: 2}, a: 3});
+        }
+
+        let x = 3;
+        let y = 4;
+        let result = x + y;
+
+        let template = String.raw`
+        <div>\n
+            ${result} = ${x} + ${y}
+        </div>
+        `;
+
+        console.log(template);
+
+        let kor = 10;
+        let eng = 20;
+        let math = 30;
+        let 약속1 = "hehe";
+        let array = ["hehe1", "hehe2", "hehe3"];
+
+        // 객체 생성 방법
+        let exam = {
+            kor,
+            eng,
+            math,
+            total() {
+                return this.kor + this.eng + this.math;
+            },
+            [약속1]: "오케이", // 이거 가능하면 사용하지 말자
+            [array[0]]: "오케이1",
+        };
+        let exam2 = {
+            kor: kor //
+        }
+
+        console.log(exam.hehe1);
+        console.log(exam);
+        console.log(exam.hehe);
+        console.log(exam.total());
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
