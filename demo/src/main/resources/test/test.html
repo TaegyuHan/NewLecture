@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 전파 예시</title>
+    <style>
+        div {
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div id="grandparent">
+    조부모
+    <div id="parent">
+        부모
+        <div id="child">
+            자식
+        </div>
+    </div>
+</div>
+
+<script>
+    function logEvent(event) {
+        console.log(`${event.currentTarget.id}에서 ${event.type} 이벤트 ${event.eventPhase === 1 ? '캡처' : '버블'} 단계`);
+    }
+
+    const elements = document.querySelectorAll('div');
+
+    elements.forEach(element => {
+        element.addEventListener('click', logEvent, true);  // 캡처링 단계
+        element.addEventListener('click', logEvent);        // 버블링 단계
+    });
+</script>
+</body>
+</html>

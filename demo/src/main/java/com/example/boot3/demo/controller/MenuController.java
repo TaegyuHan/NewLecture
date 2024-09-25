@@ -23,15 +23,6 @@ public class MenuController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("menus")
-    public ResponseEntity<List<MenuView>> api(
-            @RequestParam(value = "c", required = false) Integer categoryId,
-            @RequestParam(value = "q", required = false) String query
-    ) {
-        return ResponseEntity.ok()
-                .body(menuService.getList(categoryId, query));
-    }
-
     @GetMapping("menu/list")
     public String list(
             @RequestParam(value = "c", required = false) Integer categoryId,

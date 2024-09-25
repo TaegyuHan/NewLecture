@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 전파 중단 예시</title>
+    <style>
+        div {
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    외부 div
+    <div id="middle">
+        중간 div
+        <div id="inner1">내부 div 1 (stopPropagation)</div>
+        <div id="inner2">내부 div 2 (stopImmediatePropagation)</div>
+    </div>
+</div>
+
+<script>
+    function logEvent(event) {
+        console.log(`${event.currentTarget.id}에서 이벤트 발생 이벤트 ${event.eventPhase === 1 ? '캡처' : '버블'} 단계`);
+    }
+
+    document.getElementById('outer').addEventListener('click', logEvent, true);
+    document.getElementById('middle').addEventListener('click', logEvent, true);
+
+    document.getElementById('outer').addEventListener('click', logEvent);
+    document.getElementById('middle').addEventListener('click', logEvent);
+
+    document.getElementById('inner1').addEventListener('click', function(event) {
+        console.log('내부 div 1의 첫 번째 핸들러');
+        event.stopPropagation();
+    });
+
+    document.getElementById('inner1').addEventListener('click', function(event) {
+        console.log('내부 div 1의 두 번째 핸들러');
+    });
+
+    document.getElementById('inner2').addEventListener('click', function(event) {
+        console.log('내부 div 2의 첫 번째 핸들러');
+        event.stopImmediatePropagation();
+    });
+
+    document.getElementById('inner2').addEventListener('click', function(event) {
+        console.log('내부 div 2의 두 번째 핸들러 (실행되지 않음)');
+    });
+</script>
+</body>
+</html>
