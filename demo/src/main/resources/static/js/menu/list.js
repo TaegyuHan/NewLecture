@@ -45,29 +45,38 @@ ul.onclick = function (e) {
     request.open("GET", `/api/menus?c=${id}`, false);
     request.send(null); // 요청을 보냄
 
-    // console.log(request.responseText);
     menuLIst.innerHTML = "";
+    menuLIst.textContent = ""; // 이렇게 해도 된다.
 
-    let template = `
-        <section class="menu">
-            <div>
-                <a href="detail.html">
-                    <img src="/image/map.png" alt="사과포도딸기샌드위치">
-                </a>
-            </div>
-            <h1>사과포도딸기샌드위치</h1>
-            <h2>aaaaa</h2>
-            <div>3,000원</div>
-            <div>
-                <a href="" class="icon icon-heart">좋아요</a>
-                <span>1</span>
-            </div>
-            <div>
-                <a href="" class="icon icon-plus icon-lg">추가</a>
-                <a href="" class="icon icon-cart icon-lg">장바구니</a>
-            </div>
-        </section>
-    `;
+    var menus = JSON.parse(request.responseText);
+
+    menus.forEach((menu) => { // 현재 가장 많이 사용하는 방법이다. React.에서 많이 사용한다. - 박용우 강사님 의견
+        let template = `
+            <section class="menu">
+                <div>
+                    <a href="detail.html">
+                        <img src="/image/map.png" alt="${menu.korName}">
+                    </a>
+                </div>
+                <h1>${menu.korName}</h1>
+                <h2>${menu.engName}</h2>
+                <div>${menu.price}원</div>
+                <div>
+                    <a href="" class="icon icon-heart">좋아요</a>
+                    <span>1</span>
+                </div>
+                <div>
+                    <a href="" class="icon icon-plus icon-lg">추가</a>
+                    <a href="" class="icon icon-cart icon-lg">장바구니</a>
+                </div>
+            </section>
+        `;
+
+        // 누적 연산이 들어가 사용하지 않는다.
+        // menuLIst.innerHTML += template;
+        menuLIst.insertAdjacentHTML("beforeend", template); // 이렇게 사용한다.
+
+    });
 
     e.preventDefault();
 };
