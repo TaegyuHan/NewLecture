@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // ES5 객체지향
+        function Exam() {
+            this.kor = 30;
+            this.eng = 40;
+        }
+
+        // Exam.prototype = {
+        //     kor:100,
+        //     total() {
+        //         return this.kor + this.eng;
+        //     }
+        // }
+
+        Exam.prototype.total = function() {
+            return this.kor + this.eng;
+        }
+
+        Exam.prototype.aa = 30;
+        Array.prototype.aa = "hehe";
+
+        let exam = new Exam();
+        console.log(exam);
+        let exam1 = new Exam();
+
+        console.log(exam.kor);
+        console.log(exam.aa);
+        console.log(exam.total());
+
+        console.log(exam1.aa);
+        console.log(exam.aa === exam1.aa);
+        console.log(exam.kor, Object.hasOwn(exam, 'kor'), Object.hasOwn(exam, 'eng'));
+        console.log(exam.constructor.prototype); // 깊게 이해해보기
+
+        let ar = [];
+        console.log(ar.aa);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

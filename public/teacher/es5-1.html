@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        {
+
+            function print() {
+            }
+
+            function Exam() {
+                this.kor = 30;
+                this.eng = 40;
+                this.total = function(a, b) {
+                    return this.kor + this.eng + a + b;
+                }
+            }
+
+            print();
+            let exam = new Exam();
+            console.log(exam.total());
+            let aa = exam.total; // aa는 함수
+            console.log(typeof aa); // function
+
+            console.log(aa());
+            console.log(aa.call(exam, 1, 2));
+            console.log(aa.apply(exam, [1, 2]));
+
+            let bb = exam.total.bind(exam);
+            console.log(bb(1, 2));
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
