@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        // ES5 객체지향
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        // ES6 객체지향
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+        }
+
+        // prototype에 메서드 추가
+        Person.prototype.sayHello = function() {
+            console.log(`안녕하세요, 제 이름은 ${this.name}이고 ${this.age}살입니다.`);
+        };
+
+        // 객체 생성
+        const person1 = new Person("Alice", 25);
+        const person2 = new Person("Bob", 30);
+
+        // 메서드 호출
+        person1.sayHello();
+        person2.sayHello();
+
+        // prototype을 통한 동적 기능 확장
+        Person.prototype.getAge = function() {
+            return this.age;
+        };
+
+        console.log(Person);
+        console.log(typeof Person);
+        console.log(Person.prototype);
+        // console.log(new Person("Alice", 25).sayHello());
+
+        console.log(person1.getAge()); // 출력: 25
+        console.log(person2.getAge()); // 출력: 30
+
+        // 프로토타입 체인 확인
+        console.log(person1.__proto__ === Person.prototype); // true
+        console.log(Person.prototype.constructor === Person); // true
+
+        class p1 extends Person {
+        }
+        console.log(new p1.prototype.constructor("Alice", 25));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

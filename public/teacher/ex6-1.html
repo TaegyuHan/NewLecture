@@ -4,41 +4,97 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
-        // ES5 객체지향
-        function Exam() {
-            this.kor = 30;
-            this.eng = 40;
+        // class
+        {
+            class Exam {
+
+                // 자바스크립트는 미리 정의한게 없다.
+                // 오해하지 말자.
+                #kor = 30; // private 변수
+                // 이걸 사용하는 사람은 그렇게 많지 않다.
+
+                constructor() {
+                    // 객체가 생성되면서 붙여지는 것이다.
+                    this.#kor = 30;
+                    this.eng = 40;
+                }
+
+                total() {
+                    return this.kor + this.eng;
+                }
+
+                get kor() {
+                    return this.#kor;
+                }
+
+                set kor(kor) {
+                    this.#kor = kor;
+                }
+            }
+
+            console.log('class type', typeof Exam, Exam.prototype);
+            let exam = new Exam();
+            console.log(exam.kor, exam.eng, exam.total());
+            exam.kor = 100;
+            console.log(exam.kor);
+
+            class NewExam extends Exam {
+                constructor() {
+                    super();
+                    this.math = 50;
+                }
+            }
+
+            let newExam = new NewExam();
+
+            console.log('new', newExam.kor, NewExam.prototype);
+            console.log('test', new NewExam.prototype.constructor());
+
         }
 
+        // // ES5 객체지향
+        // function Exam() {
+        //     var a = 20; // 과거의 private 변수 사용하는 방법
+        //     // 이것은 생성자 함수에 의한 변수들이다.
+        //     this.kor = 30; // 외부에서 접근 가능한 변수
+        //     this.eng = 40;
+        //     // 객체의 맴버 변수가 아니다.
+        //     this.total = function() {
+        //         return this.kor + this.eng + a;
+        //     }
+        // }
+        //
         // Exam.prototype = {
+        //     constructor: Exam,
         //     kor:100,
         //     total() {
         //         return this.kor + this.eng;
         //     }
         // }
-
-        Exam.prototype.total = function() {
-            return this.kor + this.eng;
-        }
-
-        Exam.prototype.aa = 30;
-        Array.prototype.aa = "hehe";
-
-        let exam = new Exam();
-        console.log(exam);
-        let exam1 = new Exam();
-
-        console.log(exam.kor);
-        console.log(exam.aa);
-        console.log(exam.total());
-
-        console.log(exam1.aa);
-        console.log(exam.aa === exam1.aa);
-        console.log(exam.kor, Object.hasOwn(exam, 'kor'), Object.hasOwn(exam, 'eng'));
-        console.log(exam.constructor.prototype); // 깊게 이해해보기
-
-        let ar = [];
-        console.log(ar.aa);
+        //
+        // Exam.prototype.total = function() {
+        //     return this.kor + this.eng;
+        // }
+        //
+        // Exam.prototype.aa = 30;
+        // Array.prototype.aa = "hehe";
+        //
+        // let exam = new Exam();
+        // console.log(exam);
+        // let exam1 = new Exam();
+        //
+        // console.log(exam.kor);
+        // console.log(exam.aa);
+        // console.log(exam.total());
+        //
+        // console.log(exam1.aa);
+        // console.log(exam.aa === exam1.aa);
+        // console.log(exam.kor, Object.hasOwn(exam, 'kor'), Object.hasOwn(exam, 'eng'));
+        // console.log(exam.constructor.prototype); // 깊게 이해해보기
+        //
+        //
+        // let ar = [];
+        // console.log(ar.aa);
 
     </script>
 </head>
