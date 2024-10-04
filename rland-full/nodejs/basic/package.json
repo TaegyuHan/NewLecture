@@ -1,4 +1,6 @@
 {
+  "type": "module",
+
   "dependencies": {
     "install": "^0.13.0",
     "newlec-hello": "^0.0.2"
