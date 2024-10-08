@@ -7,7 +7,7 @@
     <header class="n-aside-menu">
       <h1 class="d:none"><a href="">관리자 메뉴</a></h1>
       <ul>
-        <li class=""><a class="n-icon n-icon:dashboard n-deco n-deco-pos:top lg:n-deco-pos:left" href="/admin/index">대시보드</a></li>
+        <li class=""><RouterLink class="n-icon n-icon:dashboard n-deco n-deco-pos:top lg:n-deco-pos:left" href="/admin/index" to="/admin/index">대시보드</RouterLink></li>
       </ul>
     </header>
     <nav class="n-aside-menu">
