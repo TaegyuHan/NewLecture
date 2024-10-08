@@ -1,3 +1,5 @@
 <template>
-  Admin Menu List Page
+  <main>
+
+  </main>
 </template>

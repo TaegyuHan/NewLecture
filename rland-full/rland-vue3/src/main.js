@@ -14,12 +14,10 @@ import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 
 import Default from "@/layouts/Default.vue";
-import Index from '@/pages/Index.vue'
 import MenuList from '@/pages/menu/list.vue'
 import MenuDetail from '@/pages/menu/detail.vue'
 
 import Admin from "@/layouts/Admin.vue";
-import AdminIndex from "@/pages/admin/AdminIndex.vue";
 import AdminMenuList from "@/pages/admin/menu/AdminMenuList.vue";
 
 const router = createRouter({
@@ -28,7 +26,6 @@ const router = createRouter({
         {
             path: '/',
             children: [
-                { path: 'index', component: Index },
                 { path: 'menu/list', component: MenuList },
                 { path: 'menu/detail', component: MenuDetail }
             ],
@@ -37,7 +34,6 @@ const router = createRouter({
         {
             path: '/admin',
             children: [
-                { path: 'index', component: AdminIndex },
                 { path: 'menu/list', component: AdminMenuList }
             ],
             component: Admin
