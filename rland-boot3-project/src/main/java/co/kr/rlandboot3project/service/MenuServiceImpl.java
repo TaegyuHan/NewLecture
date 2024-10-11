@@ -32,11 +32,6 @@ public class MenuServiceImpl implements MenuService {
         Menu findMenu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 없습니다. id=" + menuId));
 
-        findMenu.setKorName(menu.getKorName());
-        findMenu.setEngName(menu.getEngName());
-        findMenu.setPrice(menu.getPrice());
-        findMenu.setCategoryId(menu.getCategoryId());
-
         return menuRepository.save(findMenu);
     }
 

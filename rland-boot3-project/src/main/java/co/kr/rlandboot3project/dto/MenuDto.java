@@ -24,25 +24,5 @@ public class MenuDto {
 
     private String defaultImage;
 
-    public static MenuDto of(Menu menu) {
-        return MenuDto.builder()
-                .id(menu.getId())
-                .korName(menu.getKorName())
-                .engName(menu.getEngName())
-                .price(menu.getPrice())
-                .categoryId(menu.getCategoryId())
-                .regMemberId(menu.getRegMemberId())
-                .regDate(menu.getRegDate())
-                .build();
-    }
 
-    public Menu toMenu() {
-        return Menu.builder()
-                .korName(korName)
-                .engName(engName)
-                .price(price)
-                .categoryId(categoryId)
-                .regDate(LocalDateTime.now())
-                .build();
-    }
 }

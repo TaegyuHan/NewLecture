@@ -17,12 +17,5 @@ public class MenuImageDto {
     private Long menu_id;
     private Boolean is_default;
 
-    public MenuImage toMenuImage() {
-        return MenuImage.builder()
-                .src(src)
-                .menu_id(menu_id)
-                .is_default(is_default)
-                .build();
 
-    }
 }
