@@ -20,6 +20,37 @@ class MenuRepositoryTest {
     private MenuRepository menuRepository;
 
     @Test
+    void queryTest() {
+        Sort sort = Sort.by(Sort.Order.asc("korName"));
+        Pageable pageable = PageRequest.of(0, 10, sort);
+        Page<Menu> menus = menuRepository.findByKorName("아메리카노", pageable);
+        for (Menu menu : menus.getContent()) {
+            System.out.println(menu);
+        }
+
+        List<Menu> menus1 = menuRepository.findByKorNameContaining("아메리카노", pageable);
+        for (Menu menu : menus1) {
+            System.out.println(menu);
+        }
+
+        List<Menu> menus2 = menuRepository.findByKorNameLike("아메리카노", pageable);
+        for (Menu menu : menus2) {
+            System.out.println(menu);
+        }
+    }
+
+    @Test
+    void streamTest() {
+        List <Menu> menus = menuRepository.findAll().stream()
+                .filter(menu -> 5_000 <= menu.getPrice())
+                .toList();
+
+        for (Menu menu : menus) {
+            System.out.println(menu);
+        }
+    }
+
+    @Test
     void findByOrderByRegDate() {
         List<Menu> menus = menuRepository.findByOrderByRegDate();
         for (Menu menu : menus) {
