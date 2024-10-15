@@ -1,5 +1,6 @@
 package co.kr.rlandboot3project.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,6 +10,7 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,6 +41,9 @@ public class Menu {
 
     private Long categoryId;
     private Long regMemberId;
+
+    @OneToMany(mappedBy = "menu")
+    private List<MenuImage> images;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "category_id")

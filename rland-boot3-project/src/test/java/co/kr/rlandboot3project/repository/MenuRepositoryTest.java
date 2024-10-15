@@ -9,6 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -20,23 +24,68 @@ class MenuRepositoryTest {
     private MenuRepository menuRepository;
 
     @Test
+    void joinTest() {
+        List<Menu> menus = menuRepository.findAllWithDefaultImage("아메리카노", List.of(1L, 2L), PageRequest.of(0, 10));
+    }
+
+    @Test
     void queryTest() {
         Sort sort = Sort.by(Sort.Order.asc("korName"));
         Pageable pageable = PageRequest.of(0, 10, sort);
         Page<Menu> menus = menuRepository.findByKorName("아메리카노", pageable);
-        for (Menu menu : menus.getContent()) {
-            System.out.println(menu);
-        }
+//        for (Menu menu : menus.getContent()) {
+//            System.out.println(menu);
+//        }
 
-        List<Menu> menus1 = menuRepository.findByKorNameContaining("아메리카노", pageable);
-        for (Menu menu : menus1) {
-            System.out.println(menu);
-        }
+        // 이 연산이 %아메리카노%와 같은 연산이다.
+//        List<Menu> menus1 = menuRepository.findByKorNameContaining("아메리카노", pageable);
+//        for (Menu menu : menus1) {
+//            System.out.println(menu);
+//        }
 
-        List<Menu> menus2 = menuRepository.findByKorNameLike("아메리카노", pageable);
-        for (Menu menu : menus2) {
-            System.out.println(menu);
-        }
+        // 이 연산이 아메리카노와 같은 연산이다.
+//        List<Menu> menus2 = menuRepository.findByKorNameLike("아메리카노", pageable);
+//        for (Menu menu : menus2) {
+//            System.out.println(menu);
+//        }
+
+//        List<Long> categoryIds = List.of(1L, 2L);
+//        Page<Menu> menus3 = menuRepository
+//                .findAllByKorNameContainingAndPriceGreaterThanEqualAndCategoryIdIn(
+//                        "아",
+//                        5_000,
+//                        categoryIds,
+//                        pageable
+//                );
+//        for (Menu menu : menus3.getContent()) {
+//            System.out.println(menu);
+//        }
+
+//        List<Long> categoryIds = List.of(1L, 2L, 3L);
+//        Instant startTime = Instant.now()
+//                .minus(1, ChronoUnit.MONTHS)
+//                .atZone(ZoneId.systemDefault())
+//                .toInstant();
+//
+//        Instant endTime = Instant.now();
+//        Page<Menu> menus4 = menuRepository.findByRegDateBetween(
+//                startTime,
+//                endTime,
+//                pageable
+//        );
+
+//        for (Menu menu : menus4.getContent()) {
+//            System.out.println(menu);
+//        }
+
+
+        List<Menu> menus5 = menuRepository.findMenuByKorNameAndPriceAndCategoryId(
+                "아메리카노",
+                5_000,
+                List.of(1L, 2L),
+                pageable
+        );
+
     }
 
     @Test

@@ -38,3 +38,4 @@ INSERT INTO rcmd_menu (id, menu_id, rcmd_menu_id, member_id) VALUES (2, 1, 3, 1)
 INSERT INTO rcmd_menu (id, menu_id, rcmd_menu_id, member_id) VALUES (3, 2, 3, 1);
 INSERT INTO rcmd_menu (id, menu_id, rcmd_menu_id, member_id) VALUES (4, 1, 4, 1);
 INSERT INTO rcmd_menu (id, menu_id, rcmd_menu_id, member_id) VALUES (5, 3, 4, 1);
+
