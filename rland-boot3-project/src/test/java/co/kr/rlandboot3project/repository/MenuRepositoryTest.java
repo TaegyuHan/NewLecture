@@ -9,10 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -25,7 +21,15 @@ class MenuRepositoryTest {
 
     @Test
     void joinTest() {
-        List<Menu> menus = menuRepository.findAllWithDefaultImage("아메리카노", List.of(1L, 2L), PageRequest.of(0, 10));
+        Pageable pageable = PageRequest.of(0, 10);
+        List<Long> cids = List.of(1L, 2L);
+
+        // List<Menu> menus = menuRepository.findByKorNameContainingAndCategoryIdIn(null, cids, pageable);
+        List<Menu> menus = menuRepository.findByQuery(null, null, pageable);
+
+        for (Menu menu : menus) {
+            System.out.println("menu = " + menu);
+        }
     }
 
     @Test

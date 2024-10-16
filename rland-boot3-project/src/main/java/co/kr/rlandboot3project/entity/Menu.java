@@ -1,20 +1,15 @@
 package co.kr.rlandboot3project.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "menu")
 public class Menu {

@@ -25,7 +25,7 @@ public class MenuImage {
     @Column(name = "src")
     private String src;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
     private Menu menu;
 }
