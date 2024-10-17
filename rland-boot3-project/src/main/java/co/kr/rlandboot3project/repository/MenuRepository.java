@@ -24,9 +24,15 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     @Query("""
         FROM Menu
         WHERE (:korName IS NULL OR korName LIKE concat('%', :korName, '%'))
-        AND (:categoryIds IS NULL OR categoryId IN :categoryIds)
+            AND (:categoryIds IS NULL OR categoryId IN :categoryIds)
     """)
     Page<Menu> findAll(String korName, List<Long> categoryIds, Pageable pageable);
+
+    // 목록 < 요것만 커스텀하게 만든다.
+    // 단일 객체
+    // 삽입
+    // 삭제
+    // 수정
 
     // 사용자가 입력한 값이 korName과 같은 Menu 목록만 출력 (단 1페이지, regDate 내림차순)
     // Page<Menu> findByKorName(String korName, Pageable pageable);

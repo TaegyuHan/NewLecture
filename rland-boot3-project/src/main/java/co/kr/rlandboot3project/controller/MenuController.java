@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/menus")
+@RequestMapping("menus")
 @RequiredArgsConstructor
 public class MenuController {
 
@@ -27,11 +27,10 @@ public class MenuController {
         return menuRepository.findAll();
     }
 
-    @GetMapping("{id}")
+    // GET api/v1/menus/1
+    @GetMapping("{menuId}")
     public ResponseEntity<MenuDto> get(
-            @PathVariable("id") Long id) {
-
-        System.out.println(id);
+            @PathVariable("menuId") Long menuId) {
         MenuDto menuDto = MenuDto.builder().korName("맛난 커피").build();
         return new ResponseEntity<>(menuDto, HttpStatus.OK);
     }

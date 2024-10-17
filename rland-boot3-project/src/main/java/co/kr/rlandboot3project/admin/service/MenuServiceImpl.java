@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,5 +41,56 @@ public class MenuServiceImpl implements MenuService {
                 .menus(menuDtoList)
                 .totalCount(totalCount)
                 .build();
+    }
+
+    @Override
+    public MenuDto getById(Long id) {
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 없습니다. id=" + id));
+
+        return MenuMapper.mapToDto(menu);
+    }
+
+    // POST: api/v1/admin/menus
+    @Override
+    public MenuDto create(MenuDto menuDto) {
+        Menu menu = MenuMapper.mapToEntity(menuDto);
+        Menu savedMenu = menuRepository.save(menu);
+
+        return menuRepository.findById(savedMenu.getId())
+                .map(MenuMapper::mapToDto)
+                .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 없습니다. id=" + savedMenu.getId()));
+    }
+
+    // PUT: api/v1/admin/menus/{menusId}
+    // isolation level
+    // 1. READ_UNCOMMITTED - dirty read
+    // 2. READ_COMMITTED - non-repeatable read
+    // 3. REPEATABLE_READ - phantom read < 기본 설정
+    // 4. SERIALIZABLE - all
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public MenuDto update(MenuDto menuDto, Long menuId) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 없습니다. id=" + menuId));
+
+        if (menuDto.getKorName() != null) {
+            menu.setKorName(menuDto.getKorName());
+        }
+        if (menuDto.getEngName() != null) {
+            menu.setEngName(menuDto.getEngName());
+        }
+
+        if (menuDto.getPrice() != null) {
+            menu.setPrice(menuDto.getPrice());
+        }
+
+        Menu savedMenu = menuRepository.save(menu);
+        return MenuMapper.mapToDto(savedMenu);
+    }
+
+    @Override
+    public void delete(Long id) {
+
     }
 }
