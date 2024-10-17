@@ -22,6 +22,7 @@ public class MenuMapper {
                 .regDate(menu.getRegDate())
                 .categoryId(menu.getCategoryId())
                 .regMemberId(menu.getRegMemberId())
+                .images(menu.getImages())
                 .build();
     }
 
@@ -36,4 +37,20 @@ public class MenuMapper {
                 .build();
     }
 
+    public static Menu mapToEntity(MenuDto menuDto) {
+        if (menuDto == null) {
+            return null;
+        }
+
+        return Menu.builder()
+                .id(menuDto.getId())
+                .korName(menuDto.getKorName())
+                .engName(menuDto.getEngName())
+                .price(menuDto.getPrice())
+                .regDate(menuDto.getRegDate())
+                .categoryId(menuDto.getCategoryId())
+                .regMemberId(menuDto.getRegMemberId())
+                .images(menuDto.getImages())
+                .build();
+    }
 }

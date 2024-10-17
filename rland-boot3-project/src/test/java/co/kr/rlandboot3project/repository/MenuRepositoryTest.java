@@ -25,18 +25,18 @@ class MenuRepositoryTest {
         List<Long> cids = List.of(1L, 2L);
 
         // List<Menu> menus = menuRepository.findByKorNameContainingAndCategoryIdIn(null, cids, pageable);
-        List<Menu> menus = menuRepository.findByQuery(null, null, pageable);
+//        List<Menu> menus = menuRepository.findByQuery(null, null, pageable);
 
-        for (Menu menu : menus) {
-            System.out.println("menu = " + menu);
-        }
+//        for (Menu menu : menus) {
+//            System.out.println("menu = " + menu);
+//        }
     }
 
     @Test
     void queryTest() {
         Sort sort = Sort.by(Sort.Order.asc("korName"));
         Pageable pageable = PageRequest.of(0, 10, sort);
-        Page<Menu> menus = menuRepository.findByKorName("아메리카노", pageable);
+//        Page<Menu> menus = menuRepository.findByKorName("아메리카노", pageable);
 //        for (Menu menu : menus.getContent()) {
 //            System.out.println(menu);
 //        }

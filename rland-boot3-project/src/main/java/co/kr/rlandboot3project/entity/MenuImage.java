@@ -1,5 +1,6 @@
 package co.kr.rlandboot3project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -27,5 +28,6 @@ public class MenuImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
+    @JsonBackReference // 다시 뒤로 참조하지 않도록 한다.
     private Menu menu;
 }
