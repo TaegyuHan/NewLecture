@@ -1,3 +1,109 @@
+<script setup>
+// 컴포지션 API는 자유도가 높다.
+
+import {onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref} from "vue";
+
+// 뷰의 라이프 사이클을 이해하는 것이 중요하다.
+
+// 문제 1: 어떤 API를 사용할 것인가?
+// 박용우 강사님 : 내장 fetch api를 사용한다.
+// 박용우 강사님 : 외장 axios를 사용하지 않는다. < fetch에서 모든것을 해결할 수 있으니 axios를 사용하지 않는다.
+
+// 문제 2: 그걸 어떤 블록에서 호출해야 하는가?
+const list = reactive([
+  { korName: "아메리카노" },
+  { korName: "카페라떼" },
+  { korName: "아이스티" }
+]);
+
+// 모든 변수를 reactive로 처리할 필요는 없다.
+// 화면에 적용해야할 값만 reactive로 처리하면 된다.
+let count = ref(0); // 단위값 처리
+// 바인딩 된 값이 변경되면 화면이 자동으로 갱신된다.
+let info = reactive({ // 객체 처리
+  name: '아메리카노',
+  price: 1000
+});
+
+// -------------- Life Cycle functions ---------------------
+onBeforeMount(() => {
+  console.log('onBeforeMount');
+});
+
+onMounted(() => {
+  console.log('onMounted');
+});
+
+onBeforeUpdate(() => {
+  console.log('onBeforeUpdate');
+});
+
+onUpdated(() => {
+  console.log('onUpdated');
+});
+
+// -------------- callback functions ---------------------
+// this의 지역화 문제로 이 방법을 사용한다.
+const addButtonClickHandler = (e) => {
+  list.push({ korName: "아샷추" });
+
+  // 1. DOM 처리 방법 : 화면(문서)를 직접 처리하는 방법
+
+  // 2. MVC 처리 방법 : 모델(문서에 바인된 객체)을 처리하는 방법
+
+
+  // // 화면을 직접 제어 하는 방법을 사용하지 말자.
+  //
+  // let trTemplate = `
+  //     <tbody>
+  //         <tr>
+  //             <td>1</td>
+  //         </tr>
+  //         <tr>
+  //             <td>2</td>
+  //         </tr>
+  //     </tbody>
+  // `;
+  //
+  // const table = document.querySelector('table');
+  // table.insertAdjacentHTML('beforeend', trTemplate);
+}
+
+const delButtonClickHandler = (e) => {
+  console.log('delButtonClickHandler');
+  list.pop();
+}
+</script>
+
+
+<!--<script>-->
+<!--// options api-->
+
+<!--export default {-->
+<!--  setup() {-->
+<!--    // 여기는 컴포지션 api 사용 가능 장소-->
+<!--  },-->
+<!--  data() {-->
+<!--    return {-->
+<!--      menus: [],-->
+<!--      categories: []-->
+<!--    }-->
+<!--  },-->
+<!--  methods: {-->
+<!--    addButtonClickHandler() {-->
+<!--      this.$router.push('/admin/menu/reg')-->
+<!--    },-->
+<!--    delButtonClickHandler() {-->
+<!--      console.log('delButtonClickHandler')-->
+<!--    }-->
+<!--  }-->
+<!--}-->
+<!--// composition api-->
+<!--// setup api-->
+<!--</script>-->
+
+
+
 <template>
     <main>
         <section class="">
@@ -48,10 +154,11 @@
                 <header>
                     <h1 class="d:none2"><span class="n-icon n-icon:view_list n-deco n-deco-gap:2">메뉴목록</span></h1>
                     <div>
-                        <span class="ml:1 n-heading:6">(2)</span>
+                        <span class="ml:1 n-heading:6">{{ count }}</span>
+                        <button class="n-btn ml:3" @click="addButtonClickHandler">추가</button>
+                        <button class="n-btn ml:3" @click="delButtonClickHandler">삭제</button>
                     </div>
                 </header>
-
 
                 <table class="n-table n-table:expandable">
                     <thead>
@@ -63,12 +170,14 @@
                             <th class="w:3">비고</th>
                         </tr>
                     </thead>
-                    <tbody th:each="m : ${menus}">
+
+                    <!-- tbody는 여러번 나와도 상관 없다. row를 묶을 때 사용한다. -->
+                    <tbody v-for="m in list">
                         <tr class="vertical-align:middle">
                             <td th:text="${m.id}">2</td>
                             <td class="w:0 md:w:4 overflow:hidden"><img class="w:100p h:0 md:h:3 object-fit:cover" src="/image/product/americano.svg" th:src="@{/image/product/{img}(img=${m.img})}"></td>
-                            <td class="text-align:start n-heading-truncate text-indent:4 text-align:cetner">
-                                <a href="detail" th:href="@{detail(id=${m.id})}" th:text="${m.korName}">카페라떼</a>
+                            <td class="text-align:st art n-heading-truncate text-indent:4 text-align:cetner">
+                                <a href="detail" th:href="@{detail(id=${m.id})}">{{ m.korName }}</a>
                             </td>
                             <td class="w:0 md:w:2 n-heading-truncate">
                                 <label>

@@ -18,9 +18,9 @@ import MenuList from '@/pages/menu/list.vue'
 import MenuDetail from '@/pages/menu/detail.vue'
 
 import Admin from "@/layouts/Admin.vue";
-import AdminMenuList from "@/pages/admin/menu/AdminMenuList.vue";
 import Index from "@/pages/Index.vue";
 import AdminIndex from "@/pages/admin/AdminIndex.vue";
+import List from "@/pages/admin/menu/List.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -39,7 +39,7 @@ const router = createRouter({
             path: '/admin',
             children: [
                 { path: 'index', component: AdminIndex },
-                { path: 'menu/list', component: AdminMenuList }
+                { path: 'menu/list', component: List }
             ],
             component: Admin
         }
