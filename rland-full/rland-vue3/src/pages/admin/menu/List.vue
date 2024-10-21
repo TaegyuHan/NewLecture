@@ -2,6 +2,7 @@
 // 컴포지션 API는 자유도가 높다.
 
 import {onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref} from "vue";
+import axios from "axios";
 
 // 뷰의 라이프 사이클을 이해하는 것이 중요하다.
 
@@ -10,12 +11,9 @@ import {onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref} from
 // 박용우 강사님 : 외장 axios를 사용하지 않는다. < fetch에서 모든것을 해결할 수 있으니 axios를 사용하지 않는다.
 
 // 문제 2: 그걸 어떤 블록에서 호출해야 하는가?
-const list = reactive([
-  { korName: "아메리카노" },
-  { korName: "카페라떼" },
-  { korName: "아이스티" }
-]);
+// const list = reactive([]);
 
+// -------------- model ---------------------
 // 모든 변수를 reactive로 처리할 필요는 없다.
 // 화면에 적용해야할 값만 reactive로 처리하면 된다.
 let count = ref(0); // 단위값 처리
@@ -25,6 +23,31 @@ let info = reactive({ // 객체 처리
   price: 1000
 });
 
+const menus = ref([]); // 배열 처리
+const totalCount = ref(0);
+const totalPage = ref(0);
+const hasNextPage = ref(false);
+const hasPrevPage = ref(false);
+
+// 쿼리 스트링 처리 확인
+
+const query = ref({
+  k: '아메리카노',
+  c: 1
+}); // 검색어 처리
+
+const pageNumbers = ref([1, 2, 3, 4, 5]);
+
+// let model = reactive({ // 둘중에 하나만 사용하면 된다.
+//   totalCount: 0,
+//   menus: []
+// });
+
+// -------------- Data Functions ---------------------------
+const queryString = () => { // 우리가 알고 있는 일반적인 함수
+  return `?k=${query.value.k}&c=${query.value.c}`;
+};
+
 // -------------- Life Cycle functions ---------------------
 onBeforeMount(() => {
   console.log('onBeforeMount');
@@ -32,6 +55,9 @@ onBeforeMount(() => {
 
 onMounted(() => {
   console.log('onMounted');
+  // fetchMenusWithAxios(); // 데이터를 가져오는 작업은 onMounted에서 처리한다.
+  fetchMenus();
+  // 화면을 띄우고 데이터를 처리하는 작업을 하는 것이 바람직 하다.
 });
 
 onBeforeUpdate(() => {
@@ -42,6 +68,31 @@ onUpdated(() => {
   console.log('onUpdated');
 });
 
+// ----------------------------------------------------------
+// fetch api를 사용하는 방법
+const fetchMenus = async () => { // as
+  const response = await fetch(`http://localhost:8080/api/v1/admin/menus${queryString()}`);
+  const data = await response.json();
+  totalCount.value = data.totalCount;
+  totalPage.value = data.totalPage;
+  hasNextPage.value = data.hasNextPage;
+  hasPrevPage.value = data.hasPrevPage;
+  menus.value = data.menus;
+
+  console.log(data.totalCount);
+  console.log(data.totalPage);
+  console.log(data.hasNextPage);
+  console.log(data.hasPrevPage);
+  console.log(data.menus);
+}
+
+// axios를 사용하는 방법
+const fetchMenusWithAxios = async () => {
+  const response = await axios.get("http://localhost:8080/api/v1/admin/menus");
+  totalCount.value = response.data.totalCount;
+  menus.value = response.data.menus;
+}
+0
 // -------------- callback functions ---------------------
 // this의 지역화 문제로 이 방법을 사용한다.
 const addButtonClickHandler = (e) => {
@@ -71,8 +122,13 @@ const addButtonClickHandler = (e) => {
 
 const delButtonClickHandler = (e) => {
   console.log('delButtonClickHandler');
-  list.pop();
+  menus.value.pop();
 }
+
+const searchButtonClickHandler = (e) => {
+  fetchMenus();
+}
+
 </script>
 
 
@@ -128,7 +184,7 @@ const delButtonClickHandler = (e) => {
                     <div>
                         <label>
                             <span>한글명</span>
-                            <input type="text" name="q" th:value="${param.q}">
+                            <input type="text" name="q" v-model="query.k">
                         </label>
                     </div>
                     <div class="d:flex flex-direction:row jc:center">
@@ -143,7 +199,7 @@ const delButtonClickHandler = (e) => {
                         </label>
                     </div>
                     <div class="d:flex">
-                        <button class="n-btn n-btn-color:main">검색</button>
+                        <button class="n-btn n-btn-color:main" @click.prevent="searchButtonClickHandler">검색</button>
                         <button class="n-btn ml:1">취소</button>
                     </div>
                 </form>
@@ -172,7 +228,7 @@ const delButtonClickHandler = (e) => {
                     </thead>
 
                     <!-- tbody는 여러번 나와도 상관 없다. row를 묶을 때 사용한다. -->
-                    <tbody v-for="m in list">
+                    <tbody v-for="m in menus">
                         <tr class="vertical-align:middle">
                             <td th:text="${m.id}">2</td>
                             <td class="w:0 md:w:4 overflow:hidden"><img class="w:100p h:0 md:h:3 object-fit:cover" src="/image/product/americano.svg" th:src="@{/image/product/{img}(img=${m.img})}"></td>
@@ -241,11 +297,9 @@ const delButtonClickHandler = (e) => {
 타임리프 날짜포맷 유틸객체 : https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf#dates
 자바 날짜포맷 문자들 : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat
 */-->
-
                                             <dd class="ml:1" th:text="${#dates.format(m.regDate, 'yyyy-MM-dd a HH:mm')}">2024-12-25 12:00:00</dd>
                                         </div>
                                     </dl>
-
                                 </section>
                             </td>
                         </tr>
@@ -253,13 +307,12 @@ const delButtonClickHandler = (e) => {
                 </table>
                 <div class="mt:4 text-align:center">
                     <ul class="n-bar">
-                        <li th:each="i : ${#numbers.sequence(1,5)}">
-                            <a class="n-btn" href="" th:href="@{list(p=${i})}" th:text="${i}">2</a>
+                        <li v-for="p in pageNumbers" :key="p">
+                          <a class="n-btn" href="">{{ p }}</a>
                         </li>
                     </ul>
                 </div>
             </section>
-
         </section>
     </main>
 </template>

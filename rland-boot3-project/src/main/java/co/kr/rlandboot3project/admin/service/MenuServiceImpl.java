@@ -23,23 +23,28 @@ public class MenuServiceImpl implements MenuService {
     private final MenuRepository menuRepository;
 
     @Override
-    public MenuResponseDto getList(int page, String korName, List<Long> categoryIds) {
-
+    public MenuResponseDto getList(int page, String korName, List<Long> categoryIds){
         Sort sort = Sort.by("regDate").descending();
-        Pageable pageable = PageRequest.of(page - 1, 6, sort);
+        Pageable pageable = PageRequest.of(page - 1,6, sort);
         Page<Menu> menuPage = menuRepository.findAll(korName, categoryIds, pageable);
 
-        List<MenuDto> menuDtoList = menuPage
+        List<MenuDto> menuDtos = menuPage
+                .getContent()
+                .stream()
                 .map(MenuMapper::mapToDto)
-
-                .getContent();
+                .toList();
 
         long totalCount = menuPage.getTotalElements();
+        long totalPage = menuPage.getTotalPages();
+        boolean hasNextPage = menuPage.hasNext();
+        boolean hasPrevPage = menuPage.hasPrevious();
 
-        return MenuResponseDto
-                .builder()
-                .menus(menuDtoList)
+        return MenuResponseDto.builder()
+                .menus(menuDtos)
                 .totalCount(totalCount)
+                .totalPage(totalPage)
+                .hasNextPage(hasNextPage)
+                .hasPrevPage(hasPrevPage)
                 .build();
     }
 

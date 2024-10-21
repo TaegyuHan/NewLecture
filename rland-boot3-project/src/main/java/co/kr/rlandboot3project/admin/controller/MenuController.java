@@ -63,7 +63,7 @@ public class MenuController {
     @GetMapping
     public ResponseEntity<MenuResponseDto> getList(
             @RequestParam(value = "p", defaultValue = "1") int page,
-            @RequestParam(value = "q", required = false) String koName,
+            @RequestParam(value = "k", required = false) String koName,
             @RequestParam(value = "cid", required = false) List<Long> categoryIds
     ) {
         MenuResponseDto response = menuService.getList(page, koName, categoryIds);
