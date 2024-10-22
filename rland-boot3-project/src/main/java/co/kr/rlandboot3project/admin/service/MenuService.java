@@ -10,6 +10,6 @@ public interface MenuService {
     MenuDto update(MenuDto menuDto, Long menuId);
     void delete(Long id);
 
-    MenuResponseDto getList(int page, String koName, List<Long> categoryIds);
+    MenuResponseDto getList(Integer page, String koName, List<Long> categoryIds);
     MenuDto getById(Long id);
 }

@@ -62,7 +62,7 @@ public class MenuController {
     // GET /api/v1/menus
     @GetMapping
     public ResponseEntity<MenuResponseDto> getList(
-            @RequestParam(value = "p", defaultValue = "1") int page,
+            @RequestParam(value = "p", defaultValue = "1") Integer page,
             @RequestParam(value = "k", required = false) String koName,
             @RequestParam(value = "cid", required = false) List<Long> categoryIds
     ) {

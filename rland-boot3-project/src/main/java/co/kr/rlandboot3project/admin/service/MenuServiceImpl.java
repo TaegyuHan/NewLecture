@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 @Service("adminMenuService")
 @RequiredArgsConstructor
@@ -23,9 +26,9 @@ public class MenuServiceImpl implements MenuService {
     private final MenuRepository menuRepository;
 
     @Override
-    public MenuResponseDto getList(int page, String korName, List<Long> categoryIds){
+    public MenuResponseDto getList(Integer page, String korName, List<Long> categoryIds){
         Sort sort = Sort.by("regDate").descending();
-        Pageable pageable = PageRequest.of(page - 1,6, sort);
+        Pageable pageable = PageRequest.of(page - 1,5, sort);
         Page<Menu> menuPage = menuRepository.findAll(korName, categoryIds, pageable);
 
         List<MenuDto> menuDtos = menuPage
@@ -39,12 +42,20 @@ public class MenuServiceImpl implements MenuService {
         boolean hasNextPage = menuPage.hasNext();
         boolean hasPrevPage = menuPage.hasPrevious();
 
+        int offset = (page - 1) % 5;
+        int startNum = page - offset;
+
+        List<Long> pages = LongStream
+                .range(startNum, startNum + 4)
+                .boxed().toList();
+
         return MenuResponseDto.builder()
                 .menus(menuDtos)
                 .totalCount(totalCount)
                 .totalPage(totalPage)
                 .hasNextPage(hasNextPage)
                 .hasPrevPage(hasPrevPage)
+                .pages(pages)
                 .build();
     }
 
