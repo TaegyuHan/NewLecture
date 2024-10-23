@@ -13,7 +13,7 @@
       <h1>재품관리</h1>
       <ul>
         <li class="active">
-          <RouterLink class="n-icon n-icon:local_cafe n-deco n-deco-pos:top lg:n-deco-pos:left" href="/admin/menu/list" to="/admin/menu/list">메뉴관리</RouterLink>
+          <RouterLink class="n-icon n-icon:local_cafe n-deco n-deco-pos:top lg:n-deco-pos:left" href="/admin/manus" to="/admin/manus">메뉴관리</RouterLink>
         </li>
         <li>
           <RouterLink class="n-icon n-icon:household_supplies n-deco n-deco-pos:top lg:n-deco-pos:left" href="/admin/supplies/list" to="/admin/supplies/list">비품관리</RouterLink>

@@ -1,6 +1,7 @@
 package co.kr.rlandboot3project.repository;
 
 import co.kr.rlandboot3project.entity.Menu;
+import co.kr.rlandboot3project.anorymous.menu.repository.MenuRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

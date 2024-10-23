@@ -1,7 +1,6 @@
 <script setup>
 
 import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref, watch } from 'vue';
-import axios from 'axios';
 import { useRoute } from 'vue-router';
 // 문제 1 : 어떤 API를 사용할 것인가?
 
@@ -15,17 +14,25 @@ import { useRoute } from 'vue-router';
 
 const menus = ref([]);
 const keyWord = ref([]);
-let startNum = 0;
+const pageNumbers = ref([]);
+
 const totalCount = ref(0);
-const totalPages = ref(0);
+const totalPage = ref(0);
 const hasPreviousPage = ref(false);
 const hasNextPage = ref(false);
 // const query = ref({});
-const pageNumbers = ref([]);
+
+
+let query = {
+  p: 1,
+};
+let startNum = 0;
 
 // --- Data Functions ------------------------------------------------
-const queryString = ()=>{
-  let query = useRoute().query;
+const queryString = () => {
+  // let query = useRoute().query;
+  console.log(query);
+  console.log(`?k=${query.k || ''}&p=${query.p || 1}`)
   return `?k=${query.k || ''}&p=${query.p || 1}`;
 };
 
@@ -52,52 +59,55 @@ onBeforeMount(()=>{
   console.log("before Mount");
 });
 
-onMounted(()=>{
-  console.log("Mounted")
-  let page = useRoute().query.p || 1;
-  let offset = (page-1)%5;
-  startNum = page-offset;
-  console.log(startNum);
-  let nums = Array.from({length:5}).map((_,i)=>i+startNum);
-  console.log(nums);
-  pageNumbers.value = nums;
+onMounted(()=> {
+  // console.log("Mounted");
+  // let page = useRoute().query.p || 1;
+  // let offset = (page-1)%5;
+  // startNum = page-offset;
+  // console.log(startNum);
+  // let nums = Array.from({length:5}).map((_,i)=>i+startNum);
+  // console.log(nums);
+  // pageNumbers.value = nums;
 
   fetchMenus();
 });
 
-onBeforeUpdate(()=>{
-  console.log("BeforeUpdate")
+onBeforeUpdate(() => {
+  // console.log("BeforeUpdate");
 });
 
-onUpdated(()=>{
-  console.log("Updated");
+onUpdated(() => {
+  // console.log("Updated");
   // query.value.p = useRoute().query.p;
 });
 
 
 // ------------------------------------------------------
-const fetchMenus = async ()=>{
+const fetchMenus = async () => {
   const response = await fetch(`http://localhost:8080/api/v1/admin/menus${queryString()}`)
   const data = await response.json();
   // console.log(result);
   menus.value = data.menus;
   totalCount.value = data.totalCount;
-  totalPages.value = data.totalPages;
+  console.log("totalPages", data.totalPage);
+  totalPage.value = data.totalPage;
   hasPreviousPage.value = data.hasPreviousPage;
   hasNextPage.value = data.hasNextPage;
+  pageNumbers.value = data.pages;
+  console.log(data.pages);
+  startNum = data.pages[0];
 }
 
 // --- callback functions -------------------------
-const searchButtonClickHandler = (e)=>{
+const searchButtonClickHandler = (e) => {
   fetchMenus();
 }
 
-const addButtonClickHandler = (e)=>{
-  console.log("add");
-  list.push({korName:"아샷추"});
+const addButtonClickHandler = (e) => {
+  // console.log("add");
+  list.push({korName: "아샷추"});
 
   // 2. MVC 처리 방법 : 모델(문서에 바인딩된 객체)을 처리하는 방법
-
 
   // 1. DOM 처리 방법 : 화면(문서)를 직접 처리하는 방법
   // let trTemplate = `<tbody>
@@ -112,13 +122,24 @@ const addButtonClickHandler = (e)=>{
   // table.insertAdjacentHTML("beforeend", trTemplate);
 }
 
-const delButtonClickHandler = (e)=>{
-  console.log("del");
+const delButtonClickHandler = (e) => {
+  // console.log("del");
   list.pop();
 }
 
-const pageClickHandler = (e)=>{
+// DOM을 사용하지 않고 데이터 바인딩을 사용하는게 좋다.
+const pageClickHandler = (page) => {
+  if (page < 1) {
+    alert("이전 페이지가 없습니다.");
+    return;
+  }
 
+  if (page > totalPage.value) {
+    alert("다음 페이지가 없습니다.");
+    return;
+  }
+  query.p = page;
+  fetchMenus();
 }
 
 </script>
@@ -130,7 +151,7 @@ const pageClickHandler = (e)=>{
       <header class="n-bar">
         <h1 class="n-heading:5">제품관리 / 메뉴관리</h1>
         <div class="ml:3 d:flex">
-          <a href="reg" class="n-icon n-icon:plus n-btn n-btn:rounded n-btn-size:small">추가</a>
+          <RouterLink href="reg" class="n-icon n-icon:plus n-btn n-btn:rounded n-btn-size:small" to="menus/new">추가</RouterLink>
         </div>
       </header>
 
@@ -157,7 +178,8 @@ const pageClickHandler = (e)=>{
               <span class="w:auto">전체</span>
             </label>
             <label th:each="c : ${categories}">
-              <input th:if="${param.c} == ${c.id}" type="checkbox" name="c" th:value="${c.id}" class="fl-grow:0" checked>
+              <input th:if="${param.c} == ${c.id}" type="checkbox" name="c" th:value="${c.id}" class="fl-grow:0"
+                     checked>
               <input th:if="${param.c} != ${c.id}" type="checkbox" name="c" th:value="${c.id}" class="fl-grow:0">
               <span class="w:auto" th:text="${c.name}">쿠키</span>
             </label>
@@ -182,7 +204,6 @@ const pageClickHandler = (e)=>{
           </div>
         </header>
 
-
         <table class="n-table n-table:expandable">
           <thead>
           <tr>
@@ -194,32 +215,36 @@ const pageClickHandler = (e)=>{
           </tr>
           </thead>
           <tbody v-for="m in menus">
-          <tr class="vertical-align:middle">
-            <td th:text="${m.id}">2</td>
-            <td class="w:0 md:w:4 overflow:hidden"><img class="w:100p h:0 md:h:3 object-fit:cover" src="/image/product/americano.svg" th:src="@{/image/product/{img}(img=${m.img})}"></td>
-            <td class="text-align:start n-heading-truncate text-indent:4 text-align:cetner">
-              <a href="detail" th:href="@{detail(id=${m.id})}">{{ m.korName }}</a>
-            </td>
-            <td class="w:0 md:w:2 n-heading-truncate">
-              <label>
-                <span class="d:none">공개</span>
-                <input type="checkbox" class="n-toggle ml:auto">
-              </label>
-            </td>
-            <td>
-                                <span class="d:inline-flex align-items:center">
-                                    <label class="n-icon n-icon:caret_down n-icon-size:2 n-btn mr:2">
-                                        <input type="checkbox" class="d:none n-row-expander">
-                                        <span>상세보기</span>
-                                    </label>
-                                    <a class="n-icon n-icon:edit_square n-icon-color:base-6" href="detail" th:href="@{detail(id=${m.id})}">수정</a>
-                                    <form action="del" method="post" class="d:flex ai:center">
-                                        <input type="hidden" name="id" th:value="${m.id}">
-                                        <button class="n-icon n-icon:delete n-icon-color:base-6" type="submit">삭제</button>
-                                    </form>
-                                </span>
-            </td>
-          </tr>
+            <tr class="vertical-align:middle">
+              <td th:text="${m.id}">2</td>
+              <td class="w:0 md:w:4 overflow:hidden">
+                <img class="w:100p h:0 md:h:3 object-fit:cover"
+                     src="/image/product/americano.svg"
+                     th:src="@{/image/product/{img}(img=${m.img})}"></td>
+              <td class="text-align:start n-heading-truncate text-indent:4 text-align:cetner">
+                <RouterLink href="detail" th:href="@{detail(id=${m.id})}" :to="`menus/${m.id}`">{{ m.korName }}</RouterLink>
+              </td>
+              <td class="w:0 md:w:2 n-heading-truncate">
+                <label>
+                  <span class="d:none">공개</span>
+                  <input type="checkbox" class="n-toggle ml:auto">
+                </label>
+              </td>
+              <td>
+                <span class="d:inline-flex align-items:center">
+                    <label class="n-icon n-icon:caret_down n-icon-size:2 n-btn mr:2">
+                        <input type="checkbox" class="d:none n-row-expander">
+                        <span>상세보기</span>
+                    </label>
+                    <RouterLink class="n-icon n-icon:edit_square n-icon-color:base-6" :to="`menus/${m.id}/edit`">수정</RouterLink>
+                    <form action="del" method="post" class="d:flex ai:center">
+                        <input type="hidden" name="id" th:value="${m.id}">
+                        <button class="n-icon n-icon:delete n-icon-color:base-6"
+                                type="submit">삭제</button>
+                    </form>
+                </span>
+              </td>
+            </tr>
           <tr>
             <td colspan="5" class="bg-color:base-2">
               <section class="">
@@ -243,7 +268,8 @@ const pageClickHandler = (e)=>{
                     <dd class="ml:1">
                       <ul class="n-bar flex-wrap:wrap">
                         <li th:each="img : ${m.images}" th:classappend="'active:border'">
-                          <img class="max-width:5" th:src="@{/image/product/{img}(img=${img.src})}" src="/image/product/americano.svg"></li>
+                          <img class="max-width:5" th:src="@{/image/product/{img}(img=${img.src})}"
+                               src="/image/product/americano.svg"></li>
                       </ul>
                     </dd>
                   </div>
@@ -263,7 +289,8 @@ const pageClickHandler = (e)=>{
                     자바 날짜포맷 문자들 : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat
                     */-->
 
-                    <dd class="ml:1" th:text="${#dates.format(m.regDate, 'yyyy-MM-dd a HH:mm')}">2024-12-25 12:00:00</dd>
+                    <dd class="ml:1" th:text="${#dates.format(m.regDate, 'yyyy-MM-dd a HH:mm')}">2024-12-25 12:00:00
+                    </dd>
                   </div>
                 </dl>
 
@@ -275,13 +302,19 @@ const pageClickHandler = (e)=>{
         <div class="mt:4 text-align:center">
           <ul class="n-bar">
             <li>
-              <RouterLink @click="pageClickHandler" class="n-btn" :to="`./list?p=${startNum-1}`">이전</RouterLink>
+              <RouterLink @click="pageClickHandler(startNum - 1)"
+                          class="n-btn"
+                          :to="`./list?p=${startNum - 1 < 1 ? 1 : startNum - 1}`">이전</RouterLink>
             </li>
             <li v-for="p in pageNumbers" :key="p">
-              <RouterLink @click="pageClickHandler" class="n-btn" :class="{active: p == useRoute().query.p}" :to="`./list?p=${p}`">{{ p }}</RouterLink>
+              <RouterLink @click="pageClickHandler(p)" class="n-btn" :class="{active: p == useRoute().query.p}"
+                          :to="`./list?p=${p}`">{{ p }}
+              </RouterLink>
             </li>
             <li>
-              <RouterLink @click="pageClickHandler" class="n-btn" :to="`./list?p=${startNum+5}`">다음</RouterLink>
+              <RouterLink @click="pageClickHandler(startNum + 5)"
+                          class="n-btn"
+                          :to="`./list?p=${startNum + 5 > totalPage ? totalPage : startNum + 5}`">다음</RouterLink>
             </li>
           </ul>
         </div>
