@@ -7,8 +7,6 @@ import co.kr.rlandboot3project.entity.Menu;
 import co.kr.rlandboot3project.anorymous.menu.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -19,18 +17,17 @@ import java.util.stream.LongStream;
 
 @Service("adminMenuService")
 @RequiredArgsConstructor
-public class MenuServiceImpl implements MenuService {
+public class DefaultMenuService implements MenuService {
 
     private final MenuRepository menuRepository;
 
     @Override
-    public MenuResponseDto getList(Integer page, String korName, List<Long> categoryIds){
+    public MenuResponseDto getList(Integer page, String korName, List<Long> categoryIds) {
         Sort sort = Sort.by("regDate").descending();
-        Pageable pageable = PageRequest.of(page - 1,6, sort);
-        Page<Menu> menuPage = menuRepository.findAll(korName, categoryIds, pageable);
+        // Pageable pageable = PageRequest.of(page - 1,6, sort);
+        Page<Menu> menuPage = menuRepository.findAll(korName, 1000, 1, 6);
 
-        List<MenuListDto> menuListDtos = menuPage
-                .getContent()
+        List<MenuListDto> menuListDtos = menuPage.getContent()
                 .stream()
                 .map(MenuMapper::mapToDto)
                 .toList();

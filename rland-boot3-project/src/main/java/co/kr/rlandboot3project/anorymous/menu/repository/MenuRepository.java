@@ -1,5 +1,6 @@
 package co.kr.rlandboot3project.anorymous.menu.repository;
 
+import co.kr.rlandboot3project.admin.menu.repository.MenuCustomRepository;
 import co.kr.rlandboot3project.entity.Menu;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,18 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface MenuRepository extends JpaRepository<Menu, Long> {
-
-//    @Query("""
-//        FROM Menu
-//        WHERE (:korName is null or korName like concat('%', :korName, '%'))
-//            AND (:categoryIds is null or categoryId in :categoryIds)
-//    """)
-//    List<Menu> findByQuery(
-//            String korName,
-//            List<Long> categoryIds,
-//            Pageable pageable
-//    );
+public interface MenuRepository extends JpaRepository<Menu, Long>, MenuCustomRepository {
 
     @Query("""
         FROM Menu
