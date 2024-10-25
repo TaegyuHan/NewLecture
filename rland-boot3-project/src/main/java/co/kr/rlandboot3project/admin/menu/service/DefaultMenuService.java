@@ -6,6 +6,7 @@ import co.kr.rlandboot3project.admin.menu.mapper.MenuMapper;
 import co.kr.rlandboot3project.entity.Menu;
 import co.kr.rlandboot3project.anorymous.menu.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.stream.LongStream;
 public class DefaultMenuService implements MenuService {
 
     private final MenuRepository menuRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public MenuResponseDto getList(Integer page, String korName, List<Long> categoryIds) {
@@ -29,7 +31,10 @@ public class DefaultMenuService implements MenuService {
 
         List<MenuListDto> menuListDtos = menuPage.getContent()
                 .stream()
-                .map(MenuMapper::mapToDto)
+                .map(menu -> {
+                    MenuListDto menuListDto = modelMapper.map(menu, MenuListDto.class);
+                    return MenuMapper.mapToDto(menu);
+                })
                 .toList();
 
         long totalCount = menuPage.getTotalElements();
