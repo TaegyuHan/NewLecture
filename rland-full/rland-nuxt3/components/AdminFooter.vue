@@ -1,26 +1,12 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <footer class="footer">
-    <h1><a href="">홈페이지 이용약관</a></h1>
-    <dl>
-      <div>
-        <dt>사업자 등록번호</dt>
-        <dd>123-45-6789</dd>
-      </div>
-      <div>
-        <dt>저작권</dt>
-        <dd>Ⓒ 2023 Rland Newlecture All Rights Reserved</dd>
-      </div>
-    </dl>
+  <footer class="n-panel">
+    <section class="">
+      <h1 class="d:none">푸터</h1>
+      <p class="d:flex jc:center color:base-3">ⓒ 2020 Rland. All rights reserved.</p>
+    </section>
   </footer>
 </template>
 
-<style scoped>
-.footer{
-  background-color: var(--color-base-9);
-  padding: 50px 0;
-}
+<style>
+
 </style>
