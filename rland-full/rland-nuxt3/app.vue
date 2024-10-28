@@ -10,12 +10,13 @@
   </Head>
 
   <div>
-    <div>header</div>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <div>footer</div>
   </div>
+
 </template>
-<script setup lang="ts">
-</script>
+
+<style scoped>
+@import url("/public/css/style.css");
+</style>

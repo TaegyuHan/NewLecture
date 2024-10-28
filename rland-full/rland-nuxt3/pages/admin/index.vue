@@ -1,144 +1,78 @@
 <script setup>
 
-import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-// 문제 1 : 어떤 API를 사용할 것인가?
 
-// 문제 2 : 그걸 어느 블록에서 호출해야 하는가?
-// private Long totalCount;
-//     private Long totalPages;
-//     private Boolean hasPreviousPage;
-//     private Boolean hasNextPage;
-//     private List<MenuDto> menus;
+const config = useRuntimeConfig();
+const { data, refresh } = useFetch(`/admin/menus`, {
+  baseURL: config.public.apiBase
+}); // 비동기 함수
 
+// let query = ref({ ...useRoute().query });
 const menus = ref([]);
-const keyWord = ref([]);
+const keyWord = ref('');
 const pageNumbers = ref([]);
 
-const totalCount = ref(0);
-const totalPage = ref(0);
-const hasPreviousPage = ref(false);
-const hasNextPage = ref(false);
-// const query = ref({});
-
-let query = {
-  p: 1,
-};
+let totalCount = 0;
+let hasPrevPage = false;
+let hasNextPage = false;
+let totalPage = 0;
 let startNum = 0;
+let pages = [];
 
-// --- Data Functions ------------------------------------------------
-const queryString = () => {
-  // let query = useRoute().query;
-  console.log(query);
-  console.log(`?k=${query.k || ''}&p=${query.p || 1}`)
-  return `?k=${query.k || ''}&p=${query.p || 1}`;
-};
-
-// watch(
-//     [()=>query.value.p, ()=>pageNumbers],
-//     [(newQuery, prevQuery)=>{
-//         console.log(newQuery);
-//         let page = useRoute().query.p || 1;
-//         let offset = (page-1)%5;
-//         startNum = page-offset;
-//         console.log(startNum);
-//         let nums = Array.from({length:5}).map((_,i)=>i+startNum);
-//         console.log(nums);
-//         pageNumbers.value = nums;
-//         fetchMenus();
-//     }],
-//     [(number)=>{
-//       console.log(number);
-//     }]
-// );
-
-// --- Life Cycle functions -------------------------------------------
-onBeforeMount(()=>{
-  console.log("before Mount");
+watchEffect(() => {
+  if (data.value) {
+    totalCount = data.value.totalCount;
+    totalPage = data.value.totalPage;
+    hasNextPage = data.value.hasNextPage;
+    hasPrevPage = data.value.hasPrevPage;
+    menus.value = data.value.menus;
+    pages = data.value.pages[0];
+  }
 });
 
-onMounted(()=> {
-  // console.log("Mounted");
-  // let page = useRoute().query.p || 1;
-  // let offset = (page-1)%5;
-  // startNum = page-offset;
-  // console.log(startNum);
-  // let nums = Array.from({length:5}).map((_,i)=>i+startNum);
-  // console.log(nums);
-  // pageNumbers.value = nums;
-
-  fetchMenus();
+// ------------------------------------------------------------------------ //
+onBeforeUnmount(() => {
+  console.log('onBeforeUnmount');
 });
 
-onBeforeUpdate(() => {
-  // console.log("BeforeUpdate");
+onUnmounted(() => {
+  console.log('onUnmounted');
 });
 
-onUpdated(() => {
-  // console.log("Updated");
-  // query.value.p = useRoute().query.p;
+onBeforeRouteUpdate((to, from, next) => {
+  console.log('onBeforeRouteUpdate');
+  next();
 });
 
+// ------------------------------------------------------------------------ //
 
-// ------------------------------------------------------
-const fetchMenus = async () => {
-  const response = await fetch(`http://localhost:8080/api/v1/admin/menus${queryString()}`)
-  const data = await response.json();
-  // console.log(result);
-  menus.value = data.menus;
-  totalCount.value = data.totalCount;
-  console.log("totalPages", data.totalPage);
-  totalPage.value = data.totalPage;
-  hasPreviousPage.value = data.hasPreviousPage;
-  hasNextPage.value = data.hasNextPage;
-  pageNumbers.value = data.pages;
-  console.log(data.pages);
-  startNum = data.pages[0];
-}
-
-// --- callback functions -------------------------
 const searchButtonClickHandler = (e) => {
-  fetchMenus();
 }
 
-const addButtonClickHandler = (e) => {
-  // console.log("add");
-  list.push({korName: "아샷추"});
-
-  // 2. MVC 처리 방법 : 모델(문서에 바인딩된 객체)을 처리하는 방법
-
-  // 1. DOM 처리 방법 : 화면(문서)를 직접 처리하는 방법
-  // let trTemplate = `<tbody>
-  //                     <tr>
-  //                         <td>1</td>
-  //                     </tr>
-  //                     <tr>
-  //                         <td>2</td>
-  //                     </tr>
-  //                 </tbody>`
-  // const table = document.querySelector("table");
-  // table.insertAdjacentHTML("beforeend", trTemplate);
-}
-
-const delButtonClickHandler = (e) => {
-  // console.log("del");
-  list.pop();
-}
+// const addButtonClickHandler = (e) => {
+//   // console.log("add");
+//   list.push({korName: "아샷추"});
+// }
+//
+// const delButtonClickHandler = (e) => {
+//   // console.log("del");
+//   list.pop();
+// }
 
 // DOM을 사용하지 않고 데이터 바인딩을 사용하는게 좋다.
-const pageClickHandler = (page) => {
-  if (page < 1) {
-    alert("이전 페이지가 없습니다.");
-    return;
-  }
-
-  if (page > totalPage.value) {
-    alert("다음 페이지가 없습니다.");
-    return;
-  }
-  query.p = page;
-  fetchMenus();
-}
+// const pageClickHandler = (page) => {
+//   if (page < 1) {
+//     alert("이전 페이지가 없습니다.");
+//     return;
+//   }
+//
+//   if (page > totalPage.value) {
+//     alert("다음 페이지가 없습니다.");
+//     return;
+//   }
+//   query.p = page;
+//   fetchMenus();
+// }
 
 </script>
 
@@ -212,7 +146,7 @@ const pageClickHandler = (page) => {
             <th class="w:3">비고</th>
           </tr>
           </thead>
-          <tbody v-for="m in menus">
+          <tbody v-for="m in data.menus">
           <tr class="vertical-align:middle">
             <td th:text="${m.id}">2</td>
             <td class="w:0 md:w:4 overflow:hidden">
@@ -305,9 +239,9 @@ const pageClickHandler = (page) => {
                           :to="`./list?p=${startNum - 1 < 1 ? 1 : startNum - 1}`">이전</RouterLink>
             </li>
             <li v-for="p in pageNumbers" :key="p">
-              <RouterLink @click="pageClickHandler(p)" class="n-btn" :class="{active: p == useRoute().query.p}"
-                          :to="`./list?p=${p}`">{{ p }}
-              </RouterLink>
+<!--              <RouterLink @click="pageClickHandler(p)" class="n-btn" :class="{active: p == useRoute().query.p}"-->
+<!--                          :to="`./list?p=${p}`">{{ p }}-->
+<!--              </RouterLink>-->
             </li>
             <li>
               <RouterLink @click="pageClickHandler(startNum + 5)"
