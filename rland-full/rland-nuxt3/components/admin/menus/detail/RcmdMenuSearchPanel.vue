@@ -1,45 +1,37 @@
-<script setup lang="ts">
+<script setup>
 
+// === reactive value =============================================
 const menus = ref([
-  {
-    "id": 1798,
-    "korName": "올드올드",
-    "engName": "oldmericano",
-    "price": 3000,
-    "regDate": "2024-10-27T12:55:17Z",
-    "categoryId": null,
-    "regMemberId": null,
-    "images": [],
-    "checked": false
-  },
-  {
-      "id": 1797,
-      "korName": "올드올드",
-      "engName": "oldmericano",
-      "price": 3000,
-      "regDate": "2024-10-27T12:55:11Z",
-      "categoryId": null,
-      "regMemberId": null,
-      "images": [],
-      "checked": true
-  }
+  { "id": 1798,  "korName": "올드올드",  "engName": "oldmericano",  "price": 3000,  "regDate": "2024-10-27T12:55:17Z",  "categoryId": null,  "regMemberId": null,  "images": [],  "checked": false },
+  { "id": 1797,  "korName": "올드올드",  "engName": "oldmericano",  "price": 3000,  "regDate": "2024-10-27T12:55:11Z",  "categoryId": null,  "regMemberId": null,  "images": [],  "checked": true }
 ]);
+
+// === composition attribute =============================================
+const props = defineProps({
+  show: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const emit = defineEmits(['add', 'close']); // @add="addHandler" 이벤트를 받아서 처리할 수 있도록 정의
 
 // ---------------------------------------------------------------- //
 const addMenuHandler = () => {
   let filteredMenus = menus.value.filter(menu => menu.checked);
-  console.log('test', filteredMenus);
+  emit('add', filteredMenus);
+  menus.value = menus.value.filter(menu => !menu.checked)
 };
 
 </script>
 
 <template>
-  <section class="n-frame:rounded-shadow n-panel:card-list bg-color:base-2 margin-bottom:7">
+  <section v-if="show" class="n-frame:rounded-shadow n-panel:card-list bg-color:base-2 margin-bottom:7">
     <header class="d:flex">
       <h1>추천메뉴 추가 패널</h1>
       <div class="d:flex flex-grow:1">
-        <button @click="addMenuHandler" class="ml:3 n-icon n-icon:add_task n-btn n-btn:rounded n-btn-size:small">추가</button>
-        <button class="n-icon n-icon:x n-btn n-btn:rounded n-btn-size:small">추가</button>
+        <button @click.prevent="addMenuHandler" class="ml:3 n-icon n-icon:add_task n-btn n-btn:rounded n-btn-size:small">추가</button>
+        <button @click.prevent="emit('close');" class="n-icon n-icon:x n-btn n-btn:rounded n-btn-size:small">추가</button>
         <button class="ml:auto n-icon n-icon:arrow_left n-btn n-btn:rounded n-btn-size:small">추가</button>
         <button class="ml:2 n-icon n-icon:arrow_right n-btn n-btn:rounded n-btn-size:small">추가</button>
       </div>

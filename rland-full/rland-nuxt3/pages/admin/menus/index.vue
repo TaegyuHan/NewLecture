@@ -299,25 +299,13 @@ const pageClickHandler = (page) => {
           </tr>
           </tbody>
         </table>
-        <div class="mt:4 text-align:center">
-          <ul class="n-bar">
-            <li>
-              <RouterLink @click="pageClickHandler(startNum - 1)"
-                          class="n-btn"
-                          :to="`./list?p=${startNum - 1 < 1 ? 1 : startNum - 1}`">이전</RouterLink>
-            </li>
-            <li v-for="p in pageNumbers" :key="p">
-              <RouterLink @click="pageClickHandler(p)" class="n-btn" :class="{active: p == useRoute().query.p}"
-                          :to="`./list?p=${p}`">{{ p }}
-              </RouterLink>
-            </li>
-            <li>
-              <RouterLink @click="pageClickHandler(startNum + 5)"
-                          class="n-btn"
-                          :to="`./list?p=${startNum + 5 > totalPage ? totalPage : startNum + 5}`">다음</RouterLink>
-            </li>
-          </ul>
-        </div>
+        <!-- Pager 부분 -->
+        <Pager
+            :href="`menus`"
+            :page-numbers="pageNumbers"
+            :start-num="startNum"
+            :total-page="totalPage"
+        />
       </section>
 
     </section>
