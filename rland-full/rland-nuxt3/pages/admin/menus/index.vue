@@ -1,40 +1,67 @@
 <script setup>
 
-import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-// 문제 1 : 어떤 API를 사용할 것인가?
+import {onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref, watch} from "vue";
+// import axios from "axios";
+import {useRoute} from "vue-router";
 
-// 문제 2 : 그걸 어느 블록에서 호출해야 하는가?
+// 문제 1 : 어떤 API 를 사용할 것인가
+// 문제 2 : 그걸 어느 블록에서 호출해야 하는가
 // private Long totalCount;
 //     private Long totalPages;
 //     private Boolean hasPreviousPage;
 //     private Boolean hasNextPage;
 //     private List<MenuDto> menus;
 
+// let count = ref(0);
+// let list = reactive([
+//     {korName:"아메리카노"},
+//     {korName: "카페라테"}
+// ]);
+// let model = reactive({
+//     totalCount:0,
+//     menus:[]
+// })
 
 const menus = ref([]);
 const keyWord = ref([]);
 const pageNumbers = ref([]);
 
-const totalCount = ref(0);
-const totalPage = ref(0);
-const hasPreviousPage = ref(false);
-const hasNextPage = ref(false);
-// const query = ref({});
-
-
-let query = {
-  p: 1,
-};
+let totalCount = 0;
+let hasPreviousPage = false;
+let hasNextPage = false;
+let totalPages = 0;
 let startNum = 0;
 
-// --- Data Functions ------------------------------------------------
-const queryString = () => {
-  // let query = useRoute().query;
-  console.log(query);
-  console.log(`?k=${query.k || ''}&p=${query.p || 1}`)
-  return `?k=${query.k || ''}&p=${query.p || 1}`;
-};
+const query = {}; // reactive({...useRoute().query});
+
+const config = useRuntimeConfig();
+const {data, refresh} = useFetch("admin/menus", {
+  baseURL: config.public.apiBase,
+  params: query
+});
+
+// const {data} = useFetch(`http://localhost:8080/api/v1/admin/menus`,{params:query});
+
+watchEffect(()=>{
+  if (data.value){
+    menus.value = data.value.menus;
+    pageNumbers.value = data.value.pages;
+
+    totalCount = data.value.totalCount;
+    totalPages = data.value.totalPages;
+    hasPreviousPage = data.value.hasPreviousPage;
+    hasNextPage = data.value.hasNextPage;
+    startNum = data.value.pages[0];
+
+    console.log(data.value.pageNumbers,"pages");
+  }
+})
+
+// ------------- Date Function -------------
+// const queryString = ()=>{
+//     // let query = useRoute().query;
+//     return `?k=${query.value.k || ''}&p=${query.value.p || 1}`;
+// };
 
 // watch(
 //     [()=>query.value.p, ()=>pageNumbers],
@@ -54,96 +81,98 @@ const queryString = () => {
 //     }]
 // );
 
-// --- Life Cycle functions -------------------------------------------
+
+// ---------- life cycle  functions ----------
 onBeforeMount(()=>{
-  console.log("before Mount");
+  console.log("Before Mount");
 });
 
-onMounted(()=> {
-  // console.log("Mounted");
-  // let page = useRoute().query.p || 1;
+onMounted(()=>{
+  console.log("Mounted");
+  // let page = useRoute().query.p || 1; // 현재페이지가 없다면 1로
   // let offset = (page-1)%5;
-  // startNum = page-offset;
+  // startNum = page - offset; // 시작번호가 5개 마다 바뀌는 알고리즘
   // console.log(startNum);
   // let nums = Array.from({length:5}).map((_,i)=>i+startNum);
   // console.log(nums);
   // pageNumbers.value = nums;
 
-  fetchMenus();
+  // fetchMenus();
+  // fetchMenusWithAxios();
 });
 
-onBeforeUpdate(() => {
-  // console.log("BeforeUpdate");
+onBeforeUpdate(()=>{
+  console.log("Before Update")
 });
 
-onUpdated(() => {
-  // console.log("Updated");
+onUpdated(()=>{
+  console.log("Updated")
+
   // query.value.p = useRoute().query.p;
 });
 
+// ------------- fetch -------------
 
-// ------------------------------------------------------
-const fetchMenus = async () => {
-  const response = await fetch(`http://localhost:8080/api/v1/admin/menus${queryString()}`)
-  const data = await response.json();
-  // console.log(result);
-  menus.value = data.menus;
-  totalCount.value = data.totalCount;
-  console.log("totalPages", data.totalPage);
-  totalPage.value = data.totalPage;
-  hasPreviousPage.value = data.hasPreviousPage;
-  hasNextPage.value = data.hasNextPage;
-  pageNumbers.value = data.pages;
-  console.log(data.pages);
-  startNum = data.pages[0];
+// const fetchMenusWithAxios = async ()=>{
+//     const response = await axios.get("http://localhost:8080/api/v1/admin/menus");
+//     menus.value =response.data.menus;
+// }
+
+// ------------- callback functions -------------
+
+const searchButtonClickHandler = (e)=>{
+  console.log("search", query.value.k);
+  // fetchMenus();
 }
 
-// --- callback functions -------------------------
-const searchButtonClickHandler = (e) => {
-  fetchMenus();
-}
+const addButtonClickHandler = (e)=>{
+  console.log("add");
+  menus.value.push({korName:"아샷추"});
 
-const addButtonClickHandler = (e) => {
-  // console.log("add");
-  list.push({korName: "아샷추"});
 
-  // 2. MVC 처리 방법 : 모델(문서에 바인딩된 객체)을 처리하는 방법
-
-  // 1. DOM 처리 방법 : 화면(문서)를 직접 처리하는 방법
+  //  1. DOM 처리 방법: 화면(문서)을 직접 처리하는 방법
   // let trTemplate = `<tbody>
-  //                     <tr>
-  //                         <td>1</td>
-  //                     </tr>
-  //                     <tr>
-  //                         <td>2</td>
-  //                     </tr>
-  //                 </tbody>`
+  //                      <tr>
+  //                          <td>1</td>
+  //                      </tr>
+  //                      <tr>
+  //                          <td>2</td>
+  //                      </tr>
+  //                   </tbody>`
   // const table = document.querySelector("table");
-  // table.insertAdjacentHTML("beforeend", trTemplate);
+  // table.insertAdjacentHTML("beforeend",trTemplate)
+
+  // 2 . MVC 처리 방법: 모델(문서에 바인딩된 객체)을 처리하는 방법
+
 }
 
-const delButtonClickHandler = (e) => {
-  // console.log("del");
-  list.pop();
+const delButtonClickHandler = (e)=>{
+  console.log("del");
+  menus.value.pop();
 }
 
-// DOM을 사용하지 않고 데이터 바인딩을 사용하는게 좋다.
-const pageClickHandler = (page) => {
-  if (page < 1) {
-    alert("이전 페이지가 없습니다.");
+const pageClickHandler = (page)=>{
+  console.log("page");
+  alert(totalPages);
+
+  if (page < 1){
+    alert("이전페이지가 없습니다");
+    return;
+  }
+  if (page > totalPages){
+    alert("다음페이지가 없습니다");
     return;
   }
 
-  if (page > totalPage.value) {
-    alert("다음 페이지가 없습니다.");
-    return;
-  }
-  query.p = page;
-  fetchMenus();
+  // if (page==null)
+  //     delete query.page;
+
+  query.page = page;
+  // fetchMenus();
+  refresh();
 }
 
 </script>
-
 
 <template>
   <main>
@@ -151,7 +180,7 @@ const pageClickHandler = (page) => {
       <header class="n-bar">
         <h1 class="n-heading:5">제품관리 / 메뉴관리</h1>
         <div class="ml:3 d:flex">
-          <RouterLink href="reg" class="n-icon n-icon:plus n-btn n-btn:rounded n-btn-size:small" to="menus/new">추가</RouterLink>
+          <RouterLink to="menus/new" class="n-icon n-icon:plus n-btn n-btn:rounded n-btn-size:small">추가</RouterLink>
         </div>
       </header>
 
@@ -169,7 +198,7 @@ const pageClickHandler = (page) => {
           <div>
             <label>
               <span>한글명</span>
-              <input type="text" name="q" v-model="keyWord">
+              <input type="text" name="k" v-model="keyWord">
             </label>
           </div>
           <div class="d:flex flex-direction:row jc:center">
@@ -177,15 +206,14 @@ const pageClickHandler = (page) => {
               <input type="checkbox" value="0" class="fl-grow:0">
               <span class="w:auto">전체</span>
             </label>
-            <label th:each="c : ${categories}">
-              <input th:if="${param.c} == ${c.id}" type="checkbox" name="c" th:value="${c.id}" class="fl-grow:0"
-                     checked>
-              <input th:if="${param.c} != ${c.id}" type="checkbox" name="c" th:value="${c.id}" class="fl-grow:0">
+            <label th:each="c:${categories}">
+              <input type="checkbox" name="c" th:value="${c.id}" class="fl-grow:0">
               <span class="w:auto" th:text="${c.name}">쿠키</span>
             </label>
           </div>
           <div class="d:flex">
-            <button @click.prevent="searchButtonClickHandler" class="n-btn n-btn-color:main">검색</button>
+            <button @click.prevent="searchButtonClickHandler"
+                    class="n-btn n-btn-color:main">검색</button>
             <button class="n-btn ml:1">취소</button>
           </div>
         </form>
@@ -194,15 +222,14 @@ const pageClickHandler = (page) => {
       <section class="n-frame:rounded-shadow">
 
         <header>
-          <h1 class="d:none2">
-            <span class="n-icon n-icon:view_list n-deco n-deco-gap:2">메뉴목록</span>
-          </h1>
+          <h1 class="d:none2"><span class="n-icon n-icon:view_list n-deco n-deco-gap:2">메뉴목록</span></h1>
           <div>
-            <span class="ml:1 n-heading:6">(2)</span>
+            <span class="ml:1 n-heading:6">(2)</span> <!-- {{ count }} -->
             <button class="n-btn ml:3" @click="addButtonClickHandler">추가</button>
             <button class="n-btn ml:3" @click="delButtonClickHandler">삭제</button>
           </div>
         </header>
+
 
         <table class="n-table n-table:expandable">
           <thead>
@@ -214,15 +241,12 @@ const pageClickHandler = (page) => {
             <th class="w:3">비고</th>
           </tr>
           </thead>
-          <tbody v-for="m in menus">
+          <tbody v-for="m in data.menus">
           <tr class="vertical-align:middle">
             <td th:text="${m.id}">2</td>
-            <td class="w:0 md:w:4 overflow:hidden">
-              <img class="w:100p h:0 md:h:3 object-fit:cover"
-                   src="/image/product/americano.svg"
-                   th:src="@{/image/product/{img}(img=${m.img})}"></td>
+            <td class="w:0 md:w:4 overflow:hidden"><img class="w:100p h:0 md:h:3 object-fit:cover" src="/image/product/americano.svg" th:src="@{/image/product/{img}(img=${m.img})}"></td>
             <td class="text-align:start n-heading-truncate text-indent:4 text-align:cetner">
-              <RouterLink href="detail" th:href="@{detail(id=${m.id})}" :to="`menus/${m.id}`">{{ m.korName }}</RouterLink>
+              <RouterLink :to="`menus/${m.id}`">{{m.korName}}</RouterLink>
             </td>
             <td class="w:0 md:w:2 n-heading-truncate">
               <label>
@@ -231,18 +255,17 @@ const pageClickHandler = (page) => {
               </label>
             </td>
             <td>
-                <span class="d:inline-flex align-items:center">
-                    <label class="n-icon n-icon:caret_down n-icon-size:2 n-btn mr:2">
-                        <input type="checkbox" class="d:none n-row-expander">
-                        <span>상세보기</span>
-                    </label>
-                    <RouterLink class="n-icon n-icon:edit_square n-icon-color:base-6" :to="`menus/${m.id}/edit`">수정</RouterLink>
-                    <form action="del" method="post" class="d:flex ai:center">
-                        <input type="hidden" name="id" th:value="${m.id}">
-                        <button class="n-icon n-icon:delete n-icon-color:base-6"
-                                type="submit">삭제</button>
-                    </form>
-                </span>
+                                    <span class="d:inline-flex align-items:center">
+                                        <label class="n-icon n-icon:caret_down n-icon-size:2 n-btn mr:2">
+                                            <input type="checkbox" class="d:none n-row-expander">
+                                            <span>상세보기</span>
+                                        </label>
+                                        <RouterLink class="n-icon n-icon:edit_square n-icon-color:base-6" href="detail" :to="`menus/${m.id}/edit`">수정</RouterLink>
+                                        <form action="del" method="post" class="d:flex ai:center">
+                                            <input type="hidden" name="id" th:value="${m.id}">
+                                            <button class="n-icon n-icon:delete n-icon-color:base-6" type="submit">삭제</button>
+                                        </form>
+                                    </span>
             </td>
           </tr>
           <tr>
@@ -268,8 +291,7 @@ const pageClickHandler = (page) => {
                     <dd class="ml:1">
                       <ul class="n-bar flex-wrap:wrap">
                         <li th:each="img : ${m.images}" th:classappend="'active:border'">
-                          <img class="max-width:5" th:src="@{/image/product/{img}(img=${img.src})}"
-                               src="/image/product/americano.svg"></li>
+                          <img class="max-width:5" th:src="@{/image/product/{img}(img=${img.src})}" src="/image/product/americano.svg"></li>
                       </ul>
                     </dd>
                   </div>
@@ -289,8 +311,7 @@ const pageClickHandler = (page) => {
                     자바 날짜포맷 문자들 : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat
                     */-->
 
-                    <dd class="ml:1" th:text="${#dates.format(m.regDate, 'yyyy-MM-dd a HH:mm')}">2024-12-25 12:00:00
-                    </dd>
+                    <dd class="ml:1" th:text="${#dates.format(m.regDate, 'yyyy-MM-dd a HH:mm')}">2024-12-25 12:00:00</dd>
                   </div>
                 </dl>
 
@@ -299,15 +320,22 @@ const pageClickHandler = (page) => {
           </tr>
           </tbody>
         </table>
-        <!-- Pager 부분 -->
-        <Pager
+
+        <!-- pager 부분-->
+        <pager
             :href="`menus`"
-            :page-numbers="pageNumbers"
             :start-num="startNum"
-            :total-page="totalPage"
-        />
+            :total-pages="totalPages"
+            :page-numbers="pageNumbers"
+            @page-change="pageClickHandler"
+        >
+        </pager>
       </section>
 
     </section>
   </main>
 </template>
+
+<style scoped>
+
+</style>

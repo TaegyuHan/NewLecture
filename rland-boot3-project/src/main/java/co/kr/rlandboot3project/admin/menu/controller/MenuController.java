@@ -2,6 +2,7 @@ package co.kr.rlandboot3project.admin.menu.controller;
 
 import co.kr.rlandboot3project.admin.menu.dto.MenuListDto;
 import co.kr.rlandboot3project.admin.menu.dto.MenuResponseDto;
+import co.kr.rlandboot3project.admin.menu.dto.MenuSearchDto;
 import co.kr.rlandboot3project.admin.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -62,11 +63,13 @@ public class MenuController {
     // GET /api/v1/menus
     @GetMapping
     public ResponseEntity<MenuResponseDto> getList(
-            @RequestParam(value = "p", defaultValue = "1") Integer page,
-            @RequestParam(value = "k", required = false) String koName,
-            @RequestParam(value = "cid", required = false) List<Long> categoryIds
+            @ModelAttribute MenuSearchDto menuSearchDto
     ) {
-        MenuResponseDto response = menuService.getList(page, koName, categoryIds);
+        if (!menuSearchDto.isValidate()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        MenuResponseDto response = menuService.getList(menuSearchDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

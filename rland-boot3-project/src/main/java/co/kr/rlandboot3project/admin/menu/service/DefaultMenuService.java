@@ -2,6 +2,7 @@ package co.kr.rlandboot3project.admin.menu.service;
 
 import co.kr.rlandboot3project.admin.menu.dto.MenuListDto;
 import co.kr.rlandboot3project.admin.menu.dto.MenuResponseDto;
+import co.kr.rlandboot3project.admin.menu.dto.MenuSearchDto;
 import co.kr.rlandboot3project.admin.menu.mapper.MenuMapper;
 import co.kr.rlandboot3project.entity.Menu;
 import co.kr.rlandboot3project.anorymous.menu.repository.MenuRepository;
@@ -24,10 +25,14 @@ public class DefaultMenuService implements MenuService {
     private final ModelMapper modelMapper;
 
     @Override
-    public MenuResponseDto getList(Integer page, String korName, List<Long> categoryIds) {
+    public MenuResponseDto getList(MenuSearchDto menuSearchDto) {
+        Integer page = menuSearchDto.getPage();
+        Integer size = menuSearchDto.getSize();
+        String korName = menuSearchDto.getKeyWord();
+
         Sort sort = Sort.by("regDate").descending();
         // Pageable pageable = PageRequest.of(page - 1,6, sort);
-        Page<Menu> menuPage = menuRepository.findAll(korName, 1000, 1, 6);
+        Page<Menu> menuPage = menuRepository.findAll(korName, 1000, page, size);
 
         List<MenuListDto> menuListDtos = menuPage.getContent()
                 .stream()
