@@ -12,6 +12,7 @@
   "dependencies": {
     "nuxt": "^3.13.2",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "vue3-google-login": "^2.0.33"
   }
 }
