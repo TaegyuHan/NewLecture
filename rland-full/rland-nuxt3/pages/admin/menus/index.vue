@@ -35,7 +35,7 @@ let startNum = 0;
 const query = {}; // reactive({...useRoute().query});
 
 const config = useRuntimeConfig();
-const {data, refresh} = useFetch("admin/menus", {
+const {data, refresh} = await useFetch("admin/menus", {
   baseURL: config.public.apiBase,
   params: query
 });
@@ -337,5 +337,4 @@ const pageClickHandler = (page)=>{
 </template>
 
 <style scoped>
-
 </style>

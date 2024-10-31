@@ -1,6 +1,15 @@
+<script setup>
+import useUserDetails from "~/composables/useUserDetails.js";
+</script>
+
 <template>
   <header class="header">
-    <h1><a href="/">Rland</a></h1>
+    <h1>
+      <a href="/">Rland</a>
+      <NuxtLink to="/admin">관리자</NuxtLink>
+      <NuxtLink v-if="useUserDetails().isAnonymous()" to="/signin">로그인 {{ useUserDetails().username }} </NuxtLink>
+      <NuxtLink v-else to="/signin">로그아웃</NuxtLink>
+    </h1>
     <div class="top-mobile-menu">
       <a class="n-icon n-icon:list n-icon-color:base-1" href="top-menu=1">숨김버튼</a>
     </div>
