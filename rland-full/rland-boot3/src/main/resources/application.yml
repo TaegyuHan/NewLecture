@@ -8,8 +8,12 @@ spring:
     password: newhi1126
   autoconfigure:
     # Security UserDetailsServiceAutoConfiguration disable
-    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+    # exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
+  security:
+    user:
+      password: 1234
+      name: root
 
 mybatis:
   configuration:

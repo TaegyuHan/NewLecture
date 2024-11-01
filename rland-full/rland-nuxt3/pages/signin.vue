@@ -1,5 +1,5 @@
 <script setup>
-import { decodeCredential } from 'vue3-google-login';
+import {decodeCredential, googleTokenLogin} from 'vue3-google-login';
 
 const callback = (response) => {
   let user = decodeCredential(response.credential);
@@ -20,18 +20,57 @@ const callback = (response) => {
   const returnURL = useRoute().query.returnURL || "/";
   return navigateTo(returnURL);
 };
+
+const googleLoginHandler = async () => {
+
+  let token;
+  {
+    let response = await googleTokenLogin();
+    console.log('googleLoginHandler', response);
+    token = response.access_token;
+  }
+
+  {
+    let userInfo = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
+    let userInfoJson = await userInfo.json();
+    console.log('userInfo', userInfo);
+  }
+};
+
 </script>
 
 <template>
   <main>
     <section>
       <h1>로그인 페이지</h1>
-      <div>
-        <a href="">구글 로그인</a>
-      </div>
-      <div>
-        <GoogleLogin :callback="callback"/>
-      </div>
+      <form>
+        <div>
+          <div>
+            <label>
+              사용자 아이디:
+              <input type="text" />
+            </label>
+          </div>
+          <div>
+            <label>
+              비밀번호:
+              <input type="text" />
+            </label>
+          </div>
+          <div>
+            <input type="submit" value="로그인" />
+          </div>
+          <div>
+            <a @click.prevent="googleLoginHandler" class="n-btn n-btn-color:main">구글 로그인</a>
+          </div>
+        </div>
+        <div>
+          <a href="">구글 로그인</a>
+        </div>
+        <div>
+          <GoogleLogin :callback="callback"/>
+        </div>
+      </form>
     </section>
   </main>
 </template>
