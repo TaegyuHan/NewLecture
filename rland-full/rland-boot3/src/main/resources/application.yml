@@ -10,10 +10,13 @@ spring:
     # Security UserDetailsServiceAutoConfiguration disable
     # exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
+  # 시큐리티 회원 정보 설정
   security:
     user:
       password: 1234
       name: root
+
+  # 메모리에 추가적으로 계정을 넣을 수 있다.
 
 mybatis:
   configuration:

@@ -10,6 +10,8 @@ public class CorsConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+        // 스프링 시큐리티랑 충돌날 수 있어서
+        // 같이 사용하지 않는다.
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
