@@ -1,5 +1,6 @@
 package kr.co.rland.boot3.controller.admin;
 
+import kr.co.rland.boot3.auth.entity.RlandUserDetails;
 import kr.co.rland.boot3.dto.MenuRegDto;
 import kr.co.rland.boot3.entity.Category;
 import kr.co.rland.boot3.entity.Menu;
@@ -14,14 +15,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -73,7 +75,7 @@ public class MenuController {
     }
 
     @GetMapping("detail")
-    public String detail(Long id, Model model){
+    public String detail(Long id, Model model) {
 
         // 1 번 방법 : 서비스가 모든 것을 하나의 그릇에 담아서 넘겨주기
         MenuDetailModel menuModel = service.getDetailById(id);
@@ -96,8 +98,13 @@ public class MenuController {
     }
 
     @GetMapping("reg")
-    public String reg(){
-        return "admin/menu/reg";
+    @ResponseBody
+    public String reg(
+            @AuthenticationPrincipal RlandUserDetails userDetails
+    ) {
+        Long id = userDetails.getId();
+        String email = userDetails.getEmail();
+        return id + " : " + email;
     }
 
     @PostMapping("reg")

@@ -3,11 +3,8 @@ package kr.co.rland.boot3.repository;
 import java.util.List;
 
 import kr.co.rland.boot3.entity.Notice;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-
 
 // @Component
 //@Repository
