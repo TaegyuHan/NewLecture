@@ -1,6 +1,15 @@
 <script setup>
 import {decodeCredential, googleTokenLogin} from 'vue3-google-login';
 
+
+// --- reactive variables -------------------------------------------------- //
+const username = ref('');
+const password = ref('');
+
+// --- API call functions -------------------------------------------------- //
+
+
+// --- callback function ---------------------------------------------------- //
 const callback = (response) => {
   let user = decodeCredential(response.credential);
 
@@ -37,24 +46,38 @@ const googleLoginHandler = async () => {
   }
 };
 
+const localLoginHandler = async () => {
+  console.log('localLoginHandler', username.value, password.value);
+
+  let test = await useDataFetch("/menus");
+  console.log(test);
+  // 서버로 인증정보를 제공하면서 인증을 요청
+
+  // 인증 서버 = 리소스 서버 이기 때문에 id_token을 발급 받아서 처리한다.
+
+  // 앞에서 받은 사용자정보를 이용해서 상태 저장을 한다.
+
+  // 사용자에 따른 페이지로 이동
+};
+
 </script>
 
 <template>
   <main>
     <section>
       <h1>로그인 페이지</h1>
-      <form>
+      <form @submit.prevent="localLoginHandler">
         <div>
           <div>
             <label>
               사용자 아이디:
-              <input type="text" />
+              <input type="text" v-model="username" placeholder="아이디를 입력하세요" />
             </label>
           </div>
           <div>
             <label>
               비밀번호:
-              <input type="text" />
+              <input type="text" v-model="password" required />
             </label>
           </div>
           <div>
