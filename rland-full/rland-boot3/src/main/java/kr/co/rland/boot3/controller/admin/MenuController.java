@@ -102,6 +102,7 @@ public class MenuController {
     public String reg(
             @AuthenticationPrincipal RlandUserDetails userDetails
     ) {
+
         Long id = userDetails.getId();
         String email = userDetails.getEmail();
         return id + " : " + email;
