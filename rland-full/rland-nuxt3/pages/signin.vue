@@ -47,9 +47,19 @@ const googleLoginHandler = async () => {
 };
 
 const localLoginHandler = async () => {
-  console.log('localLoginHandler', username.value, password.value);
+  console.log('localLoginHandler');
 
-  let test = await useDataFetch("/menus");
+  // Restful 형태가 있다.
+  let test = await useDataFetch("/auth/signin", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: {
+      username: username.value,
+      password: password.value
+    }
+  });
   console.log(test);
   // 서버로 인증정보를 제공하면서 인증을 요청
 
