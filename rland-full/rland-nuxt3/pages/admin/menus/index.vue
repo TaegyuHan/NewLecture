@@ -1,10 +1,5 @@
 <script setup>
 
-import {onBeforeMount, onBeforeUpdate, onMounted, onUpdated, reactive, ref, watch} from "vue";
-// import axios from "axios";
-import {useRoute} from "vue-router";
-import {useAuthFetch} from "~/composables/useAuthFetch.js";
-
 // 문제 1 : 어떤 API 를 사용할 것인가
 // 문제 2 : 그걸 어느 블록에서 호출해야 하는가
 // private Long totalCount;
@@ -34,14 +29,15 @@ let totalPages = 0;
 let startNum = 0;
 
 const query = {}; // reactive({...useRoute().query});
-const { data, refresh} = useAuthFetch('admin/menus', {
+
+
+const { data, refresh } = await useAuthFetch('/admin/menus', {
   params: query
 });
 
-// const {data} = useFetch(`http://localhost:8080/api/v1/admin/menus`,{params:query});
+watchEffect(() => {
 
-watchEffect(()=>{
-  if (data.value){
+  if (data.value) {
     menus.value = data.value.menus;
     pageNumbers.value = data.value.pages;
 

@@ -47,6 +47,13 @@ export default () => {
         email.value = null;
         roles.value = [];
         token.value = null;
+
+        localStorage.removeItem('id');
+        localStorage.removeItem('username');
+        localStorage.removeItem('email');
+        localStorage.removeItem('roles');
+        localStorage.removeItem('token');
+
     };
 
     const hasRole = (role) => {
