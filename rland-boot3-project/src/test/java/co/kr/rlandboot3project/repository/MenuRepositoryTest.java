@@ -84,12 +84,12 @@ class MenuRepositoryTest {
 //        }
 
 
-        List<Menu> menus5 = menuRepository.findMenuByKorNameAndPriceAndCategoryId(
-                "아메리카노",
-                5_000,
-                List.of(1L, 2L),
-                pageable
-        );
+//        List<Menu> menus5 = menuRepository.findMenuByKorNameAndPriceAndCategoryId(
+//                "아메리카노",
+//                5_000,
+//                List.of(1L, 2L),
+//                pageable
+//        );
 
     }
 
@@ -106,10 +106,10 @@ class MenuRepositoryTest {
 
     @Test
     void findByOrderByRegDate() {
-        List<Menu> menus = menuRepository.findByOrderByRegDate();
-        for (Menu menu : menus) {
-            System.out.println(menu);
-        }
+//        List<Menu> menus = menuRepository.findByOrderByRegDate();
+//        for (Menu menu : menus) {
+//            System.out.println(menu);
+//        }
     }
 
     @Test

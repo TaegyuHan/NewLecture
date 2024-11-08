@@ -1,6 +1,10 @@
 <script setup>
-import {decodeCredential, googleTokenLogin} from 'vue3-google-login';
+import { decodeCredential, googleTokenLogin } from 'vue3-google-login';
+import { jwtDecode } from "jwt-decode";
+import {useRoute} from "vue-router";
 
+const userDetails = useUserDetails();
+let route = useRoute();
 
 // --- reactive variables -------------------------------------------------- //
 const username = ref('');
@@ -24,8 +28,8 @@ const callback = (response) => {
     roles: ['member', 'admin']
   });
 
+  console.log(query);
   console.log(userDetails.username.value, userDetails.email.value);
-
   const returnURL = useRoute().query.returnURL || "/";
   return navigateTo(returnURL);
 };
@@ -50,7 +54,7 @@ const localLoginHandler = async () => {
   console.log('localLoginHandler');
 
   // Restful 형태가 있다.
-  let test = await useDataFetch("/auth/signin", {
+  let idToken = await useDataFetch("/auth/signin", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -60,16 +64,29 @@ const localLoginHandler = async () => {
       password: password.value
     }
   });
-  console.log(test);
+
+  let userInfo = jwtDecode(idToken.token);
+  userDetails.setAuthentication({
+    id:userInfo.id,
+    username: userInfo.username,
+    email: userInfo.email,
+    roles: userInfo.roles.map(role => role.authority),
+    token: idToken.token
+  });
+
+  console.log(userInfo);
   // 서버로 인증정보를 제공하면서 인증을 요청
 
   // 인증 서버 = 리소스 서버 이기 때문에 id_token을 발급 받아서 처리한다.
 
   // 앞에서 받은 사용자정보를 이용해서 상태 저장을 한다.
+  // console.log(userDetails.username.value, userDetails.email.value);
+  const returnURL = route.query.returnURL || "/";
+  console.log("returnURL", returnURL);
+  return navigateTo(returnURL);
 
   // 사용자에 따른 페이지로 이동
 };
-
 </script>
 
 <template>

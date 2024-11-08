@@ -9,6 +9,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
         if (useUserDetails().isAnonymous()) {
             return navigateTo(`/signin?returnURL=${to.fullPath}`);
         }
+
+        // 너 이런 인증 정보도 가지고 있어?
+        if (useUserDetails().hasRole('ROLE_ADMIN')) {
+            return;
+        }
     }
 
     // 2. /admin/** 이 목적이라면 너 관리자야?

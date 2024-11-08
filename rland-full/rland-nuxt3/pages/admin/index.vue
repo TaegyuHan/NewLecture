@@ -1,12 +1,17 @@
 <script setup>
 
 import { useRoute } from 'vue-router';
+import {useAuthFetch} from "~/composables/useAuthFetch.js";
 
 const config = useRuntimeConfig();
 
-const { data, refresh } = useFetch(`/admin/menus`, {
-  baseURL: config.public.apiBase
-}); // 비동기 함수
+// const { data, refresh } = useFetch(`/admin/menus`, {
+//   baseURL: config.public.apiBase
+// }); // 비동기 함수
+
+// const { data } = useAuthFetch(`/admin/menus`, {
+//   baseURL: config.public.apiBase
+// });
 
 // let query = ref({ ...useRoute().query });
 const menus = ref([]);
@@ -21,14 +26,14 @@ let startNum = 0;
 let pages = [];
 
 watchEffect(() => {
-  if (data.value) {
-    totalCount = data.value.totalCount;
-    totalPage = data.value.totalPage;
-    hasNextPage = data.value.hasNextPage;
-    hasPrevPage = data.value.hasPrevPage;
-    menus.value = data.value.menus;
-    pages = data.value.pages[0];
-  }
+  // if (data.value) {
+  //   totalCount = data.value.totalCount;
+  //   totalPage = data.value.totalPage;
+  //   hasNextPage = data.value.hasNextPage;
+  //   hasPrevPage = data.value.hasPrevPage;
+  //   menus.value = data.value.menus;
+  //   pages = data.value.pages[0];
+  // }
 });
 
 // ------------------------------------------------------------------------ //

@@ -1,16 +1,14 @@
-export function useDataFetch(url, options={}) {
-
+export function useAuthFetch(url, options={}) {
     const { token } = useUserDetails();
 
-    options.header = {
+    console.log(token.value);
+    options.headers = {
         ...options.headers,
         ...(token.value && { Authorization: `Bearer ${token.value}` })
     };
 
-    // JWT 권한을 부여받으려면 Header
-    // SSR userFetch 사용
-    // CSR $fetch() 사용
-
+    console.log('header', options.header);
     const config = useRuntimeConfig();
+    console.log(`${config.public.apiBase}${url}`);
     return $fetch(`${config.public.apiBase}${url}`, options);
 }
